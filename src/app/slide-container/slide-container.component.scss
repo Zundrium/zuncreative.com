@@ -1,0 +1,43 @@
+:host {
+  display: flex !important;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+
+  #slide-nav {
+    position: fixed;
+    top: 50%;
+    right: 2.5rem;
+    z-index: 10;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    transform: translate(0, -50%);
+    div {
+      cursor: pointer;
+      width: 0.75rem;
+      height: 0.75rem; 
+      opacity: 0.5;
+      border-radius: 50%;
+      background: #FFF;
+      box-sizing: content-box;
+      transform: scale(0.6);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      &.active {
+        transform: scale(1.3);
+        border-color: #FFF;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 800px) {
+  :host {
+    #slide-nav{
+      right: 1.5rem;
+    }
+  }
+}

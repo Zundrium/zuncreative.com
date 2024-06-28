@@ -1,0 +1,21 @@
+<app-slide-container>
+  <app-slide id="intro-slide" class="slide pg-active" data-anchor="intro-slide">
+    <div class="overlay"></div>
+    <img class="background-image preview" src="assets/img/ar_header_preview.jpg" />
+    <video playInView #video preload="none" loop muted playsinline class="background-video">
+      <source src="assets/video/ar_header3.mp4" type="video/mp4">
+    </video>
+    <div class="content">
+      <h2 class="title">Making AR <br />accessible to everyone<br /></h2>
+      <div class="extra-buttons">
+        <button class="button" (click)="goNext()">
+          Recent projects
+          <object data="assets/svg/arrow-down.svg" type="image/svg+xml"></object>
+        </button>
+      </div>
+    </div>
+  </app-slide>
+  <app-slide *ngFor="let project of projects" class="slide" [attr.data-anchor]="project.slug">
+    <app-mobile-project [project]="project"></app-mobile-project>
+  </app-slide>
+</app-slide-container>

@@ -1,0 +1,28 @@
+<nav id="menu">
+  <div id="logo">
+    <object class="hover-logo" data="assets/svg/logo.svg" type="image/svg+xml"></object>
+    <object data="assets/svg/logo-white.svg" type="image/svg+xml"></object>
+    <h1><b>ZUN</b> CREATIVE</h1>
+  </div>
+
+  <div class="menu-buttons">
+    <button [routerLink]="['/intro']" [routerLinkActive]="['active']">
+      Intro
+    </button>
+    <button [routerLink]="['/web-3d']" [routerLinkActive]="['active']">
+      <span><span class="hide-on-phone">Web</span> 3D</span>
+    </button>
+    <button [routerLink]="['/web-ar']" [routerLinkActive]="['active']">
+      <span><span class="hide-on-phone">Web</span> AR</span>
+    </button>
+    <button [routerLink]="['/contact']" [routerLinkActive]="['active']">
+      Contact
+    </button>
+  </div>
+  <!-- <div #navIcon id="nav-icon" (click)="openMenu()"> -->
+  <!--   <span></span> -->
+  <!--   <span></span> -->
+  <!--   <span></span> -->
+  <!-- </div> -->
+</nav>
+<!-- <div class="fade"></div> -->

@@ -1,0 +1,8 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+	<title>icons</title>
+	<style>
+		.s0 { fill: #ffffff } 
+	</style>
+	<path id="box" class="s0" d="m21.8 21.8h31.7v10.6h-21.1v63.2h63.2v-21.1h10.6v31.7h-84.4z"/>
+	<path id="arrow_13_" class="s0" d="m66.2 21.8h40v40l-15-15-22.5 22.5-10-10 22.5-22.5z"/>
+</svg>
