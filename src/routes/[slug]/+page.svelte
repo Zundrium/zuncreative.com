@@ -1,0 +1,54 @@
+<script lang="ts">
+	import { formatDate, formatDateToISO8601 } from "$lib/utils/formatDate.js";
+	import SeoHead from "$lib/utils/SeoHead.svelte";
+	import * as m from "$lib/paraglide/messages.js";
+	import H1 from "$lib/components/typography/H1.svelte";
+	import Paragraph from "$lib/components/typography/Paragraph.svelte";
+	import PageHeading from "$lib/components/ui/PageHeading.svelte";
+	import Image from "$lib/components/ui/Image.svelte";
+
+	let { data } = $props();
+</script>
+
+<SeoHead
+	props={{
+		title: data.title,
+		description: data.description,
+		keywords: data.keywords,
+		slug: data.slug,
+		thumbnail: `${data.header_image}`,
+		type: "BlogPosting",
+		datePublished: formatDateToISO8601(data.publish_date),
+		dateModified: formatDateToISO8601(data.modify_date),
+	}}
+/>
+
+<PageHeading>
+	<div class="w-full grid grid-cols-1 lg:grid-cols-2">
+		<hgroup class="flex flex-col gap-2 lg:gap-4 justify-center">
+			<H1>{data.title}</H1>
+			<Paragraph size="xl">
+				{data.description}
+			</Paragraph>
+			{#if data.modify_date}
+				<div
+					class="flex flex-col lg:flex-row gap-2 lg:gap-6 lg:items-center pb-12"
+				>
+					<span
+						><i>{m.lastModifiedOn()}</i>
+						<i>{formatDate(data.modify_date)}</i>
+					</span>
+					<span class="hidden lg:inline">|</span>
+					<i>{m.publishedOn()} {formatDate(data.publish_date)}</i>
+				</div>
+			{/if}
+		</hgroup>
+		{#if data.header_image}
+			<Image src={data.header_image} alt={data.title} />
+		{/if}
+	</div>
+</PageHeading>
+
+<article class="py-12 px-6 prose lg:prose-xl dark:prose-invert mx-auto">
+	<data.component />
+</article>

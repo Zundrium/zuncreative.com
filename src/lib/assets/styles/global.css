@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+	/* font-family: "Inter Variable", sans-serif; */
+	/* font-family: "Poppins", sans-serif; */
+	/* font-family: "Red Hat Display", sans-serif; */
+	/* font-family: "DM Sans Variable", sans-serif; */
+	/* font-family: "Noto Serif Variable", serif; */
+	font-family: "Instrument Sans Variable", serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+i {
+	font-family: "Instrument Serif", serif;
+	font-optical-sizing: auto;
+	font-style: italic;
+}
+
+.halfcontainer {
+	width: 100%;
+	@media (min-width: 640px) {
+		width: 100%;
+	}
+	@media (min-width: 768px) {
+		width: 100%;
+	}
+	@media (min-width: 1024px) {
+		width: 512px;
+	}
+	@media (min-width: 1280px) {
+		width: 640px;
+	}
+	@media (min-width: 1536px) {
+		width: 768px;
+	}
+}
