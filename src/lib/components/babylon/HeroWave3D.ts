@@ -9,7 +9,7 @@ import { TargetCamera } from "@babylonjs/core/Cameras";
 import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
 import { CloudPoint } from "@babylonjs/core/Particles";
 import { DepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
-import { DoubleLayeredTextureSampler } from "$lib/utils/babylonjs/doubleLayeredTextureSampler";
+
 import {
 	TextureSampler,
 	type ITextureSampler,

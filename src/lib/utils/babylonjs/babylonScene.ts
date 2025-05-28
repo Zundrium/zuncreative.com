@@ -17,7 +17,7 @@ import { CreateBox } from "@babylonjs/core/Meshes/Builders/boxBuilder";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { LoadAssetContainerAsync } from "@babylonjs/core/Loading/sceneLoader";
 import { HDRCubeTexture } from "@babylonjs/core/Materials/Textures/hdrCubeTexture";
-import { ArcRotateCamera } from "@babylonjs/core";
+import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
 
 export interface InitOptions {
 	direct?: boolean;
