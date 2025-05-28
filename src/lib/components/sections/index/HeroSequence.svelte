@@ -31,7 +31,7 @@ const slides: Slide[] = [
 	{
 		title: "Let's create an <br/>immersive <i>experience</i>",
 		description:
-			"My name is Sem,<br/>and I enjoy making 3D focused websites<br/>for immersive marketing campaigns or games.",
+			"My name is Sem and I enjoy making 3D focused websites<br/>for immersive marketing campaigns or games.",
 	},
 	{
 		title: "Time to expand<br/>your <i>horizon</i>",
@@ -247,10 +247,10 @@ onMount(() => {
 					<div
 						class="flex flex-none flex-col justify-end gap-4 md:gap-6 lg:gap-8 xl:gap-10 h-full w-dvw p-4 lg:p-8 2xl:p-12"
 					>
-						<div bind:this={slideElements[index]}>
+						<div bind:this={slideElements[index]} class="flex flex-col gap-4 lg:gap-6">
 							<H2 class="text-black dark:text-white"
 							>{@html slide.title}</H2>
-							<Paragraph class="text-black dark:text-white">
+							<Paragraph class="text-black/80 dark:text-white/80">
 								{@html slide.description}
 							</Paragraph>
 						</div>

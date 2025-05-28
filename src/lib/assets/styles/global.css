@@ -4,20 +4,33 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 body {
-	/* font-family: "Inter Variable", sans-serif; */
-	/* font-family: "Poppins", sans-serif; */
 	/* font-family: "Red Hat Display", sans-serif; */
-	/* font-family: "DM Sans Variable", sans-serif; */
 	/* font-family: "Noto Serif Variable", serif; */
-	font-family: "Instrument Sans Variable", serif;
+	font-family: "Noto Sans Variable", serif;
 	font-optical-sizing: auto;
 	font-style: normal;
+	i {
+		font-family: "Noto Serif Variable", serif;
+		font-optical-sizing: auto;
+		font-style: italic;
+	}
 }
 
-i {
-	font-family: "Instrument Serif", serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Noto Sans Display Variable", serif;
 	font-optical-sizing: auto;
-	font-style: italic;
+	font-style: normal;
+
+	i {
+		font-family: "Noto Serif Display Variable", serif;
+		font-optical-sizing: auto;
+		font-style: italic;
+	}
 }
 
 .halfcontainer {

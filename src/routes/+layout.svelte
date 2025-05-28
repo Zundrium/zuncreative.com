@@ -3,11 +3,13 @@
 //import "@fontsource-variable/dm-sans";
 //import "@fontsource-variable/red-hat-display";
 
-//import "@fontsource-variable/noto-serif";
-//import "@fontsource-variable/noto-sans";
+import "@fontsource-variable/noto-serif";
+import "@fontsource-variable/noto-sans";
+import "@fontsource-variable/noto-sans-display";
+import "@fontsource-variable/noto-serif-display";
 
-import "@fontsource-variable/instrument-sans";
-import "@fontsource/instrument-serif";
+//import "@fontsource-variable/instrument-sans";
+//import "@fontsource/instrument-serif";
 
 import "../../src/lib/assets/styles/global.css";
 

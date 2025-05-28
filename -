@@ -78,12 +78,11 @@ export class HeroWave3D implements IBabylonGraphics {
 	private animateTextureSamplerIndex(index: number) {
 		gsap.to(this, {
 			textureSamplerIndex: index,
-			onUpdate: () => {
+			onupdate: () => {
 				console.log(this.textureSamplerIndex);
 				this.updateTextureSamplerIntensity();
 			},
-			duration: 2.5,
-			ease: "power4.out",
+			ease: "power1.inOut",
 		});
 	}
 
