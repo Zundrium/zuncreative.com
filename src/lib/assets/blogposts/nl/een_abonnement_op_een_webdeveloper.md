@@ -1,10 +1,10 @@
 ---
-title: 'Test titel'
-description: '(NL) Test beschrijving van de blogpost.'
-publish_date: '2025-01-01'
-modify_date: '2023-01-02'
-keywords: 'keyword1, keyword2, keyword3'
-header_image: '/images/placeholder2.jpg'
+title: 'Een webdeveloper op abonnementsbasis'
+description: 'Het idee achter hebweb.nl'
+publish_date: '2025-05-28'
+modify_date: '2025-05-28'
+keywords: 'subscription-based, hebweb, monetized'
+header_image: '/images/hebweb.png'
 header_image_position: right
 ---
 
@@ -39,8 +39,6 @@ def hello_world():
 ```
 
 [Dit is een link](https://example.com)
-
-
 
 | Kolom 1 | Kolom 2 | Kolom 3 |
 |---------|---------|---------|

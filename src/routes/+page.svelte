@@ -1,13 +1,12 @@
-<script>
+<script lang="ts">
 import Contact from "$lib/components/sections/index/Contact.svelte";
-import HowItWorks from "$lib/components/sections/index/HowItWorks.svelte";
-import Introduction from "$lib/components/sections/index/Introduction.svelte";
-import Pricing from "$lib/components/sections/index/Pricing.svelte";
 import Showcase from "$lib/components/sections/index/Showcase.svelte";
-import Testimonials from "$lib/components/sections/index/Testimonials.svelte";
 import SeoHead from "$lib/utils/SeoHead.svelte";
 import HeroSequence from "$lib/components/sections/index/HeroSequence.svelte";
 import BrandCarousel from "$lib/components/sections/index/BrandCarousel.svelte";
+import RecentPosts from "$lib/components/sections/index/RecentPosts.svelte";
+
+export let data: { posts: any[] };
 </script>
 
 
@@ -24,14 +23,6 @@ import BrandCarousel from "$lib/components/sections/index/BrandCarousel.svelte";
 
 <HeroSequence />
 <BrandCarousel />
+<RecentPosts posts={data.posts} />
 <Showcase />
-
-<!--
-<Introduction />
-<HowItWorks />
-<ScrollSequence />
-<Pricing />
-<Testimonials />
-<Faq />
--->
 <Contact />

@@ -1,10 +1,10 @@
 ---
-title: 'Test titel'
-description: '(NL) Test beschrijving van de blogpost.'
-publish_date: '2025-01-01'
-modify_date: '2023-01-02'
-keywords: 'keyword1, keyword2, keyword3'
-header_image: '/images/placeholder2.jpg'
+title: '2D punten matrix'
+description: 'Een CPU gefocuste oplossing voor het maken van een 2D puntenmatrix'
+publish_date: '2025-05-28'
+modify_date: '2025-05-28'
+keywords: 'babylonjs, 2D matrix, dots, SolidParticleSystem'
+header_image: '/images/2d_matrix.png'
 header_image_position: right
 ---
 
@@ -39,8 +39,6 @@ def hello_world():
 ```
 
 [Dit is een link](https://example.com)
-
-
 
 | Kolom 1 | Kolom 2 | Kolom 3 |
 |---------|---------|---------|

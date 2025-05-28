@@ -56,9 +56,9 @@ onDestroy(() => {
     </div>
 </div>
 <!-- FPS COUNTER -->
-<div bind:this={fpsCounterElement} class="fixed right-0 bottom-0 z-50 bg-slate-900/80 text-slate-200 p-2 text-xl">
-	FPS: 0	
-</div>
+<!-- <div bind:this={fpsCounterElement} class="fixed right-0 bottom-0 z-50 bg-slate-900/80 text-slate-200 p-2 text-xl"> -->
+<!-- 	FPS: 0	 -->
+<!-- </div> -->
 <canvas
     bind:this={renderCanvas}
     class="pointer-events-none w-full h-full opacity-0 transition-opacity duration-2000 {initialized

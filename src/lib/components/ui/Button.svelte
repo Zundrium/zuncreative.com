@@ -10,9 +10,9 @@ export { className as class };
 
 const classStyles = {
 	normal:
-		"font-bold bg-black dark:bg-white text-white dark:text-black hover:bg-slate-700 dark:hover:bg-slate-600",
+		"font-medium bg-black dark:bg-white text-white dark:text-black hover:bg-slate-700 dark:hover:bg-slate-600",
 	secondary:
-		"font-bold bg-white dark:bg-black text-black dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700",
+		"font-medium bg-white dark:bg-black text-black dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700",
 	text: "!px-0 text-black dark:text-white hover:text-slate-700 dark:hover:text-slate-300 hover:underline",
 	line: "border border-white text-white {className} hover:border-gray-300 hover:text-slate-300 dark:hover:border-gray-400 dark:hover:text-slate-400",
 };
@@ -26,7 +26,7 @@ const sizeStyles = {
 
 <a
 	{href}
-	class="text-center flex items-center justify-center rounded-full transition-colors duration-400 {sizeStyles[
+	class="cursor-pointer text-center flex items-center justify-center rounded-full transition-colors duration-400 {sizeStyles[
 		size
 	]} {classStyles[style]} {className}"
 	aria-label={ariaLabel}

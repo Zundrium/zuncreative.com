@@ -1,10 +1,10 @@
 ---
-title: 'Test titel'
-description: '(NL) Test beschrijving van de blogpost.'
-publish_date: '2025-01-01'
-modify_date: '2023-01-02'
-keywords: 'keyword1, keyword2, keyword3'
-header_image: '/images/placeholder2.jpg'
+title: 'ComfyUI; the good, the bad and the ugly.'
+description: 'Het opzetten van een ComfyUI server met Runpod'
+publish_date: '2025-05-28'
+modify_date: '2025-05-28'
+keywords: 'ai, photobooth, catvton, comfyui, '
+header_image: '/images/ai_photobooth_testimages.jpg'
 header_image_position: right
 ---
 

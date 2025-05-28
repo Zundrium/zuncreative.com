@@ -27,7 +27,7 @@ export class HeroWave3D implements IBabylonGraphics {
 	private pointCloudSystem: PointsCloudSystem | null = null;
 
 	private matrixSize = 4;
-	private matrixParticleCount = 40000;
+	private matrixParticleCount = 20000;
 	private matrixHeight = 0.35;
 	private textureSamplers: ITextureSampler[] = [];
 	private textureSamplerIntensity: number = 0;
@@ -79,7 +79,6 @@ export class HeroWave3D implements IBabylonGraphics {
 		gsap.to(this, {
 			textureSamplerIndex: index,
 			onUpdate: () => {
-				console.log(this.textureSamplerIndex);
 				this.updateTextureSamplerIntensity();
 			},
 			duration: 2.5,
@@ -141,7 +140,6 @@ export class HeroWave3D implements IBabylonGraphics {
 	}
 
 	private createPointsCloud(scene: Scene): PointsCloudSystem {
-		console.log("HeroWave3D: creating points");
 		const pointCloudSystem = new PointsCloudSystem(
 			"cloud",
 			this.particleSize,
@@ -290,7 +288,6 @@ export class HeroWave3D implements IBabylonGraphics {
 	public async initialize(renderCanvas: HTMLCanvasElement): Promise<void> {
 		this.babylonScene = new BabylonScene(renderCanvas);
 		this.babylonScene.mediaQueryFOVs = [0.4, 0.4, 0.4, 0.4, 0.4];
-		console.log("HeroWave3D: initializing");
 		await this.babylonScene.init();
 
 		this.createLight(this.babylonScene.scene);
@@ -322,7 +319,6 @@ export class HeroWave3D implements IBabylonGraphics {
 			}
 		};
 
-		console.log("HeroWave3D: loaded");
 		this.onReady();
 	}
 

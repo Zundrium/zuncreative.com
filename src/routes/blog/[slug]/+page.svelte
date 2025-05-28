@@ -1,5 +1,5 @@
 <script lang="ts">
-import MdiArrowUpRightThick from "~icons/mdi/arrow-up-right-thick";
+import MdiArrowRight from "~icons/mdi/arrow-right";
 import { formatDate, formatDateToISO8601 } from "$lib/utils/formatDate.js";
 import SeoHead from "$lib/utils/SeoHead.svelte";
 import * as m from "$lib/paraglide/messages.js";
@@ -35,7 +35,7 @@ function capitalizeAndStripesToSpaces(str: string) {
 <section
 	id="hero"
 	style="clip-path: inset(0 0 0 0); backface-visibility: hidden;"
-	class=" px-4 h-svh w-full bg-slate-500 flex flex-col gap-8 items-center justify-end pb-32 lg:pb-48"
+	class="relative px-4 h-svh w-full bg-slate-500 flex flex-col gap-8 items-center justify-end pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32 -mt-20 md:-mt-20"
 >
 	{#if post.header_image}
 		<Image
@@ -50,6 +50,7 @@ function capitalizeAndStripesToSpaces(str: string) {
 	></div>
 
 	<div class="container relative z-20">
+		<div class="w-1/2">
 		<hgroup class="flex flex-col gap-2 lg:gap-4 text-white w-full">
 			<H1>{post.title}</H1>
 			<Paragraph size="xl" class="opacity-80">
@@ -68,6 +69,7 @@ function capitalizeAndStripesToSpaces(str: string) {
 				</div>
 			{/if}
 		</hgroup>
+			</div>
 	</div>
 
 	<!-- scroll button -->
@@ -107,15 +109,14 @@ function capitalizeAndStripesToSpaces(str: string) {
 						<Button
 							style="text"
 							size="sm"
-							ariaLabel="Lees meer over {capitalizeAndStripesToSpaces(
+ariaLabel="Lees meer over {capitalizeAndStripesToSpaces(
 								relatedPost.slug,
 							)}"
+
 							href="/blog/{relatedPost.slug}"
-							iconRight={MdiArrowUpRightThick}
+							iconRight={MdiArrowRight}
 						>
-							Lees meer over {capitalizeAndStripesToSpaces(
-								relatedPost.slug,
-							)}
+							Lees meer
 						</Button>
 					</div>
 				{/if}

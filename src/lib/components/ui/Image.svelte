@@ -24,11 +24,23 @@ const lqips: Record<string, any> = import.meta.glob(
 );
 
 const getHighResImageSrc = (desired_image: string) => {
-	return images[`../../assets${desired_image}`].default;
+	const image = images[`../../assets${desired_image}`];
+	if (!image) {
+		throw new Error(
+			`High-resolution image not found for path: ../../assets${desired_image}. Available images: ${Object.keys(images).join(", ")}`,
+		);
+	}
+	return image.default;
 };
 
 const getLqipSrc = (desired_image: string) => {
-	return lqips[`../../assets${desired_image}`].default;
+	const lqip = lqips[`../../assets${desired_image}`];
+	if (!lqip) {
+		throw new Error(
+			`LQIP image not found for path: ../../assets${desired_image}. Available images: ${Object.keys(lqips).join(", ")}`,
+		);
+	}
+	return lqip.default;
 };
 </script>
 
