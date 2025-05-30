@@ -227,7 +227,7 @@ onMount(() => {
 <div bind:this={sequenceContainer} class="w-full relative h-[4000px]">
 	<Section
 		id="scroll-sequence"
-		containerClasses="sticky top-0 h-dvh overflow-x-hidden pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32 -mt-20 md:-mt-27"
+		containerClasses="cursor-scroll sticky top-0 h-dvh overflow-x-hidden pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32 -mt-20 md:-mt-27"
 		class="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 "
 		backgroundColor="bg-white dark:bg-black"
 		bind:element={sequenceBox}

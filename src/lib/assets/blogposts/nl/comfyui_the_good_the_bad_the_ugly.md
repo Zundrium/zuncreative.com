@@ -1,8 +1,8 @@
 ---
 title: 'ComfyUI; the good, the bad and the ugly.'
 description: 'Het opzetten van een ComfyUI server met Runpod'
-publish_date: '2025-05-28'
-modify_date: '2025-05-28'
+publish_date: '2025-05-29'
+modify_date: '2025-05-29'
 keywords: 'ai, photobooth, catvton, comfyui, '
 header_image: '/images/ai_photobooth_testimages.jpg'
 header_image_position: right

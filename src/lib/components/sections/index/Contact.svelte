@@ -45,6 +45,7 @@ const contactMethods = [
     >
         {#each contactMethods as contactMethod}
             <Button
+				style="text"
                 iconLeft={contactMethod.icon}
                 ariaLabel={contactMethod.ariaLabel}
                 href={contactMethod.link}>{contactMethod.text}</Button

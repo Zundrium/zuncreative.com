@@ -1,10 +1,11 @@
 import type { MarkdownTextfile } from "$lib/utils/types";
 
-const modules: any = import.meta.glob(
-	["../assets/**/*.md"],
-);
+const modules: any = import.meta.glob(["../assets/**/*.md"]);
 
-async function parseMarkdown(file: any, slug: string = ""): Promise<MarkdownTextfile> {
+async function parseMarkdown(
+	file: any,
+	slug: string = "",
+): Promise<MarkdownTextfile> {
 	const fileContents = await file();
 	return {
 		title: fileContents.metadata.title,
@@ -12,9 +13,11 @@ async function parseMarkdown(file: any, slug: string = ""): Promise<MarkdownText
 		modify_date: fileContents.metadata.modify_date,
 		description: fileContents.metadata.description,
 		slug: slug,
-		keywords: fileContents.metadata.tags,
+		keywords: fileContents.metadata.keywords,
 		header_image: fileContents.metadata.header_image,
 		header_image_position: fileContents.metadata.header_image_position,
+		mobile: fileContents.metadata.mobile,
+		featured: fileContents.metadata.featured,
 		component: fileContents.default,
 	};
 }
@@ -31,7 +34,9 @@ export async function loadMarkdownFiles(
 			continue;
 		}
 		const file = modules[filePath];
-		markdownFiles.push(await parseMarkdown(file, filePath.split('/').pop()!.split('.')[0]));
+		markdownFiles.push(
+			await parseMarkdown(file, filePath.split("/").pop()!.split(".")[0]),
+		);
 	}
 
 	markdownFiles.sort(

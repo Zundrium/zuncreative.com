@@ -1,13 +1,1 @@
-export enum showcaseItemTag {
-	AI,
-	AR,
-	ThreeD,
-	Web,
-}
-
-interface showcaseItem {
-	title: string;
-	description?: string;
-	image: "";
-	tags: showcaseItemTag[];
-}
+export const showcaseItemTags: string[] = ["AI", "AR", "3D", "Web"];

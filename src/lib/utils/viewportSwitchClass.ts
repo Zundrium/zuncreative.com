@@ -1,111 +1,76 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
 interface RegisteredElement {
 	element: HTMLElement;
-	inClasses: string[];
-	outClasses: string[];
+	scrollTrigger?: ScrollTrigger;
+	timeline?: gsap.core.Timeline;
 }
 
 const registeredElements: RegisteredElement[] = [];
-let observerInitialized = false;
-let scrollListenerAttached = false;
-let initTimeoutSet = false;
+let scrollTriggerInitialized = false;
+
 // Constant for visibility threshold (40%)
-const VISIBILITY_THRESHOLD = 40;
+const VISIBILITY_THRESHOLD = "40%";
 
 /**
- * Create and initialize the Intersection Observer
+ * Initialize ScrollTrigger
  */
-function initializeObserver(): void {
-	if (observerInitialized) return;
+function initializeScrollTrigger(): void {
+	if (scrollTriggerInitialized) return;
 
-	// Clear any pending timeout to avoid double initialization
-	if (initTimeoutSet && (window as any).__viewportAnimationTimeout) {
-		clearTimeout((window as any).__viewportAnimationTimeout);
-		initTimeoutSet = false;
+	// ScrollTrigger is ready to use immediately
+	scrollTriggerInitialized = true;
+
+	// Refresh ScrollTrigger to ensure all triggers are properly set up
+	ScrollTrigger.refresh();
+}
+
+/**
+ * Create a GSAP animation with ScrollTrigger
+ */
+function createScrollAnimation(
+	element: HTMLElement,
+	fromVars: gsap.TweenVars,
+	toVars: gsap.TweenVars,
+	duration: number = 1,
+	delay: number = 0.3,
+): void {
+	// Initialize ScrollTrigger if not already done
+	if (!scrollTriggerInitialized) {
+		initializeScrollTrigger();
 	}
 
-	const observer = new IntersectionObserver(
-		(entries) => {
-			// Process entries in batches with requestAnimationFrame to prevent layout thrashing
-			requestAnimationFrame(() => {
-				entries.forEach((entry) => {
-					// Find the registered element data for this DOM element
-					const elementData = registeredElements.find(
-						(item) => item.element === entry.target,
-					);
+	// Set initial state
+	gsap.set(element, fromVars);
 
-					if (!elementData) return;
-
-					const { element, inClasses, outClasses } = elementData;
-
-					if (entry.intersectionRatio >= VISIBILITY_THRESHOLD / 100) {
-						element.classList.add(...inClasses);
-						element.classList.remove(...outClasses);
-					} else {
-						element.classList.add(...outClasses);
-						element.classList.remove(...inClasses);
-					}
-				});
-			});
+	// Create timeline for the animation
+	const tl = gsap.timeline({
+		scrollTrigger: {
+			trigger: element,
+			start: "top 80%", // Start when top of element hits 80% down the viewport
+			end: "bottom 20%", // End when bottom of element hits 20% down the viewport
+			toggleActions: "play none none reverse",
 		},
-		{
-			threshold: [0, VISIBILITY_THRESHOLD / 100],
-			rootMargin: "50px 0px", // Pre-load animations slightly before they come into view
-		},
-	);
-
-	// Observe all existing elements
-	registeredElements.forEach(({ element }) => {
-		observer.observe(element);
 	});
 
-	observerInitialized = true;
+	// Add the animation to timeline
+	tl.to(element, {
+		...toVars,
+		duration,
+		delay,
+		ease: "power2.out",
+	});
 
-	// Store the observer to allow for cleanup if needed
-	(window as any).__viewportAnimationObserver = observer;
-
-	// Now that Observer is initialized, we can remove the scroll listener
-	if (scrollListenerAttached) {
-		window.removeEventListener("scroll", onFirstScroll);
-		scrollListenerAttached = false;
-	}
-}
-
-/**
- * Handler for first scroll that sets a short timeout before initializing
- * This helps prevent lag during scrolling
- */
-function onFirstScroll(): void {
-	if (initTimeoutSet || observerInitialized) return;
-
-	// Set a timeout to initialize slightly after scroll stops
-	// This prevents performance issues when scrolling
-	(window as any).__viewportAnimationTimeout = setTimeout(() => {
-		initializeObserver();
-		initTimeoutSet = false;
-	}, 100); // Short delay prevents visible lag during scroll
-
-	initTimeoutSet = true;
-}
-
-/**
- * Set up lazy initialization by attaching a scroll listener
- */
-function setupLazyInitialization(): void {
-	if (!scrollListenerAttached && !observerInitialized) {
-		window.addEventListener("scroll", onFirstScroll, { passive: true });
-		scrollListenerAttached = true;
-
-		// Also initialize after a delay if user doesn't scroll
-		// but only if not already initialized by other means
-		(window as any).__viewportAnimationTimeout = setTimeout(() => {
-			if (!observerInitialized) {
-				initializeObserver();
-			}
-			initTimeoutSet = false;
-		}, 1000);
-
-		initTimeoutSet = true;
-	}
+	// Store the registered element
+	registeredElements.push({
+		element,
+		timeline: tl,
+		scrollTrigger: tl.scrollTrigger as ScrollTrigger,
+	});
 }
 
 /**
@@ -116,105 +81,161 @@ export function viewportSwitchClass(
 	inClasses: string[],
 	outClasses: string[],
 ): void {
-	// Store the element
-	registeredElements.push({ element, inClasses, outClasses });
-
-	// If observer already exists, observe this new element
-	if (observerInitialized && (window as any).__viewportAnimationObserver) {
-		(window as any).__viewportAnimationObserver.observe(element);
-	} else if (!scrollListenerAttached && !initTimeoutSet) {
-		// Set up lazy initialization if not already done
-		setupLazyInitialization();
+	// Initialize ScrollTrigger if not already done
+	if (!scrollTriggerInitialized) {
+		initializeScrollTrigger();
 	}
+
+	// Apply initial out classes
+	element.classList.add(...outClasses);
+	element.classList.remove(...inClasses);
+
+	// Create ScrollTrigger for this element
+	const trigger = ScrollTrigger.create({
+		trigger: element,
+		start: "top 80%", // More aggressive trigger point
+		end: "bottom 20%",
+		onEnter: () => {
+			element.classList.add(...inClasses);
+			element.classList.remove(...outClasses);
+		},
+		onLeave: () => {
+			element.classList.add(...outClasses);
+			element.classList.remove(...inClasses);
+		},
+		onEnterBack: () => {
+			element.classList.add(...inClasses);
+			element.classList.remove(...outClasses);
+		},
+		onLeaveBack: () => {
+			element.classList.add(...outClasses);
+			element.classList.remove(...inClasses);
+		},
+	});
+
+	// Store the registered element
+	registeredElements.push({
+		element,
+		scrollTrigger: trigger,
+	});
 }
 
 /**
  * Make an element slide in from the left when it enters the viewport
  */
-export function viewportSlideInLeft(node: HTMLElement) {
-	node.classList.add(
-		"transition-opacity-transform",
-		"transition-delay-300",
-		"duration-1000",
-	);
-	viewportSwitchClass(
+export function viewportSlideInLeft(node: HTMLElement): void {
+	createScrollAnimation(
 		node,
-		["translate-x-0", "opacity-100"],
-		["-translate-x-8", "opacity-0"],
+		{ x: -32, opacity: 0 }, // from state
+		{ x: 0, opacity: 1 }, // to state
+		1, // duration
+		0.3, // delay
 	);
 }
 
 /**
  * Make an element slide in from the right when it enters the viewport
  */
-export function viewportSlideInRight(node: HTMLElement) {
-	node.classList.add(
-		"transition-opacity-transform",
-		"transition-delay-300",
-		"duration-1000",
-	);
-	viewportSwitchClass(
+export function viewportSlideInRight(node: HTMLElement): void {
+	createScrollAnimation(
 		node,
-		["translate-x-0", "opacity-100"],
-		["translate-x-8", "opacity-0"],
+		{ x: 32, opacity: 0 },
+		{ x: 0, opacity: 1 },
+		1,
+		0.3,
 	);
 }
 
 /**
  * Make an element slide in from the bottom when it enters the viewport
  */
-export function viewportSlideInBottom(node: HTMLElement) {
-	node.classList.add(
-		"transition-opacity-transform",
-		"transition-delay-300",
-		"duration-1000",
-	);
-	viewportSwitchClass(
+export function viewportSlideInBottom(node: HTMLElement): void {
+	createScrollAnimation(
 		node,
-		["translate-x-0", "opacity-100"],
-		["translate-y-8", "opacity-0"],
+		{
+			y: 40,
+			opacity: 0,
+			rotationZ: 0,
+			rotationX: 10,
+			rotationY: 1,
+			transformPerspective: 1000,
+		},
+		{
+			y: 0,
+			opacity: 1,
+			rotationZ: 0,
+			rotationX: 0,
+			rotationY: 0,
+		},
+		1.5,
+		0.3,
+	);
+}
+
+export function viewportSlideInBottomDirect(node: HTMLElement): void {
+	createScrollAnimation(
+		node,
+		{ y: 32, opacity: 0 },
+		{ y: 0, opacity: 1 },
+		1,
+		0.3,
 	);
 }
 
 /**
  * Make an element slide in from the top when it enters the viewport
  */
-export function viewportSlideInTop(node: HTMLElement) {
-	node.classList.add(
-		"transition-opacity-transform",
-		"transition-delay-300",
-		"duration-1000",
-	);
-	viewportSwitchClass(
+export function viewportSlideInTopDirect(node: HTMLElement): void {
+	createScrollAnimation(
 		node,
-		["translate-x-0", "opacity-100"],
-		["-translate-y-8", "opacity-0"],
+		{ y: -32, opacity: 0 },
+		{ y: 0, opacity: 1 },
+		1,
+		0.3,
+	);
+}
+
+export function viewportSlideInTop(node: HTMLElement): void {
+	createScrollAnimation(
+		node,
+		{
+			y: -40,
+			opacity: 0,
+			rotationZ: -3,
+			rotationX: 5,
+			rotationY: 1,
+			transformPerspective: 1000,
+		},
+		{
+			y: 0,
+			opacity: 1,
+			rotationZ: 0,
+			rotationX: 0,
+			rotationY: 0,
+		},
+		1.5,
+		0.3,
 	);
 }
 
 /**
  * Make an element fade in when it enters the viewport
  */
-export function viewportFade(node: HTMLElement) {
-	node.classList.add(
-		"transition-opacity",
-		"transition-delay-300",
-		"duration-1500",
-	);
-	viewportSwitchClass(node, ["opacity-100"], ["opacity-0"]);
+export function viewportFade(node: HTMLElement): void {
+	createScrollAnimation(node, { opacity: 0 }, { opacity: 1 }, 1.5, 0.3);
 }
 
-export function viewportScaleFromBottom(node: HTMLElement) {
-	node.classList.add(
-		"transition-transform",
-		"transition-delay-300",
-		"duration-1500",
-		"origin-bottom",
+export function viewportScaleFromBottom(node: HTMLElement): void {
+	createScrollAnimation(
+		node,
+		{ scaleY: 0, transformOrigin: "bottom center" },
+		{ scaleY: 1 },
+		1.5,
+		0.3,
 	);
-	viewportSwitchClass(node, ["scale-y-100"], ["scale-y-0"]);
 }
 
-export function viewportActive(node: HTMLElement) {
+export function viewportActive(node: HTMLElement): void {
 	viewportSwitchClass(node, ["active"], ["inactive"]);
 }
 
@@ -222,25 +243,48 @@ export function viewportActive(node: HTMLElement) {
  * Force initialization immediately
  */
 export function forceInitialize(): void {
-	initializeObserver();
+	initializeScrollTrigger();
 }
 
 /**
- * Cleanup function to remove observers and event listeners
+ * Cleanup function to remove all ScrollTriggers
  */
 export function cleanup(): void {
-	if ((window as any).__viewportAnimationObserver) {
-		(window as any).__viewportAnimationObserver.disconnect();
-		observerInitialized = false;
-	}
+	// Kill all ScrollTriggers for registered elements
+	registeredElements.forEach(({ scrollTrigger, timeline }) => {
+		if (scrollTrigger) {
+			scrollTrigger.kill();
+		}
+		if (timeline) {
+			timeline.kill();
+		}
+	});
 
-	if (scrollListenerAttached) {
-		window.removeEventListener("scroll", onFirstScroll);
-		scrollListenerAttached = false;
-	}
+	// Clear the registered elements array
+	registeredElements.length = 0;
 
-	if (initTimeoutSet && (window as any).__viewportAnimationTimeout) {
-		clearTimeout((window as any).__viewportAnimationTimeout);
-		initTimeoutSet = false;
-	}
+	// Kill all ScrollTriggers globally (optional - use with caution)
+	// ScrollTrigger.killAll();
+
+	scrollTriggerInitialized = false;
+}
+
+/**
+ * Refresh ScrollTrigger (useful after DOM changes)
+ */
+export function refresh(): void {
+	ScrollTrigger.refresh();
+}
+
+/**
+ * Batch refresh ScrollTrigger (more performant for multiple DOM changes)
+ */
+export function batchRefresh(): void {
+	ScrollTrigger.batch(
+		registeredElements.map((item) => item.element),
+		{
+			onEnter: (elements) => ScrollTrigger.refresh(),
+			once: true,
+		},
+	);
 }

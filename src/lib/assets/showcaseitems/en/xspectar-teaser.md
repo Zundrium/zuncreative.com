@@ -8,6 +8,6 @@ header_image: '/images/showcase/xspectar-teaser.jpg'
 external_url: 'https://xspectar-teaser.zuncreative.com'
 partner: 'Reblika'
 ---
-<p>xSpectar focuses on the NFT and Web3.0 space. Even having their own crypto currency network with a token called $XSPECTAR which is based on the XRPL network. </p>
+xSpectar focuses on the NFT and Web3.0 space. Even having their own crypto currency network with a token called $XSPECTAR which is based on the XRPL network.
       
-      <p>A complete 3D artist team worked on making this possible. Each camera shot was delegated to a specific person to make the short deadline possible.</p>
+A complete 3D artist team worked on making this possible. Each camera shot was delegated to a specific person to make the short deadline possible.

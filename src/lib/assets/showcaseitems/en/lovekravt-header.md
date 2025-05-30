@@ -8,6 +8,5 @@ header_image: '/images/showcase/lovekravt-header.jpg'
 external_url: 'https://lovekravt.zuncreative.com'
 partner: 'LoveKRAVT'
 ---
-<p>An interactive mini game in the header of the main webite, showing the creative side of LoveKRAVT. </p>
-      
-      <p>A small partner with <a href="https://lucasguzman3d.com">LucasGuzman3D</a>.</p>
+An interactive mini game in the header of the main webite, showing the creative side of LoveKRAVT.
+A small partner with <a href="https://lucasguzman3d.com">LucasGuzman3D</a>.

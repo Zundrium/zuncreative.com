@@ -8,6 +8,5 @@ header_image: '/images/showcase/nationale-museumweek-2021.jpg'
 external_url: 'https://nmw2021.zuncreative.com'
 partner: 'Capitola'
 ---
-<p>Just like 2020, when thanks to COVID social events were cancelled. The client had to find an alternative for making an event that shows artpieces from over 400 museums in The Netherlands.</p>
-
-      <p>This was done with a three dimensional representation of the Museumplein in Amsterdam, where the event would normally be held. </p>
+Just like 2020, when thanks to COVID social events were cancelled. The client had to find an alternative for making an event that shows artpieces from over 400 museums in The Netherlands.
+This was done with a three dimensional representation of the Museumplein in Amsterdam, where the event would normally be held.

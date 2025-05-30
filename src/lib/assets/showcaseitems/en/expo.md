@@ -7,6 +7,5 @@ keywords: '3d, web'
 header_image: '/images/showcase/expo.jpg'
 external_url: 'https://expo.zuncreative.com'
 ---
-<p>This demo shows the possibilities of new texture compression techniques, making it possible to reduce the filesize of a complete 3D expo to 9MB (Normally 50MB).</p>
-      
-      <p>Other solutions have way longer loading times and are not made to be used on mobile phones.</p>
+This demo shows the possibilities of new texture compression techniques, making it possible to reduce the filesize of a complete 3D expo to 9MB (Normally 50MB).
+Other solutions have way longer loading times and are not made to be used on mobile phones.

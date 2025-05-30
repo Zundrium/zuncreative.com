@@ -7,6 +7,6 @@ keywords: '3d, web'
 header_image: '/images/showcase/code-couture-editor.jpg'
 partner: 'VideOrbit Studio'
 ---
-<p>With this editor, it's possible to create an unlimited amount of different garments using a procedural shader.</p>
-     <p>The sliders on the right allow the user to change many different values such as color, thickness of the pattern and symmetry.</p>
-     <p>The editor was used in an exposition at Design Museum Den Bosch.</p>
+With this editor, it's possible to create an unlimited amount of different garments using a procedural shader.
+The sliders on the right allow the user to change many different values such as color, thickness of the pattern and symmetry.
+The editor was used in an exposition at Design Museum Den Bosch.

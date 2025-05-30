@@ -7,49 +7,86 @@ import Button from "$lib/components/ui/Button.svelte";
 import Image from "$lib/components/ui/Image.svelte";
 import Section from "$lib/components/ui/Section.svelte";
 import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
+import { formatDate } from "$lib/utils/formatDate";
 
 export let posts: any = [];
 </script>
 
 <Section
 	id="post"
-	class="flex flex-col gap-4 md:gap-8 lg:gap-12 justify-center"
+	class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-center"
 	backgroundColor="bg-white dark:bg-black"
 >
 	<SectionHeading centered title="Recent <i>thoughts</i>" subtitle="Blog" />
-	<div
-		class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 lg:gap-12 xl:gap-16"
-	>
-		{#each posts as post}
-			<div
-				class="flex flex-col gap-2 md:gap-2 lg:gap-4 items-start"
-				use:viewportSlideInBottom
-			>
-				<div class="relative w-full h-40 overflow-hidden"> 
-					<Image
-						alt="{post.title}"
-						src="{post.header_image}"
-						class="absolute inset-0 w-full h-full object-cover rounded-xl"
-						sizes="(min-width:1920px) 1920px, (min-width:1280px) 1280px, (min-width:768px) 480px"
-					/>
-				</div>
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 xl:gap-12">
+		<!-- Latest blog post with thumbnail -->
+		<div
+			class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 items-start"
+			use:viewportSlideInBottom
+		>
+			<a href="/blog/{posts[0].slug}" class="relative cursor-pointer w-full aspect-16/9 overflow-hidden rounded-xl" data-cursor-icon="fullscreen"> 
+				<Image
+					alt="{posts[0].title}"
+					src="{posts[0].header_image}"
+					class="absolute inset-0 w-full h-full object-cover "
+					sizes="(min-width:1920px) 1920px, (min-width:1280px) 1280px, (min-width:768px) 480px"
+				/>
+			</a>
+			<div class="flex flex-col gap-2">
 				<hgroup class="flex flex-col gap-1 md:gap-2">
-					<H3>{post.title}</H3>
-					<span
-						class="uppercase text-sm text-slate-700 dark:text-slate-300"
-					>{post.subTitle}</span
-					>
+					<H3>{posts[0].title}</H3>
 				</hgroup>
 				<Paragraph class="flex-1">
-					{post.description}
+					{posts[0].description}
 				</Paragraph>
-				<Button
-					style="text"
-					href={`/blog/${post.slug}`}
-					ariaLabel="Blogpost: {post.title}"
-					iconRight={MdiArrowRight}>Read more</Button
-				>
 			</div>
-		{/each}
+			<div class="w-full flex items-center justify-between gap-2">
+				<Button
+					style="line"
+					href={`/blog/${posts[0].slug}`}
+					ariaLabel="Blogpost: {posts[0].title}"
+					iconRight={MdiArrowRight}>Lees meer</Button>
+				<span class="text-black/80 dark:text-white/80">{formatDate(posts[0].publish_date)}</span>
+
+			</div>
+		</div>
+
+		<!-- List of other blog posts -->
+		<div class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-between items-start">
+			{#each posts.slice(1) as post}
+				<div
+					class="flex flex-col gap-2 md:gap-2 lg:gap-4 items-start w-full"
+					use:viewportSlideInBottom
+				>
+
+					<div class="flex flex-col gap-2">
+						<hgroup class="flex flex-col gap-1 md:gap-2">
+							<H3>{post.title}</H3>
+						</hgroup>
+						<Paragraph class="flex-1">
+							{post.description}
+
+						</Paragraph>
+					</div>
+					<div class="w-full flex items-center justify-between gap-2">
+						<Button
+							style="text"
+							href={`/blog/${post.slug}`}
+							ariaLabel="Blogpost: {post.title}"
+							iconRight={MdiArrowRight}>Lees meer</Button>
+
+						<span class="text-black/80 dark:text-white/80">{formatDate(post.publish_date)}</span>
+					</div>
+				</div>
+			{/each}
+			<Button
+				href="/blog"
+				style="line"
+				class="self-start"
+				ariaLabel="View all blog posts"
+				iconRight={MdiArrowRight}>Bekijk alles</Button>
+		</div>
+
+
 	</div>
 </Section>

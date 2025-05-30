@@ -55,3 +55,8 @@ h6 {
 		width: 768px;
 	}
 }
+
+/* Hide default cursor on pointer elements when custom cursor is active */
+body[style*="cursor: none"] .cursor-pointer {
+	cursor: none !important;
+}

@@ -5,16 +5,38 @@ import SeoHead from "$lib/utils/SeoHead.svelte";
 import HeroSequence from "$lib/components/sections/index/HeroSequence.svelte";
 import BrandCarousel from "$lib/components/sections/index/BrandCarousel.svelte";
 import RecentPosts from "$lib/components/sections/index/RecentPosts.svelte";
+import type { MarkdownTextfile } from "$lib/utils/types";
+import CircleCursor from "$lib/utils/circleCursor";
+import { onDestroy, onMount } from "svelte";
 
-export let data: { posts: any[] };
+let cursor: CircleCursor;
+
+onMount(() => {
+	cursor = new CircleCursor();
+
+	// Optional: customize the cursor
+	// cursor.setColor('#ff6b6b');
+	// cursor.setSize(15);
+});
+
+onDestroy(() => {
+	if (cursor) {
+		cursor.destroy();
+	}
+});
+
+export let data: {
+	posts: MarkdownTextfile[];
+	showcaseItems: MarkdownTextfile[];
+};
 </script>
 
 
 <SeoHead
     props={{
-        title: "Hebweb site base",
-        description: "This is a base template",
-        keywords: "Hebweb, base template",
+        title: "Zun Creative",
+        description: "My name is Sem and I'm a freelance 3D web developer",
+        keywords: "Zun Creative, freelance developer, Amsterdam",
         slug: "website",
         thumbnail: "/images/placeholder1.jpg",
         type: "WebPage",
@@ -24,5 +46,5 @@ export let data: { posts: any[] };
 <HeroSequence />
 <BrandCarousel />
 <RecentPosts posts={data.posts} />
-<Showcase />
+<Showcase showcaseItems={data.showcaseItems}/>
 <Contact />

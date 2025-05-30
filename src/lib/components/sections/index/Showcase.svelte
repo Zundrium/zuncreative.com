@@ -6,64 +6,76 @@ import SectionHeading from "$lib/components/typography/SectionHeading.svelte";
 import Button from "$lib/components/ui/Button.svelte";
 import Image from "$lib/components/ui/Image.svelte";
 import Section from "$lib/components/ui/Section.svelte";
-import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
-import { showcaseItemTag } from "$lib/utils/types/showcaseItem";
+import {
+	viewportFade,
+	viewportSlideInBottom,
+} from "$lib/utils/viewportSwitchClass";
+import { showcaseItemTags } from "$lib/utils/types/showcaseItem";
+import type { MarkdownTextfile } from "$lib/utils/types";
 
-const showCases = [
-	{
-		title: "Alterframe",
-		subTitle: "AI Photobooth with instant print",
-		image: "",
-		link: "",
-		tags: [showcaseItemTag.AI, showcaseItemTag.Web],
-	},
-	{
-		title: "Hebweb",
-		subTitle: "Subscription based managed website",
-		image: "",
-		link: "",
-		tags: [showcaseItemTag.Web],
-	},
-	{
-		title: "Code Couture PoS",
-		subTitle: "Avatar based garment configurator",
-		image: "",
-		link: "",
-		tags: [showcaseItemTag.ThreeD, showcaseItemTag.Web],
-	},
-];
+export let showcaseItems: MarkdownTextfile[] = [];
+
+let activeTag: string | null = null;
+
+function setActiveTag(tag: string | null) {
+	console.log("Setting active tag:", tag);
+	if (tag) {
+		activeTag = tag.toLowerCase();
+	} else {
+		activeTag = null;
+	}
+}
+
+for (const item of showcaseItems) {
+	item.keywords = item.keywords.toLowerCase().replace(" ", "");
+}
+
+$: filteredShowcaseItems = activeTag
+	? showcaseItems.filter((item) =>
+			item.keywords!.split(",").includes(activeTag!),
+		)
+	: showcaseItems;
 </script>
 
 <Section
-    id="blog-items"
-    class="flex flex-col gap-4 md:gap-8 lg:gap-12 justify-center"
-    backgroundColor="bg-white dark:bg-black"
+	id="blog-items"
+	class="flex flex-col gap-4 md:gap-8 lg:gap-12 justify-center"
+	backgroundColor="bg-white dark:bg-black"
 >
-    <SectionHeading centered title="My <i>work</i>" subtitle="Showcase" />
-    <div
-        class="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 lg:gap-8 xl:gap-12"
-    >
-        {#each showCases as showCase}
-            <a href="#"
-                class="flex flex-col gap-2 md:gap-2 lg:gap-4 items-start cursor-pointer"
-                use:viewportSlideInBottom
-            >
-					<div class="overflow-hidden rounded-xl ">
-						 <Image
-							  alt="placeholder"
-							  src="/images/placeholder1.jpg"
-							  sizes="(min-width:1920px) 1920px, (min-width:1280px) 1280px, (min-width:768px) 480px"
-						 />
-					</div>
-                <hgroup class="flex flex-col gap-1 md:gap-2">
-                    <H3>{showCase.title}</H3>
-                    <span
-                        class="text-sm text-slate-700 dark:text-slate-300"
-                        >{showCase.subTitle}</span
-                    >
-                </hgroup>
-                
-            </a>
-        {/each}
-    </div>
+	<SectionHeading centered title="My <i>work</i>" subtitle="Showcase" />
+	<div class="flex gap-6 items-center w-full justify-center">	
+		{#each showcaseItemTags as tag}
+			<Button
+				style="text"
+				size="sm"
+				ariaLabel="Showcase items tagged with {tag}"
+				click={() => {setActiveTag(tag)}}
+			>
+				{tag}
+			</Button>
+		{/each}
+		<Button
+			style="text"
+			size="sm"
+			ariaLabel="Show all showcase items"
+			click={() => {setActiveTag(null)}}
+		>
+			All
+		</Button>
+	</div>
+	<div
+		class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-4 auto-rows-[20rem] gap-4 md:gap-6 lg:gap-8 xl:gap-12 grid-flow-row-dense"
+	>
+{#each filteredShowcaseItems as showcaseItem}		
+			<a	
+				href={`/showcase/${showcaseItem.slug}`}
+				use:viewportSlideInBottom class="flex flex-col {showcaseItem.featured ? 'row-span-2 col-span-2' : ''} {showcaseItem.mobile ? 'row-span-2' : 'col-span-2'} cursor-pointer gap-2 " data-cursor-icon="fullscreen">  
+				<div class="overflow-hidden object-cover flex-1 relative rounded-xl">
+					<Image src={showcaseItem.header_image} alt={showcaseItem.title} class="w-full h-full transition-all duration-500 opacity-50 saturate-20 hover:saturate-100 hover:opacity-100" />
+					<div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50 pointer-events-none"></div>
+				</div>
+				<span class="font-medium">{showcaseItem.title}</span>
+			</a>
+		{/each}
+	</div>
 </Section>

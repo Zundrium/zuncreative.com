@@ -1,4 +1,4 @@
-import type { SvelteComponent } from 'svelte';
+import type { SvelteComponent } from "svelte";
 
 export interface SeoHeadProps {
 	title: string;
@@ -21,4 +21,6 @@ export interface MarkdownTextfile {
 	header_image: string;
 	header_image_position: string;
 	component: ConstructorOfATypedSvelteComponent;
+	mobile?: boolean;
+	featured?: boolean;
 }

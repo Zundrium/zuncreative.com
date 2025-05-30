@@ -7,4 +7,4 @@ keywords: 'ar, web'
 header_image: '/images/showcase/deloitte-ar-cube.jpg'
 partner: 'Capitola'
 ---
-<p>This AR experience was meant to give a personal message to one of your coworkers. With a wooden cube a complete fantasy is placed in your hands.</p>
+This AR experience was meant to give a personal message to one of your coworkers. With a wooden cube a complete fantasy is placed in your hands.
