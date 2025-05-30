@@ -71,8 +71,7 @@ $: filteredShowcaseItems = activeTag
 				href={`/showcase/${showcaseItem.slug}`}
 				use:viewportSlideInBottom class="flex flex-col {showcaseItem.featured ? 'row-span-2 col-span-2' : ''} {showcaseItem.mobile ? 'row-span-2' : 'col-span-2'} cursor-pointer gap-2 " data-cursor-icon="fullscreen">  
 				<div class="overflow-hidden object-cover flex-1 relative rounded-xl">
-					<Image src={showcaseItem.header_image} alt={showcaseItem.title} class="w-full h-full transition-all duration-500 opacity-50 saturate-20 hover:saturate-100 hover:opacity-100" />
-					<div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50 pointer-events-none"></div>
+					<Image src={showcaseItem.header_image} alt={showcaseItem.title} class="w-full h-full transition-all duration-500 opacity-50 hover:opacity-100" />
 				</div>
 				<span class="font-medium">{showcaseItem.title}</span>
 			</a>

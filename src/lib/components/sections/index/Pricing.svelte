@@ -8,13 +8,10 @@ import MdiShapeSquarePlus from "~icons/mdi/shape-square-plus";
 import MdiBan from "~icons/mdi/ban";
 import MdiPhone from "~icons/mdi/phone";
 
-import {
-	viewportSlideInBottom,
-	viewportSlideInTop,
-} from "$lib/utils/viewportSwitchClass";
 import Paragraph from "$lib/components/typography/Paragraph.svelte";
 import SectionHeading from "$lib/components/typography/SectionHeading.svelte";
 import CircleIcon from "$lib/components/ui/CircleIcon.svelte";
+import { viewportFade } from "$lib/utils/viewportSwitchClass";
 
 type ButtonStyle = "secondary" | "line" | "text" | "normal" | undefined;
 
@@ -27,7 +24,7 @@ const pricingTiers = [
 			"Curabitur et blandit nunc, sed porttitor lectus. Fusce malesuada, ante eget gravida eleifend, ligula ligula fringilla augue, nec iaculis nunc ligula pellentesque erat.",
 		style:
 			"bg-white dark:bg-slate-800 text-black dark:text-white border-2 dark:border-gray-700",
-		animation: viewportSlideInTop,
+		animation: viewportFade,
 		features: [
 			{ name: "Custom Design & Development", included: true },
 			{ name: "Cloudflare hosting", included: true },
@@ -48,7 +45,7 @@ const pricingTiers = [
 			"Curabitur et blandit nunc, sed porttitor lectus. Fusce malesuada, ante eget gravida eleifend, ligula ligula fringilla augue, nec iaculis nunc ligula pellentesque erat.",
 		style:
 			"bg-slate-100 dark:bg-slate-700 text-black dark:text-white border-2 border-gray-200 dark:border-gray-600",
-		animation: viewportSlideInBottom,
+		animation: viewportFade,
 		features: [
 			{ name: "Custom Design & Development", included: true },
 			{ name: "Cloudflare hosting", included: true },
@@ -68,7 +65,7 @@ const pricingTiers = [
 		description:
 			"Curabitur et blandit nunc, sed porttitor lectus. Fusce malesuada, ante eget gravida eleifend, ligula ligula fringilla augue, nec iaculis nunc ligula pellentesque erat.",
 		style: "bg-black text-white dark:bg-white dark:text-black",
-		animation: viewportSlideInTop,
+		animation: viewportFade,
 		features: [
 			{ name: "Custom Design & Development", included: true },
 			{ name: "Cloudflare hosting", included: true },

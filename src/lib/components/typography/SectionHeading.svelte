@@ -1,5 +1,5 @@
 <script lang="ts">
-import { viewportActive } from "$lib/utils/viewportSwitchClass";
+//import { viewportActive } from "$lib/utils/viewportSwitchClass";
 import H2 from "./H2.svelte";
 
 let className = "";
@@ -22,7 +22,7 @@ export { className as class };
     {#if href}
         <a {href}><H2>{title}</H2></a>
     {:else}
-        <div use:viewportActive >
+        <div>
             <H2 class="transition-transform duration-700">{@html title}</H2>
         </div>
     {/if}
