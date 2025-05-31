@@ -24,8 +24,8 @@ function createViewportAnimation(
 	// Default ScrollTrigger settings
 	const defaultScrollTrigger = {
 		trigger: node,
-		start: "top 90%",
-		end: "bottom 10%",
+		start: "top 80%",
+		end: "bottom 20%",
 		toggleActions: "play none none reverse",
 		...config.scrollTrigger,
 	};

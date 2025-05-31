@@ -256,9 +256,9 @@ onMount(() => {
 								{@html slide.description}
 							</Paragraph>
 						</div>
-						<div class="w-full h-[1px] bg-black/50">
+						<div class="w-full h-[1px] bg-orange-500">
 							<div
-								class="h-full bg-white/50"
+								class="h-full bg-white"
 								style="width: {Math.max(0, Math.min(100, (currentProgress.value - index * 33.33) * 3))}%"
 							> </div>
 						</div>
