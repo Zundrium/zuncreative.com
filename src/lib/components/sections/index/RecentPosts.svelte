@@ -6,7 +6,10 @@ import SectionHeading from "$lib/components/typography/SectionHeading.svelte";
 import Button from "$lib/components/ui/Button.svelte";
 import Image from "$lib/components/ui/Image.svelte";
 import Section from "$lib/components/ui/Section.svelte";
-import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
+import {
+	viewportSlideInBottom,
+	viewportParallaxFast,
+} from "$lib/utils/viewportSwitchClass";
 import { formatDate } from "$lib/utils/formatDate";
 
 export let posts: any = [];

@@ -1,5 +1,7 @@
 
 <script module lang="ts">
+import { viewportParallaxImage } from "$lib/utils/viewportSwitchClass";
+
 const images: Record<string, any> = import.meta.glob(
 	["../../assets/images/**/*.{avif,gif,heif,jpeg,jpg,png,tiff,webp}"],
 	{
@@ -63,7 +65,7 @@ const getLqipSrc = (desired_image: string) => {
 </script>
 
 <div class={classes} {...$$props}>
-  <div class="w-full h-full relative">
+  <div class="w-full h-full relative" use:viewportParallaxImage>
     <enhanced:img
       loading="lazy"
       class="w-full h-full object-cover"
