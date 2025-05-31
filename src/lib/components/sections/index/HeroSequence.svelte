@@ -100,54 +100,54 @@ const sequence: SequenceItem[] = [
 			slideElements[2].classList.remove("opacity-100", "!translate-x-0");
 		},
 	},
-	{
-		minY: -0.5,
-		maxY: 1 / 6,
-		onActive: () => {
-			heroWave3DCanvas?.activateStep(0);
-		},
-		onInactive: () => {},
-	},
-	{
-		minY: 1 / 6,
-		maxY: 2 / 6,
-		onActive: () => {
-			heroWave3DCanvas?.activateStep(1);
-		},
-		onInactive: () => {},
-	},
-	{
-		minY: 2 / 6,
-		maxY: 3 / 6,
-		onActive: () => {
-			heroWave3DCanvas?.activateStep(2);
-		},
-		onInactive: () => {},
-	},
-	{
-		minY: 3 / 6,
-		maxY: 4 / 6,
-		onActive: () => {
-			heroWave3DCanvas?.activateStep(3);
-		},
-		onInactive: () => {},
-	},
-	{
-		minY: 4 / 6,
-		maxY: 5 / 6,
-		onActive: () => {
-			heroWave3DCanvas?.activateStep(4);
-		},
-		onInactive: () => {},
-	},
-	{
-		minY: 5 / 6,
-		maxY: 1.5,
-		onActive: () => {
-			heroWave3DCanvas?.activateStep(5);
-		},
-		onInactive: () => {},
-	},
+	//{
+	//	minY: -0.5,
+	//	maxY: 1 / 6,
+	//	onActive: () => {
+	//		heroWave3DCanvas?.activateStep(0);
+	//	},
+	//	onInactive: () => {},
+	//},
+	//{
+	//	minY: 1 / 6,
+	//	maxY: 2 / 6,
+	//	onActive: () => {
+	//		heroWave3DCanvas?.activateStep(1);
+	//	},
+	//	onInactive: () => {},
+	//},
+	//{
+	//	minY: 2 / 6,
+	//	maxY: 3 / 6,
+	//	onActive: () => {
+	//		heroWave3DCanvas?.activateStep(2);
+	//	},
+	//	onInactive: () => {},
+	//},
+	//{
+	//	minY: 3 / 6,
+	//	maxY: 4 / 6,
+	//	onActive: () => {
+	//		heroWave3DCanvas?.activateStep(3);
+	//	},
+	//	onInactive: () => {},
+	//},
+	//{
+	//	minY: 4 / 6,
+	//	maxY: 5 / 6,
+	//	onActive: () => {
+	//		heroWave3DCanvas?.activateStep(4);
+	//	},
+	//	onInactive: () => {},
+	//},
+	//{
+	//	minY: 5 / 6,
+	//	maxY: 1.5,
+	//	onActive: () => {
+	//		heroWave3DCanvas?.activateStep(5);
+	//	},
+	//	onInactive: () => {},
+	//},
 ];
 
 function clamp(value: number, min: number, max: number): number {
@@ -172,6 +172,8 @@ function handleScroll() {
 	//	duration: Math.max(duration, 0.05),
 	//	ease: "power2.out",
 	//});
+
+	heroWave3DCanvas!.update(normalizedScrollY * 5);
 
 	sequence.forEach((item, index) => {
 		if (normalizedScrollY >= item.minY && normalizedScrollY <= item.maxY) {

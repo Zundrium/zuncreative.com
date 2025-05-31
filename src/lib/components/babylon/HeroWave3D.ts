@@ -34,7 +34,7 @@ export class HeroWave3D implements IBabylonGraphics {
 	private textureSamplerIndex: number = 0;
 	private topColor: Color3 = new Color3(1, 0.5, 0);
 	private bottomColor: Color3 = new Color3(0.5, 0, 1);
-	private particleSize: number = 4;
+	private particleSize: number = 5;
 	private renderPipeline: DefaultRenderingPipeline | null = null;
 
 	public constructor(private fpsCounterElement: HTMLElement | null = null) {}
@@ -63,28 +63,30 @@ export class HeroWave3D implements IBabylonGraphics {
 		result.z = v * this.matrixSize - this.matrixSize * 0.5;
 	}
 
-	public activateStep(index: number): void {
+	public update(index: number): void {
 		if (index >= this.textureSamplers.length) {
 			console.warn("Index out of bounds for noise generators");
 			return;
 		}
-		this.animateTextureSamplerIndex(index);
+		this.textureSamplerIndex = index;
+		this.updateTextureSamplerIntensity();
+		//this.animateTextureSamplerIndex(index);
 	}
 
 	public resetSteps(): void {
-		this.animateTextureSamplerIndex(0);
+		this.textureSamplerIndex = 0;
 	}
 
-	private animateTextureSamplerIndex(index: number) {
-		gsap.to(this, {
-			textureSamplerIndex: index,
-			onUpdate: () => {
-				this.updateTextureSamplerIntensity();
-			},
-			duration: 2.5,
-			ease: "power4.out",
-		});
-	}
+	//private animateTextureSamplerIndex(index: number) {
+	//	gsap.to(this, {
+	//		textureSamplerIndex: index,
+	//		onUpdate: () => {
+	//			this.updateTextureSamplerIntensity();
+	//		},
+	//		duration: 2.5,
+	//		ease: "power4.out",
+	//	});
+	//}
 
 	private lerp(a: number, b: number, t: number): number {
 		return a + (b - a) * t;
@@ -240,15 +242,15 @@ export class HeroWave3D implements IBabylonGraphics {
 		this.textureSamplers[2] = new TextureSampler(
 			"/textures/seamless_mountain1.png",
 			1,
-			new Vector2(0.02, 0.02),
+			new Vector2(0.04, 0.04),
 			1,
 		);
 
 		this.textureSamplers[3] = new TextureSampler(
 			"/textures/wave.png",
 			0.3,
-			new Vector2(0.02, 0.0),
-			2,
+			new Vector2(0.1, -0.05),
+			1.75,
 		);
 
 		this.textureSamplers[4] = new TextureSampler(

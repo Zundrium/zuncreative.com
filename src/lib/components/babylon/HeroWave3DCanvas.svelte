@@ -11,15 +11,15 @@ export let onReady: () => void = () => {};
 
 onMount(async () => {
 	const HeroWave3D = (await import("./HeroWave3D")).HeroWave3D;
-	babylonGraphics = new HeroWave3D(fpsCounterElement);
+	babylonGraphics = new HeroWave3D(null);
 	await babylonGraphics.initialize(renderCanvas);
 
 	initialized = true;
 	onReady();
 });
 
-export function activateStep(index: number) {
-	babylonGraphics?.activateStep(index);
+export function update(index: number) {
+	babylonGraphics?.update(index);
 }
 export function resetSteps() {
 	babylonGraphics?.resetSteps();
