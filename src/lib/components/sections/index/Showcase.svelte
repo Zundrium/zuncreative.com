@@ -6,12 +6,9 @@ import SectionHeading from "$lib/components/typography/SectionHeading.svelte";
 import Button from "$lib/components/ui/Button.svelte";
 import Image from "$lib/components/ui/Image.svelte";
 import Section from "$lib/components/ui/Section.svelte";
-import {
-	viewportFade,
-	viewportSlideInBottom,
-} from "$lib/utils/viewportSwitchClass";
 import { showcaseItemTags } from "$lib/utils/types/showcaseItem";
 import type { MarkdownTextfile } from "$lib/utils/types";
+import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 
 export let showcaseItems: MarkdownTextfile[] = [];
 
@@ -39,7 +36,7 @@ $: filteredShowcaseItems = activeTag
 
 <Section
 	id="blog-items"
-	class="flex flex-col gap-4 md:gap-8 lg:gap-12 justify-center"
+	class="flex flex-col gap-4 md:gap-6 lg:gap-8 justify-center"
 	backgroundColor="bg-white dark:bg-black"
 >
 	<SectionHeading centered title="My <i>work</i>" subtitle="Showcase" />
@@ -64,14 +61,16 @@ $: filteredShowcaseItems = activeTag
 		</Button>
 	</div>
 	<div
-		class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-4 auto-rows-[20rem] gap-4 md:gap-6 lg:gap-8 xl:gap-12 grid-flow-row-dense"
+		class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-4 auto-rows-[20rem] gap-4 md:gap-4 lg:gap-4 xl:gap-6 grid-flow-row-dense"
 	>
 {#each filteredShowcaseItems as showcaseItem}		
 			<a	
 				href={`/showcase/${showcaseItem.slug}`}
-				use:viewportSlideInBottom class="flex flex-col {showcaseItem.featured ? 'row-span-2 col-span-2' : ''} {showcaseItem.mobile ? 'row-span-2' : 'col-span-2'} cursor-pointer gap-2 " data-cursor-icon="fullscreen">  
+				class="flex flex-col {showcaseItem.featured ? 'row-span-2 col-span-2' : ''} {showcaseItem.mobile ? 'row-span-2' : 'col-span-2'} cursor-pointer gap-2 " data-cursor-icon="fullscreen"
+				use:viewportSlideInBottom
+			>  
 				<div class="overflow-hidden object-cover flex-1 relative rounded-xl">
-					<Image parallax src={showcaseItem.header_image} alt={showcaseItem.title} class="w-full h-full transition-all duration-500 opacity-50 hover:opacity-100" />
+					<Image parallax src={showcaseItem.header_image} alt={showcaseItem.title} class="w-full h-full" />
 				</div>
 				<span class="font-medium">{showcaseItem.title}</span>
 			</a>

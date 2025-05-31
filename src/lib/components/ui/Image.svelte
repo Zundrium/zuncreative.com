@@ -47,42 +47,41 @@ const getLqipSrc = (desired_image: string) => {
 </script>
 
 <script lang="ts">
-  let classes: string = "";
-  export { classes as class };
+let classes: string = "";
+export { classes as class };
 
-  export let thumb: boolean | null = null;
-  const thumbSizes =
-    "(min-width: 1280px) 400px, (min-width: 768px) 300px, (min-width: 640px) 250px";
-  export let sizes =
-    "(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px";
+export let thumb: boolean | null = null;
+const thumbSizes =
+	"(min-width: 1280px) 400px, (min-width: 768px) 300px, (min-width: 640px) 250px";
+export let sizes =
+	"(min-width: 1536px) 1536px, (min-width: 1280px) 1280px, (min-width: 1024px) 1024px, (min-width: 768px) 768px, (min-width: 640px) 640px";
 
-  $: imageSizes = thumb ? thumbSizes : sizes;
-  export let src;
-  export let alt = "";
+$: imageSizes = thumb ? thumbSizes : sizes;
+export let src;
+export let alt = "";
 
-  const lqipSrc = getLqipSrc(src);
-  const fullSrc = getHighResImageSrc(src);
+const lqipSrc = getLqipSrc(src);
+const fullSrc = getHighResImageSrc(src);
 
-  export let parallax: boolean = false;
-	$: parallaxAction = parallax ? viewportParallaxImage : undefined;
+export let parallax: boolean = false;
+$: parallaxAction = parallax ? viewportParallaxImage : undefined;
 </script>
 
 <div class={classes} {...$$props}>
-  <div class="w-full h-full relative" use:parallaxAction={parallax}>
-    <enhanced:img
-      loading="lazy"
-      class="w-full h-full object-cover"
-      src={lqipSrc}
-      sizes={imageSizes}
-      {alt}
-    />
-    <enhanced:img
-      loading="lazy"
-      class="absolute top-0 left-0 right-0 bottom-0 h-full w-full object-cover z-10"
-      src={fullSrc}
-      sizes={imageSizes}
-      {alt}
-    />
-  </div>
+	<div class="w-full h-full relative" use:parallaxAction={parallax} >
+		<enhanced:img
+			loading="lazy"
+			class="w-full h-full object-cover"
+			src={lqipSrc}
+			sizes={imageSizes}
+			{alt}
+		/>
+		<enhanced:img
+			loading="lazy"
+			class="absolute top-0 left-0 right-0 bottom-0 h-full w-full object-cover z-10"
+			src={fullSrc}
+			sizes={imageSizes}
+			{alt}
+		/>
+	</div>
 </div>
-

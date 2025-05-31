@@ -60,3 +60,28 @@ h6 {
 body[style*="cursor: none"] .cursor-pointer {
 	cursor: none !important;
 }
+
+.circle-reveal {
+	-webkit-mask: radial-gradient(#000 70%, #0000 71%) content-box 50% /
+		var(--_s, 150% 150%) no-repeat, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	transition: 1s;
+}
+.circle-reveal.open {
+	--_s: 0% 0%;
+}
+
+.stripe-reveal {
+	--s: 100px; /* control the size of the stripes */
+	--g: / var(--s) var(--s) content-box linear-gradient(90deg, #000 50%, #0000 0);
+	-webkit-mask: radial-gradient(#000 0 0), 0 0 var(--g), calc(var(--s) / 2) 0
+		var(--g);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	transition: 1s;
+}
+
+.stripe-reveal.open {
+	-webkit-mask-position: 0 0;
+}

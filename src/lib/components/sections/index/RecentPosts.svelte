@@ -6,10 +6,7 @@ import SectionHeading from "$lib/components/typography/SectionHeading.svelte";
 import Button from "$lib/components/ui/Button.svelte";
 import Image from "$lib/components/ui/Image.svelte";
 import Section from "$lib/components/ui/Section.svelte";
-import {
-	viewportSlideInBottom,
-	viewportParallaxFast,
-} from "$lib/utils/viewportSwitchClass";
+import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 import { formatDate } from "$lib/utils/formatDate";
 
 export let posts: any = [];
@@ -25,9 +22,8 @@ export let posts: any = [];
 		<!-- Latest blog post with thumbnail -->
 		<div
 			class="flex flex-col gap-4 md:gap-4 lg:gap-6 xl:gap-8 items-start"
-			use:viewportSlideInBottom
 		>
-			<a href="/blog/{posts[0].slug}" class="relative cursor-pointer w-full flex-1 overflow-hidden rounded-xl" data-cursor-icon="fullscreen"> 
+			<a href="/blog/{posts[0].slug}" class="relative cursor-pointer w-full flex-1 overflow-hidden rounded-xl" data-cursor-icon="fullscreen" use:viewportSlideInBottom> 
 				<Image
 					parallax
 					alt="{posts[0].title}"

@@ -54,7 +54,7 @@ export function viewportParallaxImage(node: HTMLElement): {
 } {
 	// Pre-scale the image to account for parallax movement
 	gsap.set(node, {
-		scale: 1.15,
+		scale: 1.2,
 		transformOrigin: "center center",
 	});
 
@@ -65,7 +65,7 @@ export function viewportParallaxImage(node: HTMLElement): {
 		scrub: true,
 		onUpdate: (self) => {
 			// Move element faster than scroll but with contained movement
-			const yPos = (self.progress - 0.5) * -75; // Center the movement
+			const yPos = (self.progress - 0.5) * -100; // Center the movement
 			gsap.set(node, {
 				y: yPos,
 				ease: "none",
@@ -331,8 +331,8 @@ export function viewportSlideInBottom(node: HTMLElement): {
 		from: {
 			y: 50,
 			opacity: 0,
-			rotationX: 5,
-			rotationZ: -1,
+			rotationX: 20,
+			rotationZ: -3,
 			transformPerspective: 1000,
 			transformOrigin: "center bottom",
 		},
@@ -418,13 +418,11 @@ export function viewportFade(node: HTMLElement): { destroy: () => void } {
 	return createViewportAnimation(node, {
 		from: {
 			opacity: 0,
-			scale: 0.95,
 		},
 		to: {
 			opacity: 1,
-			scale: 1,
 			duration: 1,
-			ease: "power2.out",
+			ease: "power1.out",
 		},
 	});
 }
@@ -470,6 +468,54 @@ export function viewportActive(node: HTMLElement): { destroy: () => void } {
 		destroy() {
 			scrollTrigger.kill();
 			node.classList.remove("active");
+		},
+	};
+}
+
+export function viewportRevealCircle(node: HTMLElement): {
+	destroy: () => void;
+} {
+	// Add the base class
+	node.classList.add("circle-reveal");
+
+	// Set up ScrollTrigger
+	const trigger = ScrollTrigger.create({
+		trigger: node,
+		start: "top 80%",
+		onEnter: () => node.classList.add("open"),
+		onLeave: () => node.classList.remove("open"),
+		onEnterBack: () => node.classList.add("open"),
+		onLeaveBack: () => node.classList.remove("open"),
+	});
+
+	return {
+		destroy: () => {
+			trigger.kill();
+			node.classList.remove("circle-reveal", "open");
+		},
+	};
+}
+
+export function viewportRevealStripes(node: HTMLElement): {
+	destroy: () => void;
+} {
+	// Add the base class
+	node.classList.add("stripe-reveal");
+
+	// Set up ScrollTrigger
+	const trigger = ScrollTrigger.create({
+		trigger: node,
+		start: "top 80%",
+		onEnter: () => node.classList.add("open"),
+		onLeave: () => node.classList.remove("open"),
+		onEnterBack: () => node.classList.add("open"),
+		onLeaveBack: () => node.classList.remove("open"),
+	});
+
+	return {
+		destroy: () => {
+			trigger.kill();
+			node.classList.remove("stripe-reveal", "open");
 		},
 	};
 }
