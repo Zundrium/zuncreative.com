@@ -165,7 +165,7 @@ onDestroy(() => maskTween?.kill());
             on:mouseenter|stopPropagation={handleMouseEnter}
             on:mouseleave|stopPropagation={handleMouseLeave}
         >
-            <div class="mask" bind:this={maskEl} />
+            <div class="mask" bind:this={maskEl}></div>
             <div class="content">
                 {#if iconLeft}
                     <div class={`${iconClasses} mr-1`} bind:this={iconLeftEl}>
@@ -191,7 +191,7 @@ onDestroy(() => maskTween?.kill());
             on:mouseleave|stopPropagation={handleMouseLeave}
             on:click|preventDefault={click}
         >
-            <div class="mask" bind:this={maskEl} />
+            <div class="mask" bind:this={maskEl}></div>
             <div class="content">
                 {#if iconLeft}
                     <div class={`${iconClasses} mr-1`} bind:this={iconLeftEl}>

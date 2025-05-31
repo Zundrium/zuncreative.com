@@ -242,7 +242,7 @@ onMount(() => {
 		<!-- bottom gradient overlay -->
 		<div class="absolute inset-0 bg-gradient-to-t from-white to-transparent dark:from-black dark:to-transparent"></div>
 
-		<div class="absolute inset-0 ">
+		<div class="absolute inset-0 select-none">
 			<!-- scroll container -->
 			<div bind:this={scrollContainerElement} class="h-full w-auto flex overflow-x-hidden">
 				{#each slides as slide, index}
@@ -256,7 +256,7 @@ onMount(() => {
 								{@html slide.description}
 							</Paragraph>
 						</div>
-						<div class="w-full h-[1px] bg-orange-500">
+						<div class="w-full h-[1px] bg-white/20">
 							<div
 								class="h-full bg-white"
 								style="width: {Math.max(0, Math.min(100, (currentProgress.value - index * 33.33) * 3))}%"
