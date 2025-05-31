@@ -62,14 +62,16 @@ const year = new Date().getFullYear();
           </div>
         {/each}
         <address class="flex flex-col gap-8">
-          <a href="/" class="font-bold text-3xl" aria-label="Home">Temp</a>
+          <a href="/" class="font-bold text-3xl w-14 h-14" aria-label="Home">
+					 <object class="pointer-events-none inset-0 w-full h-full duration-500" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+			</a>
           <div class="flex flex-col gap-4 text-slate-700 dark:text-slate-400">
             <Paragraph size="sm">
-              1234 Street Name<br />City, NL
+              Vlierweg 12<br />Amsterdam, NL
             </Paragraph>
-            <a href="mailto:test@test.com" class="hover:underline flex items-center gap-2">
+            <a href="mailto:sem@zuncreative.com" class="hover:underline flex items-center gap-2">
               <MdiEmail class="size-4" />
-              test@test.com
+					sem@zuncreative.com
             </a>
             <a href="tel:+316665658" class="hover:underline flex items-center gap-2">
               <MdiPhone class="size-4" />

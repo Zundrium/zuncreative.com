@@ -21,14 +21,15 @@ export let posts: any = [];
 	backgroundColor="bg-white dark:bg-black"
 >
 	<SectionHeading centered title="Recent <i>thoughts</i>" subtitle="Blog" />
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8 xl:gap-12">
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 lg:gap-6 xl:gap-8">
 		<!-- Latest blog post with thumbnail -->
 		<div
-			class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 items-start"
+			class="flex flex-col gap-4 md:gap-4 lg:gap-6 xl:gap-8 items-start"
 			use:viewportSlideInBottom
 		>
-			<a href="/blog/{posts[0].slug}" class="relative cursor-pointer w-full aspect-16/9 overflow-hidden rounded-xl" data-cursor-icon="fullscreen"> 
+			<a href="/blog/{posts[0].slug}" class="relative cursor-pointer w-full flex-1 overflow-hidden rounded-xl" data-cursor-icon="fullscreen"> 
 				<Image
+					parallax
 					alt="{posts[0].title}"
 					src="{posts[0].header_image}"
 					class="absolute inset-0 w-full h-full object-cover "
@@ -55,7 +56,7 @@ export let posts: any = [];
 		</div>
 
 		<!-- List of other blog posts -->
-		<div class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-between items-start">
+		<div class="flex flex-col gap-4 md:gap-4 lg:gap-6 xl:gap-8 justify-between items-start">
 			{#each posts.slice(1) as post}
 				<div
 					class="flex flex-col gap-2 md:gap-2 lg:gap-4 items-start w-full"

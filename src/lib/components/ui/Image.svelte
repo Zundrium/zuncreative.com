@@ -62,10 +62,13 @@ const getLqipSrc = (desired_image: string) => {
 
   const lqipSrc = getLqipSrc(src);
   const fullSrc = getHighResImageSrc(src);
+
+  export let parallax: boolean = false;
+	$: parallaxAction = parallax ? viewportParallaxImage : undefined;
 </script>
 
 <div class={classes} {...$$props}>
-  <div class="w-full h-full relative" use:viewportParallaxImage>
+  <div class="w-full h-full relative" use:parallaxAction={parallax}>
     <enhanced:img
       loading="lazy"
       class="w-full h-full object-cover"

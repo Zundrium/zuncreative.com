@@ -162,7 +162,6 @@ onDestroy(() => maskTween?.kill());
             bind:this={buttonEl}
             on:mouseenter|stopPropagation={handleMouseEnter}
             on:mouseleave|stopPropagation={handleMouseLeave}
-            on:click|preventDefault={click}
         >
             <div class="mask" bind:this={maskEl} />
             <div class="content">
@@ -181,7 +180,7 @@ onDestroy(() => maskTween?.kill());
         </a>
     </div>
 {:else}
-    <div class="button-container">
+    <div class="button-container ">
         <button
             {ariaLabel}
             class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]}`}
