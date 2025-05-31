@@ -29,19 +29,19 @@ interface Slide {
 
 const slides: Slide[] = [
 	{
-		title: "Let's create an <br/>immersive <i>experience</i>",
+		title: "An <i>immersive</i> experience",
 		description:
-			"My name is Sem and I enjoy making 3D focused websites<br/>for immersive marketing campaigns or games.",
+			"My name is Sem and I enjoy making 3D focused websites for immersive marketing campaigns or games.",
 	},
 	{
-		title: "Time to expand<br/>your <i>horizon</i>",
+		title: "A <i>new</i> horizon",
 		description:
-			"With the latest web technologies, we can create stunning<br/>3D experiences that are accessible to everyone.",
+			"With the latest web technologies, we can create stunning 3D experiences that are accessible to everyone.",
 	},
 	{
-		title: "A world starts with<br/>a single <i>click</i>",
+		title: "A <i>single</i> click",
 		description:
-			" With a QR code or short link everyone in the world<br/>can access your new experience.",
+			" With a QR code or short link everyone in the world can access your new experience.",
 	},
 ];
 
@@ -227,7 +227,7 @@ onMount(() => {
 <div bind:this={sequenceContainer} class="w-full relative h-[4000px]">
 	<Section
 		id="scroll-sequence"
-		containerClasses="cursor-scroll sticky top-0 h-dvh overflow-x-hidden pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32 -mt-20 md:-mt-27"
+		containerClasses="cursor-scroll sticky top-0 h-dvh overflow-x-hidden pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32"
 		class="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 "
 		backgroundColor="bg-white dark:bg-black"
 		bind:element={sequenceBox}
@@ -245,7 +245,7 @@ onMount(() => {
 			<div bind:this={scrollContainerElement} class="h-full w-auto flex overflow-x-hidden">
 				{#each slides as slide, index}
 					<div
-						class="flex flex-none flex-col justify-end gap-4 md:gap-6 lg:gap-8 xl:gap-10 h-full w-dvw p-4 lg:p-8 2xl:p-12"
+						class="flex flex-none flex-col justify-end gap-4 md:gap-6 lg:gap-8 xl:gap-10 h-full w-dvw p-8 lg:p-8 2xl:p-12"
 					>
 						<div bind:this={slideElements[index]} class="flex flex-col gap-4 lg:gap-6">
 							<H2 class="text-black dark:text-white"

@@ -35,7 +35,7 @@ $: filteredShowcaseItems = activeTag
 </script>
 
 <Section
-	id="blog-items"
+	id="showcase"
 	class="flex flex-col gap-4 md:gap-6 lg:gap-8 justify-center"
 	backgroundColor="bg-white dark:bg-black"
 >
@@ -61,7 +61,7 @@ $: filteredShowcaseItems = activeTag
 		</Button>
 	</div>
 	<div
-		class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-4 auto-rows-[20rem] gap-4 md:gap-4 lg:gap-4 xl:gap-6 grid-flow-row-dense"
+		class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[12rem] md:auto-rows-[14rem] lg:auto-rows-[20rem] gap-4 md:gap-4 lg:gap-4 xl:gap-6 grid-flow-row-dense"
 	>
 {#each filteredShowcaseItems as showcaseItem}		
 			<a	

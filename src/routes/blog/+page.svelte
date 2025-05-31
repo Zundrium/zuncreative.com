@@ -19,6 +19,9 @@ let { data } = $props();
 function capitalizeAndStripesToSpaces(str: string) {
 	return str.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 }
+
+import MdiArrowRight from "~icons/mdi/arrow-right";
+import H3 from "$lib/components/typography/H3.svelte";
 </script>
 
 <SeoHead
@@ -32,56 +35,43 @@ function capitalizeAndStripesToSpaces(str: string) {
 	}}
 />
 
-<PageHeading>
-	<H1>{m.blog_title()}</H1>
-	<Paragraph size="xl">
-		{m.blog_description()}
-	</Paragraph>
-</PageHeading>
 <Section
-	id="blog"
-	backgroundColor="bg-white dark:bg-slate-900"
-	class="flex flex-col items-stretch justify-stretch gap-8 lg:gap-12 xl:gap-16 !lg:py-0 !px-0 !py-0"
+	id="post"
+	class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-center"
+	backgroundColor="bg-white dark:bg-black"
 >
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-12 xl:gap-16">
+	<SectionHeading centered title="Recent <i>thoughts</i>" subtitle="Blog" />
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 lg:gap-6 xl:gap-8">
 		{#each data.posts as post}
-			<div
-				class="w-full flex flex-col gap-4 lg:gap-8 items-start"
-				use:viewportSlideInBottom
-			>
-				{#if post.header_image}
-					<a
-						class="w-full block relative overflow-hidden"
-						href="/blog/{post.slug}"
-					>
-						<Image
-							thumb
-							class="w-full transition-transform translate-z-0 scale-100 hover:scale-110 duration-400 ease-in-out"
-							src={post.header_image}
-							alt={post.title}
-						/>
-					</a>
-				{/if}
-				<div
-					class="px-4 lg:px-0 flex flex-col items-start gap-4 lg:gap-8"
-				>
-					<SectionHeading
-						title={post.title}
-						href="/blog/{post.slug}"
-						subtitle={formatDate(post.publish_date)}
-					/>
-					<Paragraph>{post.description}</Paragraph>
-					<Button
-						ariaLabel="Lees meer over {capitalizeAndStripesToSpaces(
-							post.slug,
-						)}"
-						href="/blog/{post.slug}"
-						iconRight={MdiArrowUpRightThick}
-					>
-						Lees meer over {capitalizeAndStripesToSpaces(post.slug)}
-					</Button>
-				</div>
+		<div
+			class="flex flex-col gap-4 md:gap-4 lg:gap-6 xl:gap-8 items-start"
+		>
+			<a href="/blog/{post.slug}" class="relative cursor-pointer w-full aspect-4/2 overflow-hidden rounded-xl" data-cursor-icon="fullscreen" use:viewportSlideInBottom> 
+				<Image
+					parallax
+					alt="{post.title}"
+					src="{post.header_image}"
+					class="absolute inset-0 w-full h-full object-cover "
+					sizes="(min-width:1920px) 1920px, (min-width:1280px) 1280px, (min-width:768px) 480px"
+				/>
+			</a>
+			<div class="flex flex-col gap-2">
+				<hgroup class="flex flex-col gap-1 md:gap-2">
+					<H3>{post.title}</H3>
+				</hgroup>
+				<Paragraph class="flex-1">
+					{post.description}
+				</Paragraph>
 			</div>
-		{/each}
+			<div class="w-full flex items-center justify-between gap-2">
+				<Button
+					style="line"
+					href={`/blog/${post.slug}`}
+					ariaLabel="Blogpost: {post.title}"
+					iconRight={MdiArrowRight}>Lees meer</Button>
+				<span class="text-black/80 dark:text-white/80">{formatDate(post.publish_date)}</span>
+			</div>
+		</div>
+{/each}
 	</div>
 </Section>

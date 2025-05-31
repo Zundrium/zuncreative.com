@@ -12,20 +12,9 @@ import Paragraph from "$lib/components/typography/Paragraph.svelte";
 import { page } from "$app/stores";
 
 const navLinks = [
-	{ name: "Home", href: "/" },
-	{ name: "How it works", href: "/#how-it-works" },
 	// { name: "Showcase", href: "/#showcase" },
 	{ name: "Blog", href: "/blog" },
-	{ name: "Tarieven", href: "/#pricing" },
-	{
-		name: "Products",
-		subMenuId: "products",
-		subMenu: [
-			{ name: "Product One", href: "/" },
-			{ name: "Product Number Two", href: "/" },
-			{ name: "Product Three", href: "/" },
-		],
-	},
+	{ name: "Showcase", href: "/#showcase" },
 	{
 		name: "Services",
 		subMenuId: "services",
@@ -184,7 +173,7 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 	class="sticky flex flex-col items-center z-50 top-0 left-0 right-0"
 >
 	<div
-		class="{navbarClass} w-full transition-colors duration-300 flex justify-center"
+		class="{navbarClass} w-full transition-colors duration-300 flex justify-center h-24 -mb-24"
 	>
 		<div
 			class="container px-4 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-svh {mobileNavOpen
@@ -299,7 +288,7 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 			</nav>
 			<Button
 				href="/#contact"
-				class="hidden lg:flex"
+				class="hidden! lg:flex!"
 				ariaLabel="Call to Action Button"
 				iconLeft={MdiPhone}
 			>

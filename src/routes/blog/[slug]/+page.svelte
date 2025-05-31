@@ -35,13 +35,14 @@ function capitalizeAndStripesToSpaces(str: string) {
 <section
 	id="hero"
 	style="clip-path: inset(0 0 0 0); backface-visibility: hidden;"
-	class="relative px-4 h-svh w-full bg-slate-500 flex flex-col gap-8 items-center justify-end pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32 -mt-20 md:-mt-20"
+	class="relative px-4 h-svh w-full bg-slate-500 flex flex-col gap-8 items-center justify-end pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32"
 >
 	{#if post.header_image}
 		<Image
+			parallax
 			src={post.header_image}
 			alt={post.title}
-			class="absolute top-0 left-0 right-0 bottom-0 w-full z-0 h-full object-cover bg-fixed"
+			class="absolute top-0 left-0 right-0 bottom-0 w-full z-0 h-full object-cover fixed"
 		/>
 	{/if}
 

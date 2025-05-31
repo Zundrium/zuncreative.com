@@ -24,9 +24,9 @@ let brandNames = [
     {/each}
   </div>
   <!-- Left gradient fade -->
-  <div class="absolute left-0 top-0 h-full w-100 bg-gradient-to-r from-white to-transparent dark:from-black pointer-events-none"></div>
+  <div class="absolute left-0 top-0 h-full w-25 md:w-50 lg:w-100 bg-gradient-to-r from-white to-transparent dark:from-black pointer-events-none"></div>
   <!-- Right gradient fade -->
-  <div class="absolute right-0 top-0 h-full w-100 bg-gradient-to-l from-white to-transparent dark:from-black pointer-events-none"></div>
+  <div class="absolute right-0 top-0 h-full w-25 md:w-50 lg:w-100 bg-gradient-to-l from-white to-transparent dark:from-black pointer-events-none"></div>
 </div>
 
 <style>

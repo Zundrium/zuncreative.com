@@ -65,7 +65,7 @@ export function viewportParallaxImage(node: HTMLElement): {
 		scrub: true,
 		onUpdate: (self) => {
 			// Move element faster than scroll but with contained movement
-			const yPos = (self.progress - 0.5) * -100; // Center the movement
+			const yPos = (self.progress - 0.5) * -(node.clientHeight / 5); // Center the movement
 			gsap.set(node, {
 				y: yPos,
 				ease: "none",

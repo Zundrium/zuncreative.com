@@ -4,6 +4,8 @@ import { onDestroy } from "svelte";
 import gsap from "gsap";
 import type { ComponentType, SvelteComponent } from "svelte";
 
+let classes = "";
+export { classes as class };
 export let href: string | undefined = undefined;
 export let ariaLabel: string | undefined = undefined;
 export let iconLeft: ComponentType<SvelteComponent> | undefined = undefined;
@@ -154,7 +156,7 @@ onDestroy(() => maskTween?.kill());
 </style>
 
 {#if href}
-    <div class="button-container">
+    <div class="{classes} button-container ">
         <a
             {href}
             {ariaLabel}
@@ -180,7 +182,7 @@ onDestroy(() => maskTween?.kill());
         </a>
     </div>
 {:else}
-    <div class="button-container ">
+    <div class="{classes} button-container ">
         <button
             {ariaLabel}
             class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]}`}
