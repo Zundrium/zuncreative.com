@@ -22,7 +22,7 @@ let maskTween: gsap.core.Tween | null = null;
 
 // Base classes for all buttons
 const baseClasses =
-	"cursor-pointer font-medium w-full relative inline-flex items-center justify-center transition-colors duration-300 ease-[cubic-bezier(0.215,0.61,0.355,1)] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 z-10";
+	`${classes} cursor-pointer font-medium w-full relative inline-flex items-center justify-center transition-colors duration-300 ease-[cubic-bezier(0.215,0.61,0.355,1)] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 z-10`;
 
 // Style variants
 const styleClasses = {
@@ -144,13 +144,13 @@ onDestroy(() => maskTween?.kill());
 {#if href}
     <div class="button-container ">
        <a 
+            {...$$props}
             {href}
-            {ariaLabel}
-            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]} ${classes}`}
+            aria-label={ariaLabel}
+            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]}`}
             bind:this={buttonEl}
             on:mouseenter|stopPropagation={handleMouseEnter}
             on:mouseleave|stopPropagation={handleMouseLeave}
-				{...$$props}
         >
             <div class="mask bg-black dark:bg-white" bind:this={maskEl}></div>
             <div class="content">
@@ -171,8 +171,8 @@ onDestroy(() => maskTween?.kill());
 {:else}
     <div class="button-container ">
         <button
-            {ariaLabel}
-            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]} ${classes} `}
+            aria-label={ariaLabel}
+            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]} `}
             bind:this={buttonEl}
             on:mouseenter|stopPropagation={handleMouseEnter}
             on:mouseleave|stopPropagation={handleMouseLeave}

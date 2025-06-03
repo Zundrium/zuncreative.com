@@ -289,7 +289,7 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 			<Button
 				href="/#contact"
 				style="line"
-				class="hidden! lg:flex!"
+				class="hidden! lg:inline-flex!"
 				ariaLabel="Call to Action Button"
 				iconLeft={MdiPhone}
 			>
