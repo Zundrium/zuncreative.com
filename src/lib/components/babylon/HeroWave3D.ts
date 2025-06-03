@@ -108,15 +108,15 @@ export class HeroWave3D implements IBabylonGraphics {
 		pipeline.depthOfFieldEnabled = true;
 		pipeline.depthOfField.focusDistance = 2.25 * 1000;
 		pipeline.depthOfField.fStop = 1.4;
-		pipeline.depthOfField.focalLength = 100;
+		pipeline.depthOfField.focalLength = 90;
 		pipeline.depthOfFieldBlurLevel = DepthOfFieldEffectBlurLevel.Medium;
 		//pipeline.bloomEnabled = true;
 		//pipeline.bloomWeight = 1;
 		//pipeline.bloomKernel = 5;
 		//pipeline.bloomThreshold = 0;
-		pipeline.imageProcessingEnabled = true;
-		pipeline.imageProcessing.toneMappingEnabled = true;
-		pipeline.imageProcessing.toneMappingType = 1;
+		//pipeline.imageProcessingEnabled = true;
+		//pipeline.imageProcessing.toneMappingEnabled = true;
+		//pipeline.imageProcessing.toneMappingType = 1;
 		return pipeline;
 	}
 

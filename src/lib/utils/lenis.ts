@@ -1,4 +1,6 @@
 // src/lib/lenis.ts
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { browser } from "$app/environment";
 import { writable } from "svelte/store";
@@ -11,6 +13,7 @@ let lenis: Lenis | null = null;
 export function initLenis() {
 	if (!browser) return;
 	history.scrollRestoration = "manual";
+	gsap.registerPlugin(ScrollTrigger);
 
 	// Create Lenis instance
 	lenis = new Lenis({
@@ -49,12 +52,19 @@ export function destroyLenis() {
 export function scrollTo(target: string | number | HTMLElement, options?: any) {
 	if (lenis) {
 		lenis.scrollTo(target, options);
+setTimeout(() => {
+			ScrollTrigger.refresh();
+		})
+
 	}
 }
 
 export function scrollToTop() {
 	if(lenis) {
 		lenis.scrollTo(0, {immediate: true});
+		setTimeout(() => {
+			ScrollTrigger.refresh();
+		})
 	}
 }
 

@@ -247,7 +247,7 @@ onMount(() => {
 			<div bind:this={scrollContainerElement} class="h-full w-auto flex overflow-x-hidden">
 				{#each slides as slide, index}
 					<div
-						class="flex flex-none flex-col justify-end gap-4 md:gap-6 lg:gap-8 xl:gap-10 h-full w-dvw p-8 lg:p-8 2xl:p-12"
+						class="flex flex-none flex-col justify-end gap-4 md:gap-6 lg:gap-8 xl:gap-10 h-full w-dvw p-8 lg:p-12 xl:p-24 2xl:p-36"
 					>
 						<div bind:this={slideElements[index]} class="flex flex-col gap-4 lg:gap-6">
 							<H2 class="text-black dark:text-white"

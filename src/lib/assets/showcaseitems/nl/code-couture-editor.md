@@ -6,7 +6,7 @@ publish_date: '2022-10-10'
 keywords: '3d, web'
 mobile: false
 header_image: '/images/showcase/codecouture-editor/gallery/03.png'
-
+external_url: "https://cceditor.zuncreative.com"
 partner: 'VideOrbit Studio'
 video: '/video/showcase/codecouture-editor/video.mp4'
 gallery:
