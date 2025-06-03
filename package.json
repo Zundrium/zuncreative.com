@@ -26,6 +26,7 @@
 		"@types/leaflet": "^1.9.17",
 		"@types/node": "^22.13.0",
 		"autoprefixer": "^10.4.20",
+		"bun": "^1.2.15",
 		"mdsvex": "^0.12.3",
 		"rollup-plugin-visualizer": "^5.14.0",
 		"svelte": "^5.23.0",

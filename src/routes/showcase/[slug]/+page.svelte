@@ -114,7 +114,7 @@ $effect(() => {
 
 		{/if}
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-			{#each item.gallery as galleryImage}
+			{#each item.gallery! as galleryImage}
 				<Image
 					parallax
 					src={galleryImage}
