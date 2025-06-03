@@ -6,24 +6,7 @@ import HeroSequence from "$lib/components/sections/index/HeroSequence.svelte";
 import BrandCarousel from "$lib/components/sections/index/BrandCarousel.svelte";
 import RecentPosts from "$lib/components/sections/index/RecentPosts.svelte";
 import type { MarkdownTextfile } from "$lib/utils/types";
-import CircleCursor from "$lib/utils/circleCursor";
-import { onDestroy, onMount } from "svelte";
-
-let cursor: CircleCursor;
-
-onMount(() => {
-	cursor = new CircleCursor();
-
-	// Optional: customize the cursor
-	// cursor.setColor('#ff6b6b');
-	// cursor.setSize(15);
-});
-
-onDestroy(() => {
-	if (cursor) {
-		cursor.destroy();
-	}
-});
+import Services from "$lib/components/sections/index/Services.svelte";
 
 export let data: {
 	posts: MarkdownTextfile[];
@@ -45,6 +28,7 @@ export let data: {
 
 <HeroSequence />
 <BrandCarousel />
+<Services />
 <RecentPosts posts={data.posts} />
 <Showcase showcaseItems={data.showcaseItems}/>
 <Contact />

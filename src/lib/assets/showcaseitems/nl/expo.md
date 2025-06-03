@@ -8,6 +8,7 @@ mobile: false
 featured: true
 header_image: '/images/showcase/expo.jpg'
 external_url: 'https://expo.zuncreative.com'
+video: '/video/showcase/amazon-deforestation_mobile.mp4'
 ---
 This demo shows the possibilities of new texture compression techniques, making it possible to reduce the filesize of a complete 3D expo to 9MB (Normally 50MB).
 Other solutions have way longer loading times and are not made to be used on mobile phones.

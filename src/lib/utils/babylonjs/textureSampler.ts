@@ -8,41 +8,52 @@ export interface ITextureSampler {
 
 export class TextureSampler implements ITextureSampler {
 	private redChannel: Float32Array | null = null;
-	private width: number = 0;
-	private height: number = 0;
-	private isReady: boolean = false;
+	private width = 0;
+	private height = 0;
+	private isReady = false;
 	private texture: Texture;
+
+	// Pre-calculate frequently used values
+	private readonly speedX: number;
+	private readonly speedY: number;
+	private readonly scale: number;
 
 	constructor(
 		image_url: string,
 		public intensity = 1,
-		private speed: Vector2 = new Vector2(0.1, 0.05),
-		private scale: number = 1,
+		speed: Vector2 = new Vector2(0.1, 0.05),
+		scale = 1,
 	) {
 		this.texture = new Texture(image_url);
+		this.speedX = speed.x;
+		this.speedY = speed.y;
+		this.scale = scale;
 
 		this.texture.onLoadObservable.add(() => {
-			this.width = this.texture.getSize().width;
-			this.height = this.texture.getSize().height;
-			this.redChannel = new Float32Array(this.width * this.height);
+			const size = this.texture.getSize();
+			this.width = size.width;
+			this.height = size.height;
+			const pixelCount = this.width * this.height;
+			this.redChannel = new Float32Array(pixelCount);
 
 			this.texture
 				.readPixels(0, 0, null, true, false, 0, 0, this.width, this.height)
 				?.then((buffer) => {
-					if (!buffer) {
-						return;
-					}
+					if (!buffer || !this.redChannel) return;
 
-					const pixelCount = this.width * this.height;
-					const redChannelRef = this.redChannel!;
+					const redChannelRef = this.redChannel;
+
 					if (buffer instanceof Uint8Array) {
-						for (let i = 0; i < pixelCount; i++) {
-							redChannelRef[i] = buffer[i * 4] / 255;
+						// Unrolled loop for better performance
+						let bufferIdx = 0;
+						for (let i = 0; i < pixelCount; i++, bufferIdx += 4) {
+							redChannelRef[i] = buffer[bufferIdx] * 0.003921568627451; // 1/255
 						}
 					} else {
 						const floatBuffer = buffer as Float32Array;
-						for (let i = 0; i < pixelCount; i++) {
-							redChannelRef[i] = floatBuffer[i * 4];
+						let bufferIdx = 0;
+						for (let i = 0; i < pixelCount; i++, bufferIdx += 4) {
+							redChannelRef[i] = floatBuffer[bufferIdx];
 						}
 					}
 
@@ -54,61 +65,61 @@ export class TextureSampler implements ITextureSampler {
 		});
 	}
 
-	private positiveModulo(n: number, m: number): number {
-		return ((n % m) + m) % m;
+	// Inlined and optimized modulo function
+	private static positiveModulo(n: number, m: number): number {
+		const result = n % m;
+		return result < 0 ? result + m : result;
 	}
 
-	public getFloatAt(u: number, v: number, time: number = 0): number {
-		if (!this.isReady || !this.redChannel) {
-			return 0;
-		}
+	public getFloatAt(u: number, v: number, time = 0): number {
+		if (!this.isReady || !this.redChannel) return 0;
 
-		const width = this.width;
-		const height = this.height;
-		const redChannel = this.redChannel;
-		const intensity = this.intensity;
-		const speedX = this.speed.x;
-		const speedY = this.speed.y;
-		const scale = this.scale;
+		const { width, height, redChannel, speedX, speedY, scale } = this;
 
-		let scaledU = u * scale;
-		let scaledV = v * scale;
+		// Calculate animated UV coordinates
+		const scaledU = u * scale;
+		const scaledV = v * scale;
 
-		let offsetU = scaledU + time * speedX;
-		let offsetV = scaledV + time * speedY;
+		const offsetU = TextureSampler.positiveModulo(scaledU + time * speedX, 1.0);
+		const offsetV = TextureSampler.positiveModulo(scaledV + time * speedY, 1.0);
 
-		offsetU = this.positiveModulo(offsetU, 1.0);
-		offsetV = this.positiveModulo(offsetV, 1.0);
-
+		// Convert to pixel coordinates
 		const x = offsetU * width;
-		const y = (1 - offsetV) * height;
+		const y = (1.0 - offsetV) * height;
+
+		// Floor once and reuse
 		const x0 = Math.floor(x);
 		const y0 = Math.floor(y);
 
+		// Interpolation factors
 		const sx = x - x0;
 		const sy = y - y0;
 
-		const x0_wrapped = this.positiveModulo(x0, width);
-		const x1_wrapped = this.positiveModulo(x0 + 1, width);
-		const y0_wrapped = this.positiveModulo(y0, height);
-		const y1_wrapped = this.positiveModulo(y0 + 1, height);
+		// Wrap coordinates (optimized modulo for positive integers)
+		const x0_wrapped = x0 >= width ? x0 - width : x0;
+		const x1_wrapped = x0 + 1 >= width ? x0 + 1 - width : x0 + 1;
+		const y0_wrapped = y0 >= height ? y0 - height : y0;
+		const y1_wrapped = y0 + 1 >= height ? y0 + 1 - height : y0 + 1;
 
-		const v00 = redChannel[y0_wrapped * width + x0_wrapped];
-		const v10 = redChannel[y0_wrapped * width + x1_wrapped];
-		const v01 = redChannel[y1_wrapped * width + x0_wrapped];
-		const v11 = redChannel[y1_wrapped * width + x1_wrapped];
+		// Calculate array indices once
+		const y0_offset = y0_wrapped * width;
+		const y1_offset = y1_wrapped * width;
 
+		// Sample texture values
+		const v00 = redChannel[y0_offset + x0_wrapped];
+		const v10 = redChannel[y0_offset + x1_wrapped];
+		const v01 = redChannel[y1_offset + x0_wrapped];
+		const v11 = redChannel[y1_offset + x1_wrapped];
+
+		// Bilinear interpolation (optimized)
 		const top = v00 + (v10 - v00) * sx;
 		const bottom = v01 + (v11 - v01) * sx;
-		const value = top + (bottom - top) * sy;
 
-		return value;
+		return top + (bottom - top) * sy;
 	}
 
 	public dispose(): void {
-		if (this.texture) {
-			this.texture.dispose();
-		}
+		this.texture?.dispose();
 		this.redChannel = null;
 		this.isReady = false;
 	}

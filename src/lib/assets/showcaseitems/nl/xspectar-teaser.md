@@ -8,6 +8,7 @@ mobile: false
 header_image: '/images/showcase/xspectar-teaser.jpg'
 external_url: 'https://xspectar-teaser.zuncreative.com'
 partner: 'Reblika'
+video: '/video/showcase/amazon-deforestation_mobile.mp4'
 ---
 xSpectar focuses on the NFT and Web3.0 space. Even having their own crypto currency network with a token called $XSPECTAR which is based on the XRPL network.
       

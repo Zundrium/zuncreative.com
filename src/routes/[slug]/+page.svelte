@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { formatDate, formatDateToISO8601 } from "$lib/utils/formatDate.js";
-	import SeoHead from "$lib/utils/SeoHead.svelte";
-	import * as m from "$lib/paraglide/messages.js";
-	import H1 from "$lib/components/typography/H1.svelte";
-	import Paragraph from "$lib/components/typography/Paragraph.svelte";
-	import PageHeading from "$lib/components/ui/PageHeading.svelte";
-	import Image from "$lib/components/ui/Image.svelte";
+import { formatDate, formatDateToISO8601 } from "$lib/utils/formatDate.js";
+import SeoHead from "$lib/utils/SeoHead.svelte";
+import * as m from "$lib/paraglide/messages.js";
+import H1 from "$lib/components/typography/H1.svelte";
+import Paragraph from "$lib/components/typography/Paragraph.svelte";
+import PageHeading from "$lib/components/ui/PageHeading.svelte";
+import Image from "$lib/components/ui/Image.svelte";
 
-	let { data } = $props();
+let { data } = $props();
 </script>
 
 <SeoHead
 	props={{
 		title: data.title,
 		description: data.description,
-		keywords: data.keywords,
+		keywords: data.keywords.join(", "),
 		slug: data.slug,
 		thumbnail: `${data.header_image}`,
 		type: "BlogPosting",

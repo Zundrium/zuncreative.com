@@ -5,7 +5,6 @@ import MdiPhone from "~icons/mdi/phone";
 import MdiArrowDown from "~icons/mdi/arrow-down";
 
 import Button from "$lib/components/ui/Button.svelte";
-import { slide, fade } from "svelte/transition";
 import { onMount } from "svelte";
 import H3 from "$lib/components/typography/H3.svelte";
 import Paragraph from "$lib/components/typography/Paragraph.svelte";
@@ -13,17 +12,18 @@ import { page } from "$app/stores";
 
 const navLinks = [
 	// { name: "Showcase", href: "/#showcase" },
+	{ name: "Diensten", href: "/#services" },
 	{ name: "Blog", href: "/blog" },
 	{ name: "Showcase", href: "/#showcase" },
-	{
-		name: "Services",
-		subMenuId: "services",
-		subMenu: [
-			{ name: "Service #1", href: "/" },
-			{ name: "Service #2", href: "/" },
-			{ name: "Service #3", href: "/" },
-		],
-	},
+	//{
+	//	name: "Services",
+	//	subMenuId: "services",
+	//	subMenu: [
+	//		{ name: "Service #1", href: "/" },
+	//		{ name: "Service #2", href: "/" },
+	//		{ name: "Service #3", href: "/" },
+	//	],
+	//},
 ];
 
 let initialized: boolean = false;

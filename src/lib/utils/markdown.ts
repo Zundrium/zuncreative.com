@@ -13,11 +13,17 @@ async function parseMarkdown(
 		modify_date: fileContents.metadata.modify_date,
 		description: fileContents.metadata.description,
 		slug: slug,
-		keywords: fileContents.metadata.keywords,
+		keywords: fileContents.metadata.keywords
+			.toLowerCase()
+			.replace(/\s/g, "")
+			.split(","),
 		header_image: fileContents.metadata.header_image,
 		header_image_position: fileContents.metadata.header_image_position,
 		mobile: fileContents.metadata.mobile,
 		featured: fileContents.metadata.featured,
+		video: fileContents.metadata.video,
+		external_url: fileContents.metadata.external_url,
+		gallery: fileContents.metadata.gallery,
 		component: fileContents.default,
 	};
 }

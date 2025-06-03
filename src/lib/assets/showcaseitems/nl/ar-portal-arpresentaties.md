@@ -7,5 +7,6 @@ keywords: 'ar, web'
 mobile: true
 header_image: '/images/showcase/ar-portal-arpresentaties_mobile.jpg'
 partner: 'Capitola'
+video: '/video/showcase/amazon-deforestation_mobile.mp4'
 ---
 An example that shows the possibilities using 8th Wall's perfect world tracking. When you step through the portal an interactive 360 environment is shown.

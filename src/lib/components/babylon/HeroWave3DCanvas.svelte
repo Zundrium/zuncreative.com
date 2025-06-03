@@ -11,7 +11,7 @@ export let onReady: () => void = () => {};
 
 onMount(async () => {
 	const HeroWave3D = (await import("./HeroWave3D")).HeroWave3D;
-	babylonGraphics = new HeroWave3D(null);
+	babylonGraphics = new HeroWave3D();
 	await babylonGraphics.initialize(renderCanvas);
 
 	initialized = true;

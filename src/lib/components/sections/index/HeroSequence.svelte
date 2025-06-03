@@ -29,19 +29,19 @@ interface Slide {
 
 const slides: Slide[] = [
 	{
-		title: "An <i>immersive</i> experience",
+		title: "Iets wat blijft <i>hangen</i>",
 		description:
-			"My name is Sem and I enjoy making 3D focused websites for immersive marketing campaigns or games.",
+			"Ik ben Sem, ik bouw werelden die je niet zomaar wegklikt. Met 3D krijgt je website karakter, een gevoel, iets dat mensen echt onthouden.",
 	},
 	{
-		title: "A <i>new</i> horizon",
+		title: "Interactieve <i>verhalen</i>",
 		description:
-			"With the latest web technologies, we can create stunning 3D experiences that are accessible to everyone.",
+			"Jouw muis wordt een toverstaf in een betoverende digitale wereld. Elk element reageert op jouw aanraking, en samen creëren we een ervaring die je blijft raken.",
 	},
 	{
-		title: "A <i>single</i> click",
+		title: "Voor iedereen <i>toegankelijk</i>",
 		description:
-			" With a QR code or short link everyone in the world can access your new experience.",
+			"Geen gedoe, geen downloads, 3D op het web opent deuren met één klik. Voor iedereen, overal, meteen toegankelijk en klaar om te fascineren.",
 	},
 ];
 

@@ -3,10 +3,6 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html {
-	scroll-behavior: smooth;
-}
-
 body {
 	/* font-family: "Red Hat Display", sans-serif; */
 	/* font-family: "Noto Serif Variable", serif; */
@@ -35,6 +31,30 @@ h6 {
 		font-optical-sizing: auto;
 		font-style: italic;
 	}
+}
+
+.sans {
+	font-family: "Noto Sans Variable", sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+.serif {
+	font-family: "Noto Serif Variable", serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+.sans-display {
+	font-family: "Noto Sans Display Variable", serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+.serif-display {
+	font-family: "Noto Serif Display Variable", serif;
+	font-optical-sizing: auto;
+	font-style: normal;
 }
 
 .halfcontainer {

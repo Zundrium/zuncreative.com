@@ -1,5 +1,3 @@
-import type { SvelteComponent } from "svelte";
-
 export interface SeoHeadProps {
 	title: string;
 	description: string;
@@ -17,10 +15,13 @@ export interface MarkdownTextfile {
 	modify_date: string;
 	description: string;
 	slug: string;
-	keywords: string;
+	keywords: string[];
+	gallery?: string[];
 	header_image: string;
 	header_image_position: string;
+	external_url?: string;
 	component: ConstructorOfATypedSvelteComponent;
+	video?: string;
 	mobile?: boolean;
 	featured?: boolean;
 }

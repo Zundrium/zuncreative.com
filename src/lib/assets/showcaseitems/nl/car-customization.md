@@ -7,7 +7,15 @@ keywords: '3d, web'
 mobile: false
 header_image: '/images/showcase/car-customization.jpg'
 external_url: 'https://demo.zuncreative.com/car-demo'
+video: '/video/showcase/car-demo.mp4'
+gallery:
+    - '/images/showcase/car-demo0.png'
+    - '/images/showcase/car-demo1.png'
+    - '/images/showcase/car-demo2.png'
+    - '/images/showcase/car-demo3.png'
+    - '/images/showcase/car-demo4.png'
+    - '/images/showcase/car-demo5.png'
 ---
-<p>This demo shows how you can even show the insides of your car. Another perspective with respect to size and shape instead of showing flat images.</p>
+Deze demo laat zien hoe je zelfs de binnenkant van je auto kunt tonen. Een ander perspectief met betrekking tot grootte en vorm in plaats van platte afbeeldingen te tonen. Dit is slechts een demo, maar het idee kan worden uitgebreid met showcases van hoe en waar je je nieuwe auto zou gebruiken.
 
-      <p>This is just a demo, but the idea can be expanded with showcases of how and where you would use your new car.</p>
+

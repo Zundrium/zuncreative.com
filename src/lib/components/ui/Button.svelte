@@ -13,6 +13,7 @@ export let iconRight: ComponentType<SvelteComponent> | undefined = undefined;
 export let style: "normal" | "text" | "line" | "secondary" = "normal";
 export let size: "sm" | "md" | "lg" = "md";
 export let click: (() => void) | undefined = undefined;
+export let external: boolean = false;
 
 let buttonEl: HTMLElement;
 let maskEl: HTMLElement;
@@ -156,14 +157,15 @@ onDestroy(() => maskTween?.kill());
 </style>
 
 {#if href}
-    <div class="{classes} button-container ">
-        <a
+    <div class="button-container ">
+       <a 
             {href}
             {ariaLabel}
-            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]}`}
+            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]} ${classes}`}
             bind:this={buttonEl}
             on:mouseenter|stopPropagation={handleMouseEnter}
             on:mouseleave|stopPropagation={handleMouseLeave}
+				{...$$props}
         >
             <div class="mask" bind:this={maskEl}></div>
             <div class="content">
@@ -182,10 +184,10 @@ onDestroy(() => maskTween?.kill());
         </a>
     </div>
 {:else}
-    <div class="{classes} button-container ">
+    <div class="button-container ">
         <button
             {ariaLabel}
-            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]}`}
+            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]} ${classes} `}
             bind:this={buttonEl}
             on:mouseenter|stopPropagation={handleMouseEnter}
             on:mouseleave|stopPropagation={handleMouseLeave}

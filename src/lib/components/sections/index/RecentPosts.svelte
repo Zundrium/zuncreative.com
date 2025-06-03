@@ -17,8 +17,8 @@ export let posts: any = [];
 	class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-center"
 	backgroundColor="bg-white dark:bg-black"
 >
-	<SectionHeading centered title="Recent <i>thoughts</i>" subtitle="Blog" />
-	<div class="grid grid-cols-1 md:grid-cols-2 gap-6 xl:gap-8">
+	<SectionHeading centered title="Recente <i>gedachten</i>" subtitle="Blog" />
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-8 xl:gap-12">
 		<!-- Latest blog post with thumbnail -->
 		<div
 			class="flex flex-col gap-6 xl:gap-8 items-start"

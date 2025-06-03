@@ -23,10 +23,10 @@ export let stagger: number = 0.1;
 export { className as class };
 
 onMount(() => {
-	const splitElements = [];
+	const splitElements: any[] = [];
 
 	// Function to create split text reveal effect
-	const createSplitReveal = (element) => {
+	const createSplitReveal = (element: any) => {
 		const split = new SplitText(element, { type: "lines" });
 		splitElements.push(split);
 
