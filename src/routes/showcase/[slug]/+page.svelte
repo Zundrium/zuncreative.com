@@ -101,9 +101,9 @@ $effect(() => {
 			<article class="w-full max-w-full! prose lg:prose-xl dark:prose-invert text-center">
 				<item.component />
 			</article>
-			<div class="flex items-center justify-center h-[calc(100svh-6rem)] rounded-xl">
+			<div class="flex items-center justify-center rounded-xl">
 				<video
-					class="rounded-xl w-full h-full object-cover bg-gray-100 dark:bg-gray-900"
+					class="rounded-xl w-full h-full bg-gray-100 dark:bg-gray-900"
 					autoplay
 					loop
 					muted
