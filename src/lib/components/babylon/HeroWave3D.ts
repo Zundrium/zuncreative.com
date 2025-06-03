@@ -32,7 +32,7 @@ export class HeroWave3D implements IBabylonGraphics {
 	private textureSamplerIndex: number = 0;
 	private topColor: Color3 = new Color3(1, 0.5, 0);
 	private bottomColor: Color3 = new Color3(0.5, 0, 1);
-	private particleSize: number = 3;
+	private particleSize: number = 4;
 	private renderPipeline: DefaultRenderingPipeline | null = null;
 
 	public constructor() {}
@@ -79,6 +79,8 @@ export class HeroWave3D implements IBabylonGraphics {
 		return a + (b - a) * t;
 	}
 
+	
+
 	private updateParticleColor(particle: CloudPoint, noiseValue: number): void {
 		particle.color!.r = this.lerp(
 			this.bottomColor.r,
@@ -108,15 +110,16 @@ export class HeroWave3D implements IBabylonGraphics {
 		pipeline.depthOfFieldEnabled = true;
 		pipeline.depthOfField.focusDistance = 2.25 * 1000;
 		pipeline.depthOfField.fStop = 1.4;
-		pipeline.depthOfField.focalLength = 90;
+		pipeline.depthOfField.focalLength = 60;
 		pipeline.depthOfFieldBlurLevel = DepthOfFieldEffectBlurLevel.Medium;
-		//pipeline.bloomEnabled = true;
-		//pipeline.bloomWeight = 1;
-		//pipeline.bloomKernel = 5;
-		//pipeline.bloomThreshold = 0;
-		//pipeline.imageProcessingEnabled = true;
-		//pipeline.imageProcessing.toneMappingEnabled = true;
-		//pipeline.imageProcessing.toneMappingType = 1;
+		//pipeline.chromaticAberrationEnabled = true;
+		pipeline.imageProcessingEnabled = true;
+		pipeline.bloomEnabled = true;
+		pipeline.bloomWeight = 1;
+		pipeline.bloomKernel = 5;
+		pipeline.bloomThreshold = 0;
+		pipeline.imageProcessing.toneMappingEnabled = true;
+		pipeline.imageProcessing.toneMappingType = 1;
 		return pipeline;
 	}
 
