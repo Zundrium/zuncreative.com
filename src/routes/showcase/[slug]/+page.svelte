@@ -86,6 +86,7 @@ $effect(() => {
 					autoplay
 					loop
 					muted
+					preload="none"
 					playsinline>
 					<source src="{item.video}" type="video/mp4">
 					Your browser does not support the video tag.
@@ -102,10 +103,11 @@ $effect(() => {
 			</article>
 			<div class="flex items-center justify-center h-[calc(100svh-6rem)] rounded-xl">
 				<video
-					class="rounded-xl w-full h-full object-cover"
+					class="rounded-xl w-full h-full object-cover bg-gray-100 dark:bg-gray-900"
 					autoplay
 					loop
 					muted
+					preload="none"
 					playsinline>
 					<source src="{item.video}" type="video/mp4">
 					Your browser does not support the video tag.
