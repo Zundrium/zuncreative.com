@@ -51,8 +51,8 @@ export function scrollTo(target: string | number | HTMLElement, options?: any) {
 	}
 }
 
-export function scrollToTop(options?: any) {
-	scrollTo(0, options);
+export function scrollToTop() {
+	window.scrollTo(0, 0);
 }
 
 export function scrollToElement(selector: string, options?: any) {

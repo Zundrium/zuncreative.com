@@ -10,6 +10,8 @@ import Section from "$lib/components/ui/Section.svelte";
 import ScrollIndicator from "$lib/components/ui/ScrollIndicator.svelte";
 import Button from "$lib/components/ui/Button.svelte";
 import Image from "$lib/components/ui/Image.svelte";
+    import { onMount } from "svelte";
+    import { scrollToTop } from "$lib/utils/lenis.js";
 let { data } = $props();
 let post = data.post;
 let posts = data.posts;
@@ -17,6 +19,9 @@ let posts = data.posts;
 function capitalizeAndStripesToSpaces(str: string) {
 	return str.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 }
+onMount(() => {
+	scrollToTop();
+});
 </script>
 
 <SeoHead

@@ -1,16 +1,11 @@
 <script lang="ts">
-import MdiArrowUpRightThick from "~icons/mdi/arrow-up-right-thick";
-
-import type { MarkdownTextfile } from "$lib/utils/types.js";
 import * as m from "$lib/paraglide/messages.js";
 import { formatDate } from "$lib/utils/formatDate";
 import SeoHead from "$lib/utils/SeoHead.svelte";
 import Paragraph from "$lib/components/typography/Paragraph.svelte";
 import Section from "$lib/components/ui/Section.svelte";
 import SectionHeading from "$lib/components/typography/SectionHeading.svelte";
-import PageHeading from "$lib/components/ui/PageHeading.svelte";
 import Button from "$lib/components/ui/Button.svelte";
-import H1 from "$lib/components/typography/H1.svelte";
 import Image from "$lib/components/ui/Image.svelte";
 import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass.js";
 

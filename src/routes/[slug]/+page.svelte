@@ -6,8 +6,13 @@ import H1 from "$lib/components/typography/H1.svelte";
 import Paragraph from "$lib/components/typography/Paragraph.svelte";
 import PageHeading from "$lib/components/ui/PageHeading.svelte";
 import Image from "$lib/components/ui/Image.svelte";
+    import { onMount } from "svelte";
+    import { scrollToTop } from "$lib/utils/lenis.js";
 
 let { data } = $props();
+onMount(() => {
+	scrollToTop();
+});
 </script>
 
 <SeoHead
