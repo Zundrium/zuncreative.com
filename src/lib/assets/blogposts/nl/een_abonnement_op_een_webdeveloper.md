@@ -1,5 +1,5 @@
 ---
-title: 'Een webdeveloper op abonnementsbasis'
+title: 'Een abo op een developer'
 description: 'Het idee achter hebweb.nl'
 publish_date: '2025-05-28'
 modify_date: '2025-05-28'

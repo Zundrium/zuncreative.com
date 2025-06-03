@@ -10,6 +10,7 @@ let lenis: Lenis | null = null;
 
 export function initLenis() {
 	if (!browser) return;
+	history.scrollRestoration = "manual";
 
 	// Create Lenis instance
 	lenis = new Lenis({
@@ -52,7 +53,9 @@ export function scrollTo(target: string | number | HTMLElement, options?: any) {
 }
 
 export function scrollToTop() {
-	window.scrollTo(0, 0);
+	if(lenis) {
+		lenis.scrollTo(0, {immediate: true});
+	}
 }
 
 export function scrollToElement(selector: string, options?: any) {

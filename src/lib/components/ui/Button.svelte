@@ -30,8 +30,8 @@ const styleClasses = {
 		"bg-black text-white hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200 focus:ring-white dark:focus:ring-black focus:ring-offset-gray-900 dark:focus:ring-offset-white",
 	secondary:
 		"bg-gray-800 text-white hover:bg-gray-900 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-300 focus:ring-gray-500",
-	text: "bg-transparent border-none text-black dark:text-white focus:ring-0",
-	line: "bg-transparent border-2 border-black text-black dark:border-white dark:text-white focus:ring-0",
+	text: "bg-transparent border-none text-black dark:text-white hover:text-white dark:hover:text-black  focus:ring-0",
+	line: "bg-transparent border-2 border-black text-black dark:border-white dark:text-white hover:text-white dark:hover:text-black focus:ring-0",
 };
 
 // Size variants
@@ -87,18 +87,10 @@ const handleMouseEnter = (e: MouseEvent) => {
 		opacity: 1,
 	});
 
-	// Set mask color based on style
-	maskEl.style.backgroundColor = style === "normal" ? "#f97316" : "white";
-
 	// Calculate mask size
 	const rect = buttonEl.getBoundingClientRect();
 	const diagonal = Math.sqrt(rect.width ** 2 + rect.height ** 2);
 	startMaskAnimation(diagonal * 2, 0.3, "power2.in");
-
-	// Style-specific effects
-	if (style === "line" || style === "text") {
-		gsap.to(buttonEl, { color: "#000000", duration: 0.2 });
-	}
 
 	animateIcons(true);
 };
@@ -113,13 +105,8 @@ const handleMouseLeave = (e: MouseEvent) => {
 	// Shrink animation
 	startMaskAnimation(0, 0.5, "expo.out");
 	maskTween?.eventCallback("onComplete", () => {
-		gsap.set(maskEl, { opacity: 0, backgroundColor: "transparent" });
+		gsap.set(maskEl, { opacity: 0});
 	});
-
-	// Reset styles
-	if (style === "line" || style === "text") {
-		gsap.to(buttonEl, { color: "", duration: 0.3 });
-	}
 
 	animateIcons(false);
 };
@@ -143,7 +130,6 @@ onDestroy(() => maskTween?.kill());
         z-index: 5;
         opacity: 0;
         transform-origin: center;
-        background-color: transparent;
     }
     
     .content {
@@ -166,7 +152,7 @@ onDestroy(() => maskTween?.kill());
             on:mouseleave|stopPropagation={handleMouseLeave}
 				{...$$props}
         >
-            <div class="mask" bind:this={maskEl}></div>
+            <div class="mask bg-black dark:bg-white" bind:this={maskEl}></div>
             <div class="content">
                 {#if iconLeft}
                     <div class={`${iconClasses} mr-1`} bind:this={iconLeftEl}>

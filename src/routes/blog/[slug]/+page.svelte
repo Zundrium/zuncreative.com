@@ -56,7 +56,7 @@ onMount(() => {
 	></div>
 
 	<div class="container relative z-20">
-		<div class="w-1/2">
+		<div class="w-full md:w-1/2">
 		<hgroup class="flex flex-col gap-2 lg:gap-4 text-white w-full">
 			<H1>{post.title}</H1>
 			<Paragraph size="xl" class="opacity-80">

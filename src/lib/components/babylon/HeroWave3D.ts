@@ -3,7 +3,7 @@ import { Scene } from "@babylonjs/core/scene";
 import type { IBabylonGraphics } from "./utils";
 import { PointsCloudSystem } from "@babylonjs/core/Particles/pointsCloudSystem";
 import { Vector3, Vector2 } from "@babylonjs/core/Maths/math.vector";
-import { Color3 } from "@babylonjs/core/Maths/math.color";
+import { Color3, Color4 } from "@babylonjs/core/Maths/math.color";
 import type { TargetCamera } from "@babylonjs/core/Cameras";
 import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
 import type { CloudPoint } from "@babylonjs/core/Particles";
@@ -32,7 +32,7 @@ export class HeroWave3D implements IBabylonGraphics {
 	private textureSamplerIndex: number = 0;
 	private topColor: Color3 = new Color3(1, 0.5, 0);
 	private bottomColor: Color3 = new Color3(0.5, 0, 1);
-	private particleSize: number = 4;
+	private particleSize: number = 3;
 	private renderPipeline: DefaultRenderingPipeline | null = null;
 
 	public constructor() {}
@@ -110,10 +110,10 @@ export class HeroWave3D implements IBabylonGraphics {
 		pipeline.depthOfField.fStop = 1.4;
 		pipeline.depthOfField.focalLength = 100;
 		pipeline.depthOfFieldBlurLevel = DepthOfFieldEffectBlurLevel.Medium;
-		pipeline.bloomEnabled = true;
-		pipeline.bloomWeight = 1;
-		pipeline.bloomKernel = 5;
-		pipeline.bloomThreshold = 0;
+		//pipeline.bloomEnabled = true;
+		//pipeline.bloomWeight = 1;
+		//pipeline.bloomKernel = 5;
+		//pipeline.bloomThreshold = 0;
 		pipeline.imageProcessingEnabled = true;
 		pipeline.imageProcessing.toneMappingEnabled = true;
 		pipeline.imageProcessing.toneMappingType = 1;
@@ -264,8 +264,10 @@ export class HeroWave3D implements IBabylonGraphics {
 
 	public async initialize(renderCanvas: HTMLCanvasElement): Promise<void> {
 		this.babylonScene = new BabylonScene(renderCanvas);
-		this.babylonScene.mediaQueryFOVs = [0.4, 0.4, 0.4, 0.4, 0.4];
+		this.babylonScene.mediaQueryFOVs = [0.7, 0.6, 0.5, 0.4, 0.4];
+		
 		await this.babylonScene.init();
+		this.babylonScene.scene.clearColor = new Color4(0, 0, 0, 0);
 
 		this.pointCloudSystem = this.createPointsCloud(this.babylonScene.scene);
 

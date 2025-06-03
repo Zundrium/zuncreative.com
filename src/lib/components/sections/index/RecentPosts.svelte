@@ -82,7 +82,6 @@ export let posts: any = [];
 			<Button
 				href="/blog"
 				style="line"
-				class="self-start"
 				ariaLabel="View all blog posts"
 				iconRight={MdiArrowRight}>Bekijk alles</Button>
 		</div>

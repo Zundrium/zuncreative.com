@@ -35,7 +35,7 @@
 			<img 
 				src={url} 
 				alt="{name} logo" 
-				class="brand-logo {height}"
+				class="brand-logo {height} opacity-70 dark:invert"
 				loading="lazy"
 				decoding="async"
 			/>
@@ -52,7 +52,6 @@
 		position: relative;
 		overflow: hidden;
 		padding: 2rem 0;
-		background-color: black;
 	}
 
 	@media (min-width: 1024px) {
@@ -99,58 +98,6 @@
 
 	.brand-logo:hover {
 		opacity: 0.7;
-	}
-
-	/* Dark mode support */
-	@media (prefers-color-scheme: dark) {
-		.brand-logo {
-			filter: invert(1);
-		}
-	}
-
-	.gradient-left,
-	.gradient-right {
-		position: absolute;
-		top: 0;
-		height: 100%;
-		width: 6.25rem;
-		pointer-events: none;
-		z-index: 10;
-	}
-
-	@media (min-width: 768px) {
-		.gradient-left,
-		.gradient-right {
-			width: 12.5rem;
-		}
-	}
-
-	@media (min-width: 1024px) {
-		.gradient-left,
-		.gradient-right {
-			width: 25rem;
-		}
-	}
-
-	.gradient-left {
-		left: 0;
-		background: linear-gradient(to right, black, transparent);
-	}
-
-	.gradient-right {
-		right: 0;
-		background: linear-gradient(to left, black, transparent);
-	}
-
-	/* Light mode gradients */
-	@media (prefers-color-scheme: light) {
-		.gradient-left {
-			background: linear-gradient(to right, white, transparent);
-		}
-		
-		.gradient-right {
-			background: linear-gradient(to left, white, transparent);
-		}
 	}
 
 	@keyframes scroll {

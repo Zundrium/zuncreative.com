@@ -55,9 +55,8 @@ $effect(() => {
 	{/if}
 		<H1 class="text-center">{item.title}</H1>
 
-		<div class="flex justify-between">
+		<div class="flex justify-between flex-row gap-4">
 			<div class="flex gap-4 lg:gap-8 justify-center items-center">
-				<span class="font-medium">Categories:</span>
 				{#each item.keywords as keyword}
 					<Button
 						style="line"
@@ -75,7 +74,7 @@ $effect(() => {
 					href={item.external_url}
 					target="_blank"
 					iconRight={MaterialSymbolsOpenInNew}>
-					Open in new tab
+					Open
 				</Button>
 			{/if}
 		</div>
