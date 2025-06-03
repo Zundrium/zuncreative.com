@@ -1,52 +1,39 @@
 <script lang="ts">
-import { onMount } from "svelte";
+	import { onMount } from "svelte";
+	// Import the functions and interface from your updated brands.ts file
+	import { getAllBrands, type Brand } from "$lib/utils/brands"; // Adjust path if necessary
 
-// Move to const for immutability and better tree-shaking
-const brandNames = [
-	{ name: "KLM", height: "h-12" },
-	{ name: "DIOR", height: "h-8" },
-	{ name: "campina", height: "h-22" },
-	{ name: "eneco", height: "h-8" },
-	{ name: "tommyhilfiger", height: "h-4" },
-	{ name: "novartis", height: "h-18" },
-	{ name: "exact", height: "h-8" },
-	{ name: "gemeenteamsterdam", height: "h-16" },
-	{ name: "jagermeister", height: "h-22" },
-	{ name: "museumvereniging", height: "h-14" },
-	{ name: "deloitte", height: "h-8" },
-	{ name: "porsche", height: "h-6" },
-	{ name: "unilever", height: "h-22" },
-	{ name: "walmart", height: "h-12" },
-] as const;
+	// Use our new global function to get all brands
+	let brandNames: Brand[] = getAllBrands() as Brand[];
 
-// Pre-compute doubled array to avoid runtime spread operations
-const doubledBrands = [...brandNames, ...brandNames];
+	// Pre-compute doubled array using the brandNames from our function
+	let doubledBrands: Brand[] = [...brandNames, ...brandNames];
 
-// Preload images for better UX
-let imagesLoaded = false;
+	// Preload images for better UX
+	let imagesLoaded = false;
 
-onMount(() => {
-	// Preload all brand images
-	const imagePromises = brandNames.map(({ name }) => {
-		return new Promise<void>((resolve, reject) => {
-			const img = new Image();
-			img.onload = () => resolve();
-			img.onerror = () => resolve(); // Don't fail on missing images
-			img.src = `/svg/brands/${name}_logo.svg`;
+	onMount(() => {
+		// Preload all brand images
+		const imagePromises = brandNames.map(({ url }) => { // Destructure 'url' directly
+			return new Promise<void>((resolve) => {
+				const img = new Image();
+				img.src = url; // Use the pre-computed URL
+				img.onload = () => resolve();
+				img.onerror = () => resolve(); // Don't fail on missing images
+			});
+		});
+
+		Promise.allSettled(imagePromises).then(() => {
+			imagesLoaded = true;
 		});
 	});
-
-	Promise.allSettled(imagePromises).then(() => {
-		imagesLoaded = true;
-	});
-});
 </script>
 
 <div class="brand-carousel">
 	<div class="scroll-container" class:loaded={imagesLoaded}>
-		{#each doubledBrands as { name, height }, index (name + index)}
+		{#each doubledBrands as { name, height, url }, index (name + index)} 
 			<img 
-				src="/svg/brands/{name}_logo.svg" 
+				src={url} 
 				alt="{name} logo" 
 				class="brand-logo {height}"
 				loading="lazy"

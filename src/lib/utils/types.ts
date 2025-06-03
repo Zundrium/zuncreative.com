@@ -24,4 +24,5 @@ export interface MarkdownTextfile {
 	video?: string;
 	mobile?: boolean;
 	featured?: boolean;
+	partner_brand?: string;
 }

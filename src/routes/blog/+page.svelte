@@ -36,7 +36,7 @@ onMount(() => {
 		description: m.blog_description(),
 		keywords: m.blog_keywords(),
 		slug: "blog",
-		thumbnail: "/images/placeholder1.jpg",
+		thumbnail: "/images/2d_matrix.png",
 		type: "Blog",
 	}}
 />

@@ -1,15 +1,25 @@
 ---
 title: 'Nationale Museumweek 2021'
 description: 'An online alternative to a national museum event, where over 400 museums show their favourite work to the entire country.'
-publish_date: '2023-01-01'
-modify_date: '2023-01-01'
+publish_date: '2021-04-21'
 keywords: '3d, web'
 mobile: false
 featured: true
 header_image: '/images/showcase/nationale-museumweek-2021.jpg'
 external_url: 'https://nmw2021.zuncreative.com'
 partner: 'Capitola'
-video: '/video/showcase/amazon-deforestation_mobile.mp4'
+video: '/video/showcase/nmw2021/video.mp4'
+gallery:
+    - '/images/showcase/nmw2021/gallery/01.png'
+    - '/images/showcase/nmw2021/gallery/02.png'
+    - '/images/showcase/nmw2021/gallery/03.png'
+    - '/images/showcase/nmw2021/gallery/04.png'
+    - '/images/showcase/nmw2021/gallery/05.png'
+    - '/images/showcase/nmw2021/gallery/06.png'
+    - '/images/showcase/nmw2021/gallery/07.png'
+    - '/images/showcase/nmw2021/gallery/08.jpg'
+    - '/images/showcase/nmw2021/gallery/09.png'
 ---
-Just like 2020, when thanks to COVID social events were cancelled. The client had to find an alternative for making an event that shows artpieces from over 400 museums in The Netherlands.
-This was done with a three dimensional representation of the Museumplein in Amsterdam, where the event would normally be held.
+Net als in 2020 noodzaakte de voortdurende COVID-19 pandemie de annulering van fysieke sociale evenementen. Ook voor de Nationale Museumweek 2021 was het daarom noodzakelijk een alternatief te ontwikkelen om kunstwerken van meer dan 400 Nederlandse musea aan het publiek te tonen.
+
+Wederom werd gekozen voor een driedimensionale virtuele weergave van het Amsterdamse Museumplein, de gebruikelijke fysieke locatie van het evenement, als platform voor deze digitale editie. Dit stelde de musea in staat hun collecties virtueel te presenteren en het publiek een toegankelijke ervaring te bieden.

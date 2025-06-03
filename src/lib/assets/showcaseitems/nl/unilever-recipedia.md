@@ -1,12 +1,18 @@
 ---
-title: 'Unilever Recipedia'
+title: 'Recipedia'
 description: 'This proof of concept was meant to find a way to digest the information of a recipe in less than 20 seconds. First you see a short animation with the key ingredients, followed by a card that has a complete summary of the related recipe.'
-publish_date: '2023-01-01'
-modify_date: '2023-01-01'
+publish_date: '2020-07-02'
 keywords: 'ar, web'
 mobile: true
 header_image: '/images/showcase/unilever-recipedia_mobile.jpg'
 partner: 'Capitola'
-video: '/video/showcase/amazon-deforestation_mobile.mp4'
+partner_brand: 'unilever'
+video: '/video/showcase/unilever-recipedia_mobile.mp4'
 ---
-This proof of concept was meant to find a way to digest the information of a recipe in less than 20 seconds. First you see a short animation with the key ingredients, followed by a card that has a complete summary of the related recipe.
+Dit project, getiteld 'Unilever Recipedia', betrof de ontwikkeling van een augmented reality (AR) oplossing, gerealiseerd middels het ZappAR platform. Deze keuze faciliteerde een web-augmented reality (web-AR) ervaring, direct toegankelijk via een webbrowser, wat de gebruiksvriendelijkheid en de drempel voor adoptie significant verlaagde.
+
+Als proof of concept (PoC) had dit project tot doel te onderzoeken hoe complexe receptinformatie efficiënt en snel (binnen 20 seconden) door de gebruiker kon worden opgenomen. Dit adresseerde de behoefte aan snelle, visueel aantrekkelijke informatieoverdracht in een tijdperk van beperkte aandachtsspannen, specifiek binnen de culinaire context.
+
+De ervaring begon met een korte, geanimeerde visualisatie die de essentiële ingrediënten en cruciale stappen van het recept kernachtig presenteerde. Hieropvolgend werd een digitale kaart in AR geprojecteerd, die een complete en gedetailleerde samenvatting van het gehele recept bood. Deze tweeledige aanpak combineerde een snelle initiële visuele overzicht met de mogelijkheid voor verdieping, optimaliserend voor zowel snelheid als volledigheid van informatievoorziening.
+
+

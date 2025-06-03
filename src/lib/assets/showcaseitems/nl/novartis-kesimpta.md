@@ -1,12 +1,16 @@
 ---
 title: 'Novartis Kesimpta'
 description: ''
-publish_date: '2023-01-01'
-modify_date: '2023-01-01'
+publish_date: '2021-07-22'
 keywords: 'ar, web'
 mobile: true
 header_image: '/images/showcase/novartis-kesimpta_mobile.jpg'
 partner: 'Capitola'
-video: '/video/showcase/amazon-deforestation_mobile.mp4'
+partner_brand: 'novartis'
+video: '/video/showcase/novartis-kesimpta_mobile.mp4'
 ---
-In order to show how to use a new medicine in a fast and rememorable way to professionals, we use a set of multiple cards that are used to show different AR presentations.
+Dit project betrof de ontwikkeling van een augmented reality (AR) toepassing voor Novartis Kesimpta, gerealiseerd via het ZappAR platform. De keuze voor dit platform maakte het mogelijk om de ervaring direct via de webbrowser toegankelijk te maken, wat instapdrempels minimaliseerde en brede distributie onder medische professionals faciliteerde zonder noodzaak voor app-downloads.
+
+Het primaire doel van deze AR-ervaring was het efficiënt en memorabel instrueren van medische professionals over het correcte gebruik van een nieuw medicijn. Gezien de complexiteit van farmaceutische instructies, bood dit format een innovatieve en interactieve benadering om procedurele informatie op een heldere en retentiebevorderende wijze over te dragen.
+
+De methodologie omvatte het gebruik van een set fysieke kaarten, die fungeerden als individuele triggers voor diverse augmented reality-presentaties. Door middel van image tracking-technologie activeerde elke kaart een specifieke AR-module, waardoor verschillende aspecten van de medicijntoediening stapsgewijs en hands-on konden worden gedemonstreerd. Deze modulaire opzet bood een gerichte en zeer effectieve leerervaring.

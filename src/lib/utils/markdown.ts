@@ -7,6 +7,9 @@ async function parseMarkdown(
 	slug: string = "",
 ): Promise<MarkdownTextfile> {
 	const fileContents = await file();
+	if(fileContents.metadata === undefined) {
+		console.error(`Markdown syntax error: ${file.name}`);
+	}
 	return {
 		title: fileContents.metadata.title,
 		publish_date: fileContents.metadata.publish_date,
@@ -24,6 +27,7 @@ async function parseMarkdown(
 		video: fileContents.metadata.video,
 		external_url: fileContents.metadata.external_url,
 		gallery: fileContents.metadata.gallery,
+		partner_brand: fileContents.metadata.partner_brand,
 		component: fileContents.default,
 	};
 }

@@ -1,24 +1,30 @@
 <script lang="ts">
+import MaterialSymbolsLightClose from '~icons/material-symbols-light/close';
 import SeoHead from "$lib/utils/SeoHead.svelte";
 import Showcase from "$lib/components/sections/index/Showcase.svelte";
 import * as m from "$lib/paraglide/messages.js";
 import Section from "$lib/components/ui/Section.svelte";
 import { scrollToTop } from "$lib/utils/lenis.js";
 import H1 from "$lib/components/typography/H1.svelte";
-import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass.js";
 import MaterialSymbolsOpenInNew from "~icons/material-symbols/open-in-new";
 import Button from "$lib/components/ui/Button.svelte";
-import AnimatedParagraph from "$lib/components/typography/AnimatedParagraph.svelte";
-import Paragraph from "$lib/components/typography/Paragraph.svelte";
 import Image from "$lib/components/ui/Image.svelte";
+import { getBrandByName, type Brand } from "$lib/utils/brands";
 
 let { data } = $props();
+
+let partnerBrand: Brand | undefined = $state(undefined);
 
 const { item, showcaseItems } = $derived(data);
 
 $effect(() => {
 	if (item.title) {
 		scrollToTop();
+		if(item.partner_brand) {
+			partnerBrand = getBrandByName(item.partner_brand);
+		} else {
+			partnerBrand = undefined;
+		}
 	}
 });
 </script>
@@ -29,7 +35,7 @@ $effect(() => {
 		description: m.blog_description(),
 		keywords: m.blog_keywords(),
 		slug: "blog",
-		thumbnail: "/images/placeholder1.jpg",
+		thumbnail: "/images/2d_matrix.png",
 		type: "Blog",
 	}}
 />
@@ -37,9 +43,16 @@ $effect(() => {
 {#key item}
 	<Section 
 		id="showcase-item"
-		class="bg-white dark:bg-black text-black dark:text-white pt-24 flex flex-col gap-4 lg:gap-8 xl:gap-12"
+		class="bg-white dark:bg-black text-black dark:text-white pt-12 flex flex-col gap-4 lg:gap-8 xl:gap-12"
 
 	>
+	{#if partnerBrand}
+	<div class="w-full flex items-center justify-center gap-6">
+		<object class="size-14" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+		<MaterialSymbolsLightClose class="size-14"/>
+		<object class="{partnerBrand.height} invert" data="{partnerBrand.url}" type="image/svg+xml" title="Zun Creative Logo"></object>
+	</div>
+	{/if}
 		<H1 class="text-center">{item.title}</H1>
 
 		<div class="flex justify-between">

@@ -70,7 +70,7 @@ const benefits = [
 		<div class="overflow-hidden relative min-h-48">
 			<Image
 				alt="placeholder"
-				src="/images/placeholder1.jpg"
+				src="/images/2d_matrix.png"
 				class="absolute top-0 left-0 right-0 bottom-0 w-full z-0 h-full object-contain"
 				sizes="(min-width:1920px) 1920px, (min-width:1280px) 1280px, (min-width:768px) 480px"
 			/>

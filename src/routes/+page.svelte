@@ -21,7 +21,7 @@ export let data: {
         description: "My name is Sem and I'm a freelance 3D web developer",
         keywords: "Zun Creative, freelance developer, Amsterdam",
         slug: "website",
-        thumbnail: "/images/placeholder1.jpg",
+		thumbnail: "/images/2d_matrix.png",
         type: "WebPage",
     }}
 />

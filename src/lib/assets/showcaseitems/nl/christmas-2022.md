@@ -2,11 +2,20 @@
 title: 'Christmas card'
 description: 'A walk experience in a tunnel, with multiple animated shop windows using spatial audio.'
 publish_date: '2022-03-03'
-modify_date: '2025-03-03'
-keywords: '3d, web'
+keywords: '3d, web, ai'
 mobile: false
+featured: true
 header_image: '/images/showcase/christmas-2022.jpg'
 external_url: 'https://christmas.zuncreative.com'
-video: '/video/showcase/amazon-deforestation_mobile.mp4'
+video: '/video/showcase/christmas-2022/video.mp4'
+gallery:
+    - '/images/showcase/christmas-2022/gallery/01.png'
+    - '/images/showcase/christmas-2022/gallery/02.png'
+    - '/images/showcase/christmas-2022/gallery/03.png'
+    - '/images/showcase/christmas-2022/gallery/04.png'
+    - '/images/showcase/christmas-2022/gallery/05.png'
+    - '/images/showcase/christmas-2022/gallery/06.png'
 ---
-A walk experience in a tunnel, with multiple animated shop windows using spatial audio.
+Dit project betrof een demonstratie van een concept voor een interactief visitekaartje, gebaseerd op een 3D 'walk-in' omgeving. De kern van deze demonstratie lag in de integratie van AI-gegenereerde content.
+
+Specifiek werden er AI-textures gebruikt voor de visuele aankleding van de scene, wat resulteerde in unieke en sfeervolle oppervlakken binnen de tunnel. Daarnaast werd er gebruikgemaakt van AI-gegenereerde muziek, die de auditieve ervaring complementeerde. De 3D-omgeving was ontworpen als een 'doorloopbare' tunnel, verrijkt met specifieke geluidseffecten die de immersie verhoogden. Dit project liet zien hoe dergelijke technologieën kunnen bijdragen aan een dynamische en geïntegreerde digitale ervaring.

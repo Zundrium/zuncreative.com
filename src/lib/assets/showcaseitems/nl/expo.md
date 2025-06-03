@@ -1,14 +1,23 @@
 ---
 title: '3D Expo'
 description: 'A technical proof of concept showing a realistically lit threedimensional space using the newest image compression techniques.'
-publish_date: '2023-01-01'
-modify_date: '2023-01-01'
+publish_date: '2024-05-14'
 keywords: '3d, web'
 mobile: false
-featured: true
+featured: false
 header_image: '/images/showcase/expo.jpg'
 external_url: 'https://expo.zuncreative.com'
-video: '/video/showcase/amazon-deforestation_mobile.mp4'
+video: '/video/showcase/expo/video.mp4'
+gallery:
+    - '/images/showcase/expo/gallery/01.jpg'
+    - '/images/showcase/expo/gallery/02.jpg'
+    - '/images/showcase/expo/gallery/03.jpg'
+    - '/images/showcase/expo/gallery/04.jpg'
+    - '/images/showcase/expo/gallery/05.jpg'
+    - '/images/showcase/expo/gallery/06.jpg'
+    - '/images/showcase/expo/gallery/07.jpg'
+    - '/images/showcase/expo/gallery/08.jpg'
 ---
-This demo shows the possibilities of new texture compression techniques, making it possible to reduce the filesize of a complete 3D expo to 9MB (Normally 50MB).
-Other solutions have way longer loading times and are not made to be used on mobile phones.
+Deze demonstratie is specifiek ontwikkeld om de effectiviteit van recente textuurcompressietechnieken te illustreren. Het project toont aan dat het mogelijk is om de bestandsgrootte van een complete, interactieve 3D-expositie te reduceren tot slechts 9MB, terwijl de visuele kwaliteit behouden blijft. Ter vergelijking ligt de gebruikelijke bestandsgrootte voor dergelijke 3D-omgevingen vaak rond de 50MB.
+
+De toegepaste optimalisatiemethoden resulteren in significant kortere laadtijden in vergelijking met alternatieve oplossingen. Bovendien is de demo ontworpen om naadloos te functioneren op mobiele apparaten, wat een brede toegankelijkheid en optimale gebruikerservaring garandeert, ongeacht het gebruikte platform.
