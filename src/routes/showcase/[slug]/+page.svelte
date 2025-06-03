@@ -74,7 +74,7 @@ $effect(() => {
 					href={item.external_url}
 					target="_blank"
 					iconRight={MaterialSymbolsOpenInNew}>
-					Open
+					<span class="hidden md:inline">Open</span>
 				</Button>
 			{/if}
 		</div>
