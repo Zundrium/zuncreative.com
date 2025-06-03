@@ -4,7 +4,7 @@ description: '(NL) Test beschrijving van de textpagina.'
 publish_date: '2025-01-01'
 modify_date: '2023-01-02'
 keywords: 'keyword1, keyword2, keyword3'
-header_image: '/images/placeholder1.jpg'
+header_image: '/images/2d_matrix.png'
 header_image_position: right
 ---
 ## Dit is een subkop (H2)
