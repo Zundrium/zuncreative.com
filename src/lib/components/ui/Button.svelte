@@ -10,7 +10,7 @@ export let href: string | undefined = undefined;
 export let ariaLabel: string | undefined = undefined;
 export let iconLeft: any = undefined;
 export let iconRight: any = undefined;
-export let style: "normal" | "text" | "line" | "secondary" = "normal";
+export let style: "normal" | "text" | "line" | "secondary" = "line";
 export let size: "sm" | "md" | "lg" = "md";
 export let click: (() => void) | undefined = undefined;
 
