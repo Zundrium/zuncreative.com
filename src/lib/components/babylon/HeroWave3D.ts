@@ -4,9 +4,9 @@ import type { IBabylonGraphics } from "./utils";
 import { PointsCloudSystem } from "@babylonjs/core/Particles/pointsCloudSystem";
 import { Vector3, Vector2 } from "@babylonjs/core/Maths/math.vector";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
-import { TargetCamera } from "@babylonjs/core/Cameras";
+import type { TargetCamera } from "@babylonjs/core/Cameras";
 import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
-import { CloudPoint } from "@babylonjs/core/Particles";
+import type { CloudPoint } from "@babylonjs/core/Particles";
 import { DepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
 
 import {

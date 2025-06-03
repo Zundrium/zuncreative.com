@@ -55,8 +55,8 @@ onMount(() => {
 			<a href="/blog/{post.slug}" class="relative cursor-pointer w-full aspect-4/2 overflow-hidden rounded-xl" data-cursor-icon="fullscreen" use:viewportSlideInBottom> 
 				<Image
 					parallax
-					alt="{post.title}"
-					src="{post.header_image}"
+					alt={post.title}
+					src={post.header_image}
 					class="absolute inset-0 w-full h-full object-cover "
 					sizes="(min-width:1920px) 1920px, (min-width:1280px) 1280px, (min-width:768px) 480px"
 				/>

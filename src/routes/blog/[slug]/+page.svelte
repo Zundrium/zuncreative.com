@@ -23,7 +23,7 @@ function capitalizeAndStripesToSpaces(str: string) {
 	props={{
 		title: post.title,
 		description: post.description,
-		keywords: post.keywords,
+		keywords: post.keywords.join(", "),
 		slug: post.slug,
 		thumbnail: `${post.header_image}`,
 		type: "BlogPosting",

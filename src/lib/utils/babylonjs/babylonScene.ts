@@ -1,7 +1,6 @@
 import { FreeCamera } from "@babylonjs/core/Cameras/freeCamera";
-import { TargetCamera } from "@babylonjs/core/Cameras/targetCamera";
+import type { TargetCamera } from "@babylonjs/core/Cameras/targetCamera";
 import { Color4, Matrix } from "@babylonjs/core/Maths/math";
-import { DepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
 import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
@@ -10,7 +9,7 @@ import "@babylonjs/core/Rendering/depthRendererSceneComponent";
 import "@babylonjs/core/Rendering/depthRenderer";
 import { CubeTexture } from "@babylonjs/core/Materials/Textures/cubeTexture";
 import "@babylonjs/loaders/glTF/2.0";
-import { AssetContainer } from "@babylonjs/core/assetContainer";
+import type { AssetContainer } from "@babylonjs/core/assetContainer";
 import { getScreenState } from "../screenState";
 import { BackgroundMaterial } from "@babylonjs/core/Materials/Background";
 import { CreateBox } from "@babylonjs/core/Meshes/Builders/boxBuilder";

@@ -72,7 +72,7 @@ $effect(() => {
 				<Button
 					style="line"
 					ariaLabel="Go to {item.external_url}"
-					href="{item.external_url}"
+					href={item.external_url}
 					target="_blank"
 					iconRight={MaterialSymbolsOpenInNew}>
 					Open in new tab

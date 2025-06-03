@@ -6,7 +6,7 @@ keywords: '3d, web'
 mobile: false
 featured: true
 header_image: '/images/showcase/sophon-minigame/gallery/02.jpg'
-external_url: 'https://play.sophon.xyz/'
+external_url: 'https://app.sophon.xyz/detail/sophon-play/'
 video: '/video/showcase/sophon-minigame/video.mp4'
 gallery:
     - '/images/showcase/sophon-minigame/gallery/01.jpg'
