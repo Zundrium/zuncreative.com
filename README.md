@@ -6,8 +6,7 @@
 - @sveltejs/adapter-static 
 - svelte-sitemap
 - @types/node
-- gray-matter, parse markdown with meta data
-- marked, display markdown as html
+- mdsvex, parse markdown with meta data
 - @sentry/browser, analytics 
 
 ## Adjustments

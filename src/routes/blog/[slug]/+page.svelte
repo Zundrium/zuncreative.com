@@ -10,8 +10,8 @@ import Section from "$lib/components/ui/Section.svelte";
 import ScrollIndicator from "$lib/components/ui/ScrollIndicator.svelte";
 import Button from "$lib/components/ui/Button.svelte";
 import Image from "$lib/components/ui/Image.svelte";
-    import { onMount } from "svelte";
-    import { scrollToTop } from "$lib/utils/lenis.js";
+import { onMount } from "svelte";
+import { scrollToTop } from "$lib/utils/lenis.js";
 let { data } = $props();
 let post = data.post;
 let posts = data.posts;
@@ -19,8 +19,14 @@ let posts = data.posts;
 function capitalizeAndStripesToSpaces(str: string) {
 	return str.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 }
+
+import Prism from "prismjs";
+import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/components/prism-typescript.js";
+
 onMount(() => {
 	scrollToTop();
+	Prism.highlightAll();
 });
 </script>
 
@@ -44,7 +50,6 @@ onMount(() => {
 >
 	{#if post.header_image}
 		<Image
-			parallax
 			src={post.header_image}
 			alt={post.title}
 			class="absolute top-0 left-0 right-0 bottom-0 w-full z-0 h-full object-cover fixed"
