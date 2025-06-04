@@ -68,13 +68,57 @@ function animate() {
 }
 animate();
 ```
+
 <CodePenEmbed 
   slugHash="EajNjXM"
   penTitle="Lerp vs Easing 1"
   user="ZunCreative"
 />
+
 Hier zie je dat tijdens het scrollen de waarde nooit het eindgetal wordt. Dit kan gevolgen hebben op performance, in dit geval blijft het element animeren terwijl het stil staat.
 
--- oplossing lerp volgt -- 
+De makkelijkste oplossing hiervoor is het getal af te ronden voordat het toegepast word, in de achtergrond is de `current` waarde nog steeds hetzelfde, maar de toegepaste waarde bereikt het eindgetal dankzij een afronding naar boven.
 
--- ease volgt -- 
+<CodePenEmbed 
+  slugHash="wBaoVKO"
+  penTitle="Lerp vs Easing 2"
+  user="ZunCreative"
+/>
+
+Als we het fundamentele probleem willen verhelpen, kunnen we niet meer telkens een fragment tot in de oneindigheid gebruiken. De oplossing: een vaste duratie van de animatie.
+Wat we moeten doen om te kunnen werken met een vaste duratie moeten we:
+1. Een animatie starten bij iedere scroll met `requestAnimationFrame`
+2. De vorige animatie stoppen als die bestaat met `cancelAnimationFrame`
+3. Met `performance.now()` de tijd voor de duratie bijhouden
+4. De duratie bepalen op basis van de afstand en snelheid
+5. Een minimale en maximale duratie vastleggen
+
+<CodePenEmbed 
+  slugHash="ZYGBgOW"
+  penTitle="Lerp vs Easing 3"
+  user="ZunCreative"
+/>
+
+Fijn, het werkt, we hebben superveel controle over de animatie, maar het is absoluut niet zo soepel als de `lerp()` van eerst, wat nu?
+
+Hier komt *easing* in het spel.
+
+1. In plaats van een `lerp()`, gebruiken we de easing functie `easeOutQuint()` over de `progress` variabele.
+2. Deze `easedT` output vermenigvuldigen we met het verschil tussen de eind en start positie.
+
+That's it!
+
+<CodePenEmbed 
+  slugHash="emNgOyj"
+  penTitle="Lerp vs Easing 4"
+  user="ZunCreative"
+/>
+
+Op (easings.net)[https://easings.net/] kan je allemaal easings outproberen om te kijken welke je het mooiste vind door de `easeOutQuint()` vervangen.
+
+## Conclusie  
+Lerp en easing zijn beide krachtige tools voor animaties, maar ze hebben elk hun eigen toepassingen en beperkingen. 
+
+Lerp is ideaal voor eenvoudige, lineaire interpolaties zoals kleurtransities, terwijl easing zorgt voor meer natuurlijke bewegingen die versnellen en vertragen bij een vaste duratie. 
+
+Het is belangrijk om de juiste techniek te kiezen op basis van je behoeften en om rekening te houden met de beperkingen van lerp, zoals het asymptotische gedrag. Door beide technieken te combineren, kun je animaties maken die zowel soepel als gecontroleerd zijn, waardoor je projecten een professionele uitstraling krijgen.

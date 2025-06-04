@@ -33,7 +33,6 @@ onMount(() => {
     data-user={user}
     data-theme-id={theme}
     data-editable={editable}
-    style="height: {height}px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
   >
     <span>
       See the Pen 
