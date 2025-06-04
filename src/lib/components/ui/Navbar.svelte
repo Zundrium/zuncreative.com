@@ -176,9 +176,9 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 		class="{navbarClass} w-full transition-colors duration-300 flex justify-center h-24 -mb-24"
 	>
 		<div
-			class="container px-4 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-svh {mobileNavOpen
-				? 'h-svh'
-				: ''}"
+			class="container  transition-colors duration-500 px-4 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-svh {mobileNavOpen
+				? 'h-svh bg-black'
+				: 'bg-transparent'}"
 		>
 			<div class="w-full lg:w-auto flex justify-between items-center">
 				<a href="/" class="cursor-pointer relative w-14 h-14" aria-label="Home">
@@ -230,7 +230,7 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 						>
 							<Button
 								style="text"
-								on:click={hideMobileNav}
+								click={() => {hideMobileNav()}}
 								href={navLink.href}
 							>
 								{navLink.name}

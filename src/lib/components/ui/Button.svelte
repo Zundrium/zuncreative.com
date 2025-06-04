@@ -159,6 +159,7 @@ onDestroy(() => maskTween?.kill());
             bind:this={buttonEl}
             on:mouseenter|stopPropagation={handleMouseEnter}
             on:mouseleave|stopPropagation={handleMouseLeave}
+            on:click={click}
         >
             <div class="mask bg-black dark:bg-white" bind:this={maskEl}></div>
             <div class="content">
