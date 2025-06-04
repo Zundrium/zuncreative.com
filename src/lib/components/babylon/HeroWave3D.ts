@@ -14,6 +14,7 @@ import {
 	type ITextureSampler,
 } from "$lib/utils/babylonjs/textureSampler";
 import { SineWaveNoise } from "$lib/utils/babylonjs/sineWaveNoise";
+import { getScreenState } from "$lib/utils/screenState";
 
 export class HeroWave3D implements IBabylonGraphics {
 	private babylonScene: BabylonScene | null = null;
@@ -25,14 +26,18 @@ export class HeroWave3D implements IBabylonGraphics {
 	private pointCloudSystem: PointsCloudSystem | null = null;
 
 	private matrixSize = 4;
+
+	private particleSize: number = 4;
+	private mobileParticleSize: number = 3;
 	private matrixParticleCount = 50000;
+	private mobileMatrixParticleCount = 10000;
+
 	private matrixHeight = 0.35;
 	private textureSamplers: ITextureSampler[] = [];
 	private textureSamplerIntensity: number = 0;
 	private textureSamplerIndex: number = 0;
 	private topColor: Color3 = new Color3(1, 0.5, 0);
 	private bottomColor: Color3 = new Color3(0.5, 0, 1);
-	private particleSize: number = 4;
 	private renderPipeline: DefaultRenderingPipeline | null = null;
 
 	public constructor() {}
@@ -268,6 +273,11 @@ export class HeroWave3D implements IBabylonGraphics {
 	public async initialize(renderCanvas: HTMLCanvasElement): Promise<void> {
 		this.babylonScene = new BabylonScene(renderCanvas);
 		this.babylonScene.mediaQueryFOVs = [0.7, 0.6, 0.5, 0.4, 0.4];
+
+		if(getScreenState() == "sm") {
+			this.particleSize = this.mobileParticleSize;
+			this.matrixParticleCount = this.mobileMatrixParticleCount;
+		}
 		
 		await this.babylonScene.init();
 		this.babylonScene.scene.clearColor = new Color4(0, 0, 0, 0);
