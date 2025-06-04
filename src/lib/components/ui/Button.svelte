@@ -13,6 +13,7 @@ export let iconRight: any = undefined;
 export let style: "normal" | "text" | "line" | "secondary" = "line";
 export let size: "sm" | "md" | "lg" = "md";
 export let click: (() => void) | undefined = undefined;
+export let rounded: "left-only" | "right-only" | "full" | "none" = "full";
 
 let buttonEl: HTMLElement;
 let maskEl: HTMLElement;
@@ -20,9 +21,17 @@ let iconLeftEl: HTMLElement | null = null;
 let iconRightEl: HTMLElement | null = null;
 let maskTween: gsap.core.Tween | null = null;
 
+let roundClass = "rounded-full";
+if (rounded === "left-only") {
+	roundClass = " rounded-l-full";
+} else if (rounded === "right-only") {
+	roundClass = " rounded-r-full";
+} else if (rounded === "none") {
+	roundClass = " rounded-none";
+}
+
 // Base classes for all buttons
-const baseClasses =
-	`${classes} cursor-pointer font-medium w-full relative inline-flex items-center justify-center transition-colors duration-300 ease-[cubic-bezier(0.215,0.61,0.355,1)] rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 z-10`;
+let baseClasses = `${classes} ${roundClass} cursor-pointer font-medium w-full relative inline-flex items-center justify-center transition-colors duration-300 ease-[cubic-bezier(0.215,0.61,0.355,1)] focus:outline-none focus:ring-2 focus:ring-offset-2 z-10`;
 
 // Style variants
 const styleClasses = {
@@ -105,7 +114,7 @@ const handleMouseLeave = (e: MouseEvent) => {
 	// Shrink animation
 	startMaskAnimation(0, 0.5, "expo.out");
 	maskTween?.eventCallback("onComplete", () => {
-		gsap.set(maskEl, { opacity: 0});
+		gsap.set(maskEl, { opacity: 0 });
 	});
 
 	animateIcons(false);
@@ -118,7 +127,6 @@ onDestroy(() => maskTween?.kill());
     .button-container {
         position: relative;
         overflow: hidden;
-        border-radius: 9999px;
         display: inline-flex;
     }
     
@@ -142,7 +150,7 @@ onDestroy(() => maskTween?.kill());
 </style>
 
 {#if href}
-    <div class="button-container ">
+    <div class="button-container {roundClass}">
        <a 
             {...$$props}
             {href}
@@ -169,7 +177,7 @@ onDestroy(() => maskTween?.kill());
         </a>
     </div>
 {:else}
-    <div class="button-container ">
+    <div class="button-container {roundClass}">
         <button
             aria-label={ariaLabel}
             class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]} `}

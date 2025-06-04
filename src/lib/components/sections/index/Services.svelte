@@ -7,17 +7,22 @@ import Section from "$lib/components/ui/Section.svelte";
 import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 </script>
 <Section
-	id="services"
-	class="flex flex-col gap-4 lg:gap-6 xl:gap-12 justify-center"
+	id="over-mij"
+	class="flex flex-col gap-4 lg:gap-6 xl:gap-12 justify-center items-center"
 >
 	<SectionHeading 
 		centered
-		subtitle="diensten"
+		subtitle="over mij"
 		title="Waar ik op <i>focus</i>"
 	/>
 
+<AnimatedParagraph class="text-center w-full md:w-1/2">
+			Ik ben <i>Sem</i>, een web developer voor meer dan 15 jaar uit Amsterdam. Ik maak audiovisuele websites en web applicaties die snel, toegankelijk en gebruiksvriendelijk zijn. Mijn focus ligt op het creëren van een geweldige gebruikerservaring door middel van moderne technologieën en designprincipes.
+		</AnimatedParagraph>
+
 	<div 
-		class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 xl:gap-8 2xl:gap-12">
+		class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 lg:gap-12 xl:gap-8 2xl:gap-12">
+		
 		<div class="text-center flex flex-col gap-4 lg:gap-6 xl:gap-12">
 			<h3 class="text-9xl serif-display" use:viewportSlideInBottom>AI</h3>
 			<AnimatedParagraph>

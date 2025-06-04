@@ -10,7 +10,7 @@ import { i18n } from "$lib/i18n";
 import Navbar from "$lib/components/ui/Navbar.svelte";
 import Footer from "$lib/components/ui/Footer.svelte";
 import { ParaglideJS } from "@inlang/paraglide-sveltekit";
-let { children } = $props();
+let { children, data } = $props();
 
 import CircleCursor from "$lib/utils/circleCursor";
 let cursor: CircleCursor;
@@ -50,5 +50,5 @@ onMount(() => {
 <ParaglideJS {i18n}>
 	<Navbar />
 	{@render children()}
-	<Footer />
+	<Footer posts={data.posts}/>
 </ParaglideJS>

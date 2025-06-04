@@ -1,5 +1,5 @@
 <script lang="ts">
-import MaterialSymbolsLightClose from '~icons/material-symbols-light/close';
+import MaterialSymbolsLightClose from "~icons/material-symbols-light/close";
 import SeoHead from "$lib/utils/SeoHead.svelte";
 import Showcase from "$lib/components/sections/index/Showcase.svelte";
 import * as m from "$lib/paraglide/messages.js";
@@ -20,7 +20,7 @@ const { item, showcaseItems } = $derived(data);
 $effect(() => {
 	if (item.title) {
 		scrollToTop();
-		if(item.partner_brand) {
+		if (item.partner_brand) {
 			partnerBrand = getBrandByName(item.partner_brand);
 		} else {
 			partnerBrand = undefined;
@@ -43,7 +43,7 @@ $effect(() => {
 {#key item}
 	<Section 
 		id="showcase-item"
-		class="bg-white dark:bg-black text-black dark:text-white pt-12 flex flex-col gap-4 lg:gap-8 xl:gap-12"
+		class="bg-white dark:bg-black text-black dark:text-white pt-12 flex flex-col gap-4 "
 
 	>
 	{#if partnerBrand}
@@ -53,7 +53,8 @@ $effect(() => {
 		<object class="{partnerBrand.height} invert" data="{partnerBrand.url}" type="image/svg+xml" title="Zun Creative Logo"></object>
 	</div>
 	{/if}
-		<H1 class="text-center">{item.title}</H1>
+		<div class="flex flex-col gap-4 lg:gap-8 xl:gap-12 ">
+		<H1 class="text-center"><i>{item.title}</i></H1>
 
 		<div class="flex justify-between flex-row gap-4">
 			<div class="flex gap-4 lg:gap-8 justify-center items-center">
@@ -112,8 +113,9 @@ $effect(() => {
 					Your browser does not support the video tag.
 				</video>
 			</div>
-
 		{/if}
+
+		</div>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 			{#each item.gallery! as galleryImage}
 				<Image

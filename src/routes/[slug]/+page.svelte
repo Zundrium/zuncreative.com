@@ -6,8 +6,8 @@ import H1 from "$lib/components/typography/H1.svelte";
 import Paragraph from "$lib/components/typography/Paragraph.svelte";
 import PageHeading from "$lib/components/ui/PageHeading.svelte";
 import Image from "$lib/components/ui/Image.svelte";
-    import { onMount } from "svelte";
-    import { scrollToTop } from "$lib/utils/lenis.js";
+import { onMount } from "svelte";
+import { scrollToTop } from "$lib/utils/lenis.js";
 
 let { data } = $props();
 onMount(() => {
@@ -21,7 +21,7 @@ onMount(() => {
 		description: data.description,
 		keywords: data.keywords.join(", "),
 		slug: data.slug,
-		thumbnail: `${data.header_image}`,
+		thumbnail: `/images/2d_matrix.png`,
 		type: "BlogPosting",
 		datePublished: formatDateToISO8601(data.publish_date),
 		dateModified: formatDateToISO8601(data.modify_date),
@@ -29,8 +29,8 @@ onMount(() => {
 />
 
 <PageHeading>
-	<div class="w-full grid grid-cols-1 lg:grid-cols-2">
-		<hgroup class="flex flex-col gap-2 lg:gap-4 justify-center">
+	<div class="w-full flex flex-col">
+		<hgroup class="flex flex-col gap-4 lg:gap-8 xl:gap-12 justify-center">
 			<H1>{data.title}</H1>
 			<Paragraph size="xl">
 				{data.description}

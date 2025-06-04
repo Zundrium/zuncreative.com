@@ -12,7 +12,7 @@ import { page } from "$app/stores";
 
 const navLinks = [
 	// { name: "Showcase", href: "/#showcase" },
-	{ name: "Diensten", href: "/#services" },
+	{ name: "Over mij", href: "/#over-mij" },
 	{ name: "Blog", href: "/blog" },
 	{ name: "Showcase", href: "/#showcase" },
 	//{
@@ -182,8 +182,8 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 		>
 			<div class="w-full lg:w-auto flex justify-between items-center">
 				<a href="/" class="cursor-pointer relative w-14 h-14" aria-label="Home">
-					 <object class="absolute pointer-events-none inset-0 w-full h-full duration-500 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
-					 <object class="absolute pointer-events-none inset-0 w-full h-full duration-500 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+					<object class="absolute pointer-events-none inset-0 w-full h-full duration-500 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+					<object class="absolute pointer-events-none inset-0 w-full h-full duration-500 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 				</a
 				>
 				<button
@@ -198,7 +198,7 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 				>
 					<div class="relative h-full w-full">
 						<span class="sr-only"
-							>{mobileNavOpen ? "Close" : "Open"} Menu</span
+						>{mobileNavOpen ? "Close" : "Open"} Menu</span
 						>
 						<MdiMenu
 							class="absolute left-0 top-0 h-full w-full transition-transform duration-300 {mobileNavOpen
@@ -216,72 +216,25 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 
 			<nav
 				aria-label="primary navigation"
-				class="transition-height transition-opacity duration-300 justify-center w-full lg:w-auto lg:pb-0 text-xl md:text-lg h-full overflow-auto lg:overflow-hidden {mobileNavOpen
+				class="transition-height transition-opacity duration-300 justify-center w-full lg:w-auto lg:pb-0 text-xl md:text-base h-full overflow-auto lg:overflow-hidden {mobileNavOpen
 					? ''
 					: 'hidden'} lg:flex"
 				id="mobile-nav"
 			>
 				<ul
-					class="flex flex-col lg:flex-row gap-2 lg:gap-8 2xl:gap-12 items-center justify-center h-full"
+					class="flex flex-col lg:flex-row gap-2 lg:gap-4 items-center justify-center h-full"
 				>
-					{#each navLinks as navLink}
+					{#each navLinks as navLink, index}
 						<li
 							class="flex flex-col flex-none items-center w-full lg:w-auto lg:border-none border-black/10 dark:border-white/10 py-2"
 						>
-							{#if navLink.subMenu}
-								<button
-									class="cursor-pointer flex py-2 items-center font-bold md:font-medium"
-									on:mouseenter={() =>
-										showSubmenu(navLink.subMenuId)}
-									on:keydown={(e) =>
-										handleKeyDown(e, navLink.subMenuId)}
-									aria-haspopup="true"
-									aria-expanded={activeSubmenu ===
-										navLink.subMenuId}
-									aria-controls={`submenu-${navLink.subMenuId}`}
-								>
-									{navLink.name}
-									<MdiArrowDown
-										class="hidden lg:flex size-4 transition-transform duration-300 {activeSubmenu ===
-										navLink.subMenuId
-											? 'rotate-180'
-											: 'rotate-0'}"
-										aria-hidden="true"
-									/>
-								</button>
-								<ul
-									id={`submenu-${navLink.subMenuId}`}
-									class="flex flex-col lg:hidden items-center"
-									role="menu"
-									aria-label={`${navLink.name} Submenu`}
-								>
-									{#each navLink.subMenu as subMenuLink}
-										<li
-											role="none"
-											class="flex flex-auto items-center"
-										>
-											<a
-												href={subMenuLink.href}
-												class="p-1 lg:p-2 hover:underline"
-												role="menuitem"
-											>
-												{subMenuLink.name}
-											</a>
-										</li>
-									{/each}
-								</ul>
-							{:else}
-								<a
-									class="cursor-pointer flex py-2 hover:underline items-center gap-2 {currentSection ===
-									navLink.href
-										? 'font-bold'
-										: ''}"
-									on:click={hideMobileNav}
-									href={navLink.href}
-								>
-									{navLink.name}
-								</a>
-							{/if}
+							<Button
+								style="text"
+								on:click={hideMobileNav}
+								href={navLink.href}
+							>
+								{navLink.name}
+							</Button>
 						</li>
 					{/each}
 				</ul>
@@ -312,7 +265,7 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 					>
 						<H3>{item.name}</H3>
 						<Paragraph size="sm"
-							>Detailed description or list of products</Paragraph
+						>Detailed description or list of products</Paragraph
 						>
 					</div>
 				{/each}
@@ -322,16 +275,16 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 </header>
 
 <!-- <div
-	class="fixed top-0 right-0 bottom-0 left-0 bg-black/60 z-40 backdrop-blur-xs transition-opacity-visibility {mobileNavOpen
-		? 'visible opacity-100'
-		: 'hidden opacity-0'}"
-	aria-hidden="true"
-	on:click={hideMobileNav}
+class="fixed top-0 right-0 bottom-0 left-0 bg-black/60 z-40 backdrop-blur-xs transition-opacity-visibility {mobileNavOpen
+? 'visible opacity-100'
+: 'hidden opacity-0'}"
+aria-hidden="true"
+on:click={hideMobileNav}
 ></div> -->
 
 <div
 	class="fixed top-0 right-0 bottom-0 left-0 bg-black/30 z-40 backdrop-blur-xs transition--opacity-visibility duration-300
-		{activeSubmenu !== null ? 'visible opacity-100' : 'invisible opacity-0'}"
+	{activeSubmenu !== null ? 'visible opacity-100' : 'invisible opacity-0'}"
 	aria-hidden="true"
 	on:mouseenter={hideSubmenu}
 ></div>

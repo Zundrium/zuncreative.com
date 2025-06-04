@@ -1,14 +1,14 @@
 <script lang="ts">
-    import NavbarFiller from "./NavbarFiller.svelte";
+import NavbarFiller from "./NavbarFiller.svelte";
 
-    let className = "";
+let className = "";
 
-    export let centered: boolean = false;
-    export { className as class };
+export let centered: boolean = false;
+export { className as class };
 </script>
 
 <section
-    class="w-full flex flex-col items-center bg-gray-700 dark:bg-gray-800 py-8 lg:py-24 text-white"
+    class="w-full flex flex-col items-center bg-gray-100 dark:bg-gray-900 py-8 lg:py-24 text-white"
 >
     <NavbarFiller />
     <div class="container px-4">

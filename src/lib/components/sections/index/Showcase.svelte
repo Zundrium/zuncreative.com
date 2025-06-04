@@ -55,7 +55,7 @@ const showAllHandler = () => setActiveTag(null);
 
 // Memoized class computation
 function getItemClasses(item: MarkdownTextfile): string {
-	const baseClasses = "flex flex-col cursor-pointer gap-2";
+	const baseClasses = "flex flex-col cursor-pointer";
 
 	if (item.featured) {
 		return `${baseClasses} row-span-2 col-span-2`;
@@ -73,7 +73,7 @@ function getItemClasses(item: MarkdownTextfile): string {
 	backgroundColor="bg-white dark:bg-black"
 >
 	<SectionHeading centered title="Mijn <i>werk</i>" subtitle="Showcase" />
-	
+
 	<div class="flex gap-2 items-center w-full justify-center">	
 		{#each showcaseItemTags as tag (tag)}
 			<Button
@@ -94,9 +94,9 @@ function getItemClasses(item: MarkdownTextfile): string {
 			All
 		</Button>
 	</div>
-	
+
 	<div
-		class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[12rem] md:auto-rows-[14rem] lg:auto-rows-[20rem] gap-x-4 gap-y-8 grid-flow-row-dense"
+		class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[12rem] md:auto-rows-[14rem] lg:auto-rows-[20rem] gap-4 grid-flow-row-dense"
 	>
 		{#each filteredShowcaseItems as showcaseItem (showcaseItem.slug)}		
 			<a	
@@ -105,7 +105,8 @@ function getItemClasses(item: MarkdownTextfile): string {
 				data-cursor-icon="fullscreen"
 				use:viewportSlideInBottom
 			>  
-				<div class="overflow-hidden object-cover flex-1 relative rounded-xl">
+				<div class="overflow-hidden object-cover flex-1 relative rounded-xl">	
+					<div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50 z-1"></div>
 					<Image 
 						parallax 
 						src={showcaseItem.header_image} 
@@ -113,8 +114,8 @@ function getItemClasses(item: MarkdownTextfile): string {
 						class="w-full h-full"
 						loading="lazy"
 					/>
+					<i class="absolute left-5 bottom-5 z-2">{showcaseItem.title}</i>
 				</div>
-				<span class="font-medium">{showcaseItem.title}</span>
 			</a>
 		{/each}
 	</div>

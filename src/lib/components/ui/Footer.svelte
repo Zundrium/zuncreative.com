@@ -17,26 +17,27 @@ const socialLinks = [
 	{ icon: MdiLinkedin, name: "LinkedIn", href: "https://linkedin.com" },
 ];
 
+export let posts: any = [];
+
+const blogLinks: any = [];
+for (let i = 0; i < posts.length; i++) {
+	const post = posts[i];
+	blogLinks.push({
+		name: post.title,
+		href: `/blog/${post.slug}`,
+	});
+}
+
 const columnLinks = [
 	{
-		title: "Company",
-		links: [
-			{ name: "About", href: "/" },
-			{ name: "Careers", href: "/" },
-		],
+		title: "Blog",
+		links: blogLinks,
 	},
 	{
-		title: "Resources",
+		title: "Algemeen",
 		links: [
-			{ name: "Blog", href: "/blog" },
-			{ name: "Support", href: "/" },
-		],
-	},
-	{
-		title: "Legal",
-		links: [
-			{ name: "Terms", href: "/" },
-			{ name: "Privacy", href: "/" },
+			{ name: "Over mij", href: "/#over-mij" },
+			{ name: "Showcase", href: "/#showcase" },
 		],
 	},
 ];
@@ -48,7 +49,7 @@ const year = new Date().getFullYear();
 <footer class="text-black dark:text-white flex flex-col items-center bg-slate-50 dark:bg-white/5">
   <div class="w-full flex flex-col items-center px-4 py-12 lg:py-24">
     <div class="container px-4 flex-1">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
         {#each columnLinks as column}
           <div class="flex flex-col gap-4">
             <span class="font-bold">{column.title}</span>
@@ -67,31 +68,21 @@ const year = new Date().getFullYear();
 			</a>
           <div class="flex flex-col gap-4 text-slate-700 dark:text-slate-400">
             <Paragraph size="sm">
-              Vlierweg 12<br />Amsterdam, NL
+              Vlierweg 12<br />1032LG<br/>Amsterdam
             </Paragraph>
-            <a href="mailto:sem@zuncreative.com" class="hover:underline flex items-center gap-2">
+            <a href="mailto:sem@zuncreative.com" class="cursor-pointer hover:underline flex items-center gap-2">
               <MdiEmail class="size-4" />
 					sem@zuncreative.com
             </a>
-            <a href="tel:+316665658" class="hover:underline flex items-center gap-2">
+            <a href="tel:+316665658" class="cursor-pointer hover:underline flex items-center gap-2">
               <MdiPhone class="size-4" />
               +31 6 665 658
             </a>
+				<a href="https://linkedin.com/in/sem-verbraak" class="cursor-pointer hover:underline flex items-center gap-2">
+              <MdiLinkedin class="size-4" />
+						/in/sem-verbraak
+            </a>
           </div>
-          <ul class="h-full flex gap-3 lg:gap-6 items-center">
-            {#each socialLinks as socialLink}
-              <li>
-                <a
-                  href={socialLink.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={socialLink.name}
-                >
-                  <svelte:component this={socialLink.icon} class="size-6" />
-                </a>
-              </li>
-            {/each}
-          </ul>
         </address>
       </div>
     </div>
@@ -104,10 +95,10 @@ const year = new Date().getFullYear();
     <nav aria-label="Legal">
       <ul class="flex gap-4 lg:gap-8 items-center">
         <li>
-          <a href="/">Privacy</a>
+          <a class="cursor-pointer" href="/privacy">Privacy</a>
         </li>
         <li>
-          <a href="/">
+          <a class="cursor-pointer" href="/terms">
             Terms <span class="hidden lg:inline-block">&amp; conditions</span>
           </a>
         </li>

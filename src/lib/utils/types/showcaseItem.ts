@@ -1,1 +1,1 @@
-export const showcaseItemTags: string[] = ["AI", "AR", "3D", "Web"];
+export const showcaseItemTags: string[] = ["AI", "AR", "3D"];

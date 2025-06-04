@@ -7,6 +7,7 @@ import {
 	viewportSlideInTop,
 } from "$lib/utils/viewportSwitchClass";
 
+import MdiLinkedin from "~icons/mdi/linkedin";
 import MdiPhone from "~icons/mdi/phone";
 import MdiEmail from "~icons/mdi/email";
 import AnimatedParagraph from "$lib/components/typography/AnimatedParagraph.svelte";
@@ -15,14 +16,20 @@ const contactMethods = [
 	{
 		icon: MdiPhone,
 		ariaLabel: "Call",
-		text: "+31 6 665 658",
-		link: "tel:+316665658",
+		text: "+31 6 13 665 658",
+		link: "tel:+31613665658",
 	},
 	{
 		icon: MdiEmail,
 		ariaLabel: "Mail to",
 		text: "sem@zuncreative.com",
-		link: "mail:sem@zuncreative.com",
+		link: "mailto:sem@zuncreative.com",
+	},
+	{
+		icon: MdiLinkedin,
+		ariaLabel: "LinkedIn profile",
+		text: "/in/sem-verbraak/",
+		link: "https://www.linkedin.com/in/sem-verbraak/",
 	},
 ];
 </script>
@@ -35,7 +42,7 @@ const contactMethods = [
     <SectionHeading subtitle="Contact" title="Laten we <i>ontmoeten</i>" />
     <div class="flex flex-col items-center w-full" use:viewportSlideInTop>
         <AnimatedParagraph size="xl" class="w-full md:w-1/2">
-			U kunt altijd contact met me opnemen via e-mail of telefoon. Als je vragen hebt over mijn werk, of als je een project wilt bespreken, aarzel dan niet om contact met me op te nemen. Ik kijk ernaar uit om van je te horen!
+				Contact opnemen kan altijd via e-mail of telefoon. Voor vragen over mijn werk of om een project te bespreken, aarzel niet om contact op te nemen. Ik kijk ernaar uit om iets te horen!	
         </AnimatedParagraph>
     </div>
     <div
