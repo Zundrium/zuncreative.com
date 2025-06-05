@@ -9,25 +9,16 @@ import { onMount } from "svelte";
 import H3 from "$lib/components/typography/H3.svelte";
 import Paragraph from "$lib/components/typography/Paragraph.svelte";
 import { page } from "$app/stores";
+    import DarkAndLightSwitch from "./DarkAndLightSwitch.svelte";
 
 const navLinks = [
 	// { name: "Showcase", href: "/#showcase" },
 	{ name: "Over mij", href: "/#over-mij" },
 	{ name: "Blog", href: "/blog" },
 	{ name: "Showcase", href: "/#showcase" },
-	//{
-	//	name: "Services",
-	//	subMenuId: "services",
-	//	subMenu: [
-	//		{ name: "Service #1", href: "/" },
-	//		{ name: "Service #2", href: "/" },
-	//		{ name: "Service #3", href: "/" },
-	//	],
-	//},
 ];
 
 let initialized: boolean = false;
-let activeSubmenu: string | null = null;
 const mainNavTransparent =
 	"bg-gradient-to-b from-black/60 to-transparent text-white";
 const mainNavOpaque = "bg-white dark:bg-black text-black dark:text-white";
@@ -58,14 +49,6 @@ function throttle(callback: Function, limit = 100) {
 }
 const throttledUpdateCurrentSection = throttle(updateCurrentSection, 100);
 
-function showSubmenu(menuKey: string) {
-	activeSubmenu = menuKey;
-}
-
-function hideSubmenu() {
-	activeSubmenu = null;
-}
-
 function toggleMobileNav() {
 	mobileNavOpen = !mobileNavOpen;
 }
@@ -77,11 +60,9 @@ function hideMobileNav() {
 function handleKeyDown(event: KeyboardEvent, menuKey?: string) {
 	if (event.key === "Enter" || event.key === " ") {
 		event.preventDefault();
-		menuKey ? showSubmenu(menuKey) : toggleMobileNav();
+		toggleMobileNav();
 	}
-	if (event.key === "Escape") {
-		activeSubmenu = null;
-	}
+	
 }
 
 function updateCurrentSection() {
@@ -130,8 +111,6 @@ onMount(() => {
 $: if (sections) {
 	throttledUpdateCurrentSection();
 }
-
-$: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 </script>
 
 <!-- Bind scrollY from the window -->
@@ -177,15 +156,14 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 	>
 		<div
 			class="container  transition-colors duration-500 px-4 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-svh {mobileNavOpen
-				? 'h-svh bg-black'
+				? 'h-svh bg-white dark:bg-black'
 				: 'bg-transparent'}"
 		>
 			<div class="w-full lg:w-auto flex justify-between items-center">
 				<a href="/" class="cursor-pointer relative w-14 h-14" aria-label="Home">
 					<object class="absolute pointer-events-none inset-0 w-full h-full duration-500 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 					<object class="absolute pointer-events-none inset-0 w-full h-full duration-500 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
-				</a
-				>
+				</a>
 				<button
 					class="size-12 p-2 cursor-pointer lg:hidden"
 					on:click={toggleMobileNav}
@@ -216,13 +194,13 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 
 			<nav
 				aria-label="primary navigation"
-				class="transition-height transition-opacity duration-300 justify-center w-full lg:w-auto lg:pb-0 text-xl md:text-base h-full overflow-auto lg:overflow-hidden {mobileNavOpen
-					? ''
+				class="transition-height transition-opacity duration-300 justify-center items-center w-full lg:w-auto lg:pb-0 text-xl md:text-base h-full overflow-auto lg:overflow-hidden {mobileNavOpen
+					? 'flex flex-col items-center'
 					: 'hidden'} lg:flex"
 				id="mobile-nav"
 			>
 				<ul
-					class="flex flex-col lg:flex-row gap-2 lg:gap-4 items-center justify-center h-full"
+					class="flex flex-1 flex-col lg:flex-row gap-2 lg:gap-4 items-center justify-center h-full"
 				>
 					{#each navLinks as navLink, index}
 						<li
@@ -238,6 +216,10 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 						</li>
 					{/each}
 				</ul>
+
+				<div class="md:hidden">
+				<DarkAndLightSwitch />
+</div>
 			</nav>
 			<Button
 				href="/#contact"
@@ -250,28 +232,6 @@ $: submenu = navLinks.find((link) => link.subMenuId === activeSubmenu)?.subMenu;
 			</Button>
 		</div>
 	</div>
-
-	{#if submenu}
-		<div
-			class="hidden md:flex w-full bg-white dark:bg-slate-800 p-4 justify-center text-black dark:text-white"
-			transition:slide={{ duration: 300, axis: "y" }}
-		>
-			<div class="grid grid-cols-3 gap-4">
-				{#each submenu as item}
-					<div
-						class="{activeSubmenu === 'products'
-							? 'bg-blue-100'
-							: 'bg-green-100'} dark:bg-blue-900 p-4 rounded"
-					>
-						<H3>{item.name}</H3>
-						<Paragraph size="sm"
-						>Detailed description or list of products</Paragraph
-						>
-					</div>
-				{/each}
-			</div>
-		</div>
-	{/if}
 </header>
 
 <!-- <div
@@ -282,9 +242,3 @@ aria-hidden="true"
 on:click={hideMobileNav}
 ></div> -->
 
-<div
-	class="fixed top-0 right-0 bottom-0 left-0 bg-black/30 z-40 backdrop-blur-xs transition--opacity-visibility duration-300
-	{activeSubmenu !== null ? 'visible opacity-100' : 'invisible opacity-0'}"
-	aria-hidden="true"
-	on:mouseenter={hideSubmenu}
-></div>

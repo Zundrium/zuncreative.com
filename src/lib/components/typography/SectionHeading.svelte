@@ -4,6 +4,7 @@ import H2 from "./H2.svelte";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
+    import { viewportFade } from "$lib/utils/viewportSwitchClass";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -11,7 +12,6 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 let className = "";
 let titleElement: HTMLElement;
 let hgroupElement: HTMLElement;
-let subtitleElement: HTMLElement;
 
 export let centered: boolean = false;
 export let title: string;
@@ -63,22 +63,6 @@ onMount(() => {
 		},
 	});
 
-	// Animate subtitle first (if it exists)
-	let splitSubtitle;
-	if (subtitle && subtitleElement) {
-		splitSubtitle = createSplitReveal(subtitleElement);
-
-		tl.to(
-			splitSubtitle.lines.map((line) => line.firstChild),
-			{
-				y: "0%",
-				opacity: 1,
-				duration: 0.5,
-				stagger: 0.05,
-				ease: "power2.out",
-			},
-		);
-	}
 
 	// Then animate each line of the title
 	if (titleElement) {
@@ -94,7 +78,6 @@ onMount(() => {
 				ease: "power2.out",
 				delay: animationDelay,
 			},
-			subtitle ? "-=0.3" : "0",
 		);
 	}
 
@@ -116,12 +99,13 @@ onMount(() => {
         ? 'text-center'
         : ''}"
 >
+	<div class="flex flex-row w-full gap-8 items-center justify-center" use:viewportFade>
     <span 
-        bind:this={subtitleElement}
-        class="uppercase text-sm text-slate-700 dark:text-slate-300"
+        class="uppercase text-sm text-neutral-700 dark:text-neutral-300"
     >
         {subtitle}
     </span>
+	</div>
     
     {#if href}
         <a {href}>

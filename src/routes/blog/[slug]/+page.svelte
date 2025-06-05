@@ -13,8 +13,7 @@ import Image from "$lib/components/ui/Image.svelte";
 import { onMount } from "svelte";
 import { scrollToTop } from "$lib/utils/lenis.js";
 let { data } = $props();
-let post = data.post;
-let posts = data.posts;
+const { post, posts } = $derived(data);
 
 function capitalizeAndStripesToSpaces(str: string) {
 	return str.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
@@ -28,6 +27,12 @@ onMount(() => {
 	scrollToTop();
 	Prism.highlightAll();
 });
+
+$effect(() => {
+	if(data.post) {
+		scrollToTop();
+	}
+})
 </script>
 
 <SeoHead
@@ -43,6 +48,7 @@ onMount(() => {
 	}}
 />
 
+{#key post}
 <section
 	id="hero"
 	style="clip-path: inset(0 0 0 0); backface-visibility: hidden;"
@@ -86,14 +92,17 @@ onMount(() => {
 	<!-- scroll button -->
 	<ScrollIndicator />
 </section>
+{/key}
 
 <Section
 	id="blogArticle"
 	class="flex flex-col lg:flex-row gap-4 md:gap-8 lg:gap-12 xl:gap-16 justify-center"
 >
+	{#key post}
 	<article class="w-full prose lg:prose-xl dark:prose-invert">
 		<post.component />
 	</article>
+	{/key}
 
 	<div class="w-full flex flex-col lg:w-1/5 lg:gap-8">
 		<H3>Recente blogposts</H3>

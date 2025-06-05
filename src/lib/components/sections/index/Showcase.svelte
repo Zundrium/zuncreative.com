@@ -106,7 +106,7 @@ function getItemClasses(item: MarkdownTextfile): string {
 				use:viewportSlideInBottom
 			>  
 				<div class="overflow-hidden object-cover flex-1 relative rounded-xl">	
-					<div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50 z-1"></div>
+					<div class="absolute inset-0 bg-gradient-to-t from-white dark:from-black to-transparent opacity-20 dark:opacity-50 z-1"></div>
 					<Image 
 						parallax 
 						src={showcaseItem.header_image} 

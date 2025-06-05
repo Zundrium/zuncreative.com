@@ -1,12 +1,12 @@
 import { FreeCamera } from "@babylonjs/core/Cameras/freeCamera";
 import type { TargetCamera } from "@babylonjs/core/Cameras/targetCamera";
 import { Color4, Matrix } from "@babylonjs/core/Maths/math";
-import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
+//import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { Scene } from "@babylonjs/core/scene";
-import "@babylonjs/core/Rendering/depthRendererSceneComponent";
-import "@babylonjs/core/Rendering/depthRenderer";
+//import "@babylonjs/core/Rendering/depthRendererSceneComponent";
+//import "@babylonjs/core/Rendering/depthRenderer";
 import { CubeTexture } from "@babylonjs/core/Materials/Textures/cubeTexture";
 import "@babylonjs/loaders/glTF/2.0";
 import type { AssetContainer } from "@babylonjs/core/assetContainer";
@@ -33,7 +33,6 @@ export class BabylonScene {
 	private observer: IntersectionObserver | null = null;
 	private isIntersecting: boolean = true; // Initially assume it's in view
 	private initializing: boolean = false;
-	private pipeline: DefaultRenderingPipeline | null = null;
 	private skyDome: Mesh | null = null;
 	private useArcRotateCamera: boolean = false;
 	public mediaQueryFOVs: number[] = [1, 0.85, 0.6, 0.5, 0.4];
@@ -48,44 +47,6 @@ export class BabylonScene {
 		// 	this.scene!.debugLayer.show({
 		// 		embedMode: true,
 		// 	});
-	}
-
-	private createRenderPipeline(
-		scene: Scene,
-		camera: TargetCamera,
-	): DefaultRenderingPipeline {
-		const pipeline = new DefaultRenderingPipeline("default", false, scene, [
-			camera,
-		]);
-
-		//pipeline.depthOfFieldEnabled = true;
-		//pipeline.depthOfField.focusDistance = 10 * 1000;
-		//pipeline.depthOfField.fStop = 1.5;
-		//pipeline.depthOfField.focalLength = 150;
-		//pipeline.depthOfFieldBlurLevel = DepthOfFieldEffectBlurLevel.Medium;
-		pipeline.fxaaEnabled = true;
-		//pipeline.bloomEnabled = true;
-		//pipeline.bloomThreshold = 0.3;
-		//pipeline.bloomWeight = 0.5;
-		//pipeline.bloomScale = 0.5;
-		pipeline.samples = 2;
-		pipeline.imageProcessingEnabled = true;
-		pipeline.imageProcessing.toneMappingEnabled = true;
-		pipeline.imageProcessing.toneMappingType = 1;
-		//pipeline.imageProcessing.vignetteEnabled = true;
-		//pipeline.imageProcessing.vignetteWeight = 0.5;
-		//pipeline.imageProcessing.vignetteCameraFov = 4;
-
-		this.pipeline = pipeline;
-		return pipeline;
-	}
-
-	public setBackgroundColor(hexColor: string) {
-		this.scene.clearColor = Color4.FromHexString(hexColor);
-	}
-
-	public setBackgroundOpacity(opacity: number) {
-		this.scene.clearColor.a = opacity;
 	}
 
 	public init(options?: InitOptions): Promise<void> {
@@ -110,7 +71,7 @@ export class BabylonScene {
 		this.engine = new Engine(this.renderCanvas);
 		this.scene = new Scene(this.engine);
 		this.scene.useRightHandedSystem = true;
-		this.scene.clearColor = new Color4(0, 0, 0, 1);
+		this.scene.clearColor = new Color4(0, 0, 0, 0);
 
 		if (this.useArcRotateCamera) {
 			this.camera = new ArcRotateCamera(
@@ -192,7 +153,6 @@ export class BabylonScene {
 		if (assetContainer.cameras.length > 0) {
 			this.camera = assetContainer.cameras[0] as TargetCamera;
 			this.scene.activeCamera = this.camera;
-			this.pipeline?.addCamera(this.camera);
 			this.camera.minZ = 0.1;
 			this.camera.maxZ = 1000;
 			this.applyCorrectFOV();

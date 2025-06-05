@@ -46,7 +46,7 @@ $effect(() => {
 </script>
 
 <div
-    class="flex items-center bg-slate-200 dark:bg-white/5 rounded-full p-1 gap-1"
+    class="flex items-center bg-slate-200 dark:bg-neutral-900 text-black dark:text-white rounded-full p-2 gap-2"
 >
     <button
         class="p-1 lg:p-2 rounded-full cursor-pointer {activeTheme === 'system'
@@ -57,7 +57,7 @@ $effect(() => {
             activeTheme = "system";
         }}
     >
-        <MdiLaptop class="size-4" />
+        <MdiLaptop class="size-6" />
     </button>
     <button
         class="p-1 lg:p-2 rounded-full cursor-pointer {activeTheme === 'light'
@@ -68,7 +68,7 @@ $effect(() => {
             activeTheme = "light";
         }}
     >
-        <MdiWhiteBalanceSunny class="size-4" />
+        <MdiWhiteBalanceSunny class="size-6" />
     </button>
     <button
         class="p-1 lg:p-2 rounded-full cursor-pointer {activeTheme === 'dark'
@@ -79,7 +79,7 @@ $effect(() => {
             activeTheme = "dark";
         }}
     >
-        <MdiMoonAndStars class="size-4" />
+        <MdiMoonAndStars class="size-6" />
     </button>
 </div>
 
