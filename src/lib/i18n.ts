@@ -1,6 +1,5 @@
 import * as runtime from "$lib/paraglide/runtime";
 import { createI18n } from "@inlang/paraglide-sveltekit";
-import { loadMarkdownFiles, loadMarkdownFile } from "./utils/markdown";
 import {
 	availableLanguageTags,
 	sourceLanguageTag,

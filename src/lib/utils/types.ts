@@ -20,7 +20,7 @@ export interface MarkdownTextfile {
 	header_image: string;
 	header_image_position: string;
 	external_url?: string;
-	component: ConstructorOfATypedSvelteComponent;
+	html: string;
 	video?: string;
 	mobile?: boolean;
 	featured?: boolean;

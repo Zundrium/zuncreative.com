@@ -29,10 +29,10 @@ onMount(() => {
 });
 
 $effect(() => {
-	if(data.post) {
+	if (data.post) {
 		scrollToTop();
 	}
-})
+});
 </script>
 
 <SeoHead
@@ -100,7 +100,7 @@ $effect(() => {
 >
 	{#key post}
 	<article class="w-full prose lg:prose-xl dark:prose-invert">
-		<post.component />
+		{@html post.html}
 	</article>
 	{/key}
 

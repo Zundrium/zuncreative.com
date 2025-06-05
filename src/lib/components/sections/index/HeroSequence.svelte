@@ -162,17 +162,7 @@ function handleScroll() {
 	const scrollY = window.scrollY - minScrollY;
 	const normalizedScrollY = clamp(scrollY / (maxScrollY - minScrollY), 0, 1);
 	const newTarget = normalizedScrollY * 100;
-	const distance = Math.abs(newTarget - currentProgress.value);
-	const duration = Math.log(distance + 1) * 0.2;
-
 	currentProgress.value = newTarget;
-
-	//gsap.to(currentProgress, {
-	//	value: newTarget,
-	//	duration: Math.max(duration, 0.05),
-	//	ease: "power2.out",
-	//});
-
 	heroWave3DCanvas!.update(normalizedScrollY * 5);
 
 	sequence.forEach((item, index) => {
@@ -247,7 +237,7 @@ onMount(() => {
 			<div bind:this={scrollContainerElement} class="h-full w-auto flex overflow-x-hidden">
 				{#each slides as slide, index}
 					<div
-						class="flex flex-none flex-col justify-end gap-4 md:gap-6 lg:gap-8 xl:gap-10 h-full w-dvw p-8 lg:p-12 xl:p-24 2xl:p-36"
+						class="flex flex-none flex-col justify-end gap-4 md:gap-6 lg:gap-8 xl:gap-10 h-full w-dvw p-8 lg:p-12 xl:p-16 2xl:p-24"
 					>
 						<div bind:this={slideElements[index]} class="flex flex-col gap-4 lg:gap-6">
 							<H2 class="text-black dark:text-white"

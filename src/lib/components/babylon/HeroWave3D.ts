@@ -27,7 +27,7 @@ export class HeroWave3D implements IBabylonGraphics {
 
 	private matrixSize = 4;
 
-	private particleSize: number = 5;
+	private particleSize: number = 4;
 	private mobileParticleSize: number = 3;
 	private matrixParticleCount = 50000;
 	private mobileMatrixParticleCount = 30000;
@@ -36,12 +36,8 @@ export class HeroWave3D implements IBabylonGraphics {
 	private textureSamplers: ITextureSampler[] = [];
 	private textureSamplerIntensity: number = 0;
 	private textureSamplerIndex: number = 0;
-	//private topColor: Color3 = new Color3(0, 0, 0);
-	//private bottomColor: Color3 = new Color3(0, 0, 0);
 	private topColor: Color3 = new Color3(1, 0.5, 0);
 	private bottomColor: Color3 = new Color3(0.5, 0, 1);
-
-	//private renderPipeline: DefaultRenderingPipeline | null = null;
 
 	public constructor() {}
 
@@ -87,8 +83,6 @@ export class HeroWave3D implements IBabylonGraphics {
 		return a + (b - a) * t;
 	}
 
-	
-
 	private updateParticleColor(particle: CloudPoint, noiseValue: number): void {
 		particle.color!.r = this.lerp(
 			this.bottomColor.r,
@@ -106,29 +100,6 @@ export class HeroWave3D implements IBabylonGraphics {
 			noiseValue,
 		);
 	}
-
-	//private createRenderPipeline(
-	//	scene: Scene,
-	//	camera: TargetCamera,
-	//): DefaultRenderingPipeline {
-	//	const pipeline = new DefaultRenderingPipeline("default", false, scene, [
-	//		camera,
-	//	]);
-	//	pipeline.samples = 1;
-	//	//pipeline.depthOfFieldEnabled = true;
-	//	//pipeline.depthOfField.focusDistance = 2.25 * 1000;
-	//	//pipeline.depthOfField.fStop = 1.4;
-	//	//pipeline.depthOfField.focalLength = 80;
-	//	//pipeline.depthOfFieldBlurLevel = DepthOfFieldEffectBlurLevel.Medium;
-	//	//pipeline.bloomEnabled = true;
-	//	//pipeline.bloomWeight = 1;
-	//	//pipeline.bloomKernel = 20;
-	//	//pipeline.bloomThreshold = 0;
-	//	//pipeline.imageProcessingEnabled = true;
-	//	//pipeline.imageProcessing.toneMappingEnabled = true;
-	//	//pipeline.imageProcessing.toneMappingType = 2;
-	//	return pipeline;
-	//}
 
 	private createPointsCloud(scene: Scene): PointsCloudSystem {
 		const pointCloudSystem = new PointsCloudSystem(
@@ -276,23 +247,18 @@ export class HeroWave3D implements IBabylonGraphics {
 		this.babylonScene = new BabylonScene(renderCanvas);
 		this.babylonScene.mediaQueryFOVs = [0.7, 0.6, 0.5, 0.4, 0.4];
 
-		if(getScreenState() == "sm") {
+		if (getScreenState() == "sm") {
 			this.particleSize = this.mobileParticleSize;
 			this.matrixParticleCount = this.mobileMatrixParticleCount;
 		}
-		
+
 		await this.babylonScene.init();
 
 		this.pointCloudSystem = this.createPointsCloud(this.babylonScene.scene);
-
 		this.pointCloudSystem.updateParticle = (particle: CloudPoint) => {
 			return this.updateParticle(particle);
 		};
 
-		//this.renderPipeline = this.createRenderPipeline(
-		//	this.babylonScene.scene,
-		//	this.babylonScene.camera,
-		//);
 		this.setuptextureSamplers();
 		this.setupCamera(this.babylonScene.camera);
 

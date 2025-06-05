@@ -55,5 +55,5 @@ onMount(() => {
 </PageHeading>
 
 <article class="py-12 px-6 prose lg:prose-xl dark:prose-invert mx-auto">
-	<data.component />
+	{@html data.html}
 </article>

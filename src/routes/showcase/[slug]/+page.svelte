@@ -92,14 +92,14 @@ $effect(() => {
 					Your browser does not support the video tag.
 				</video>
 				<article class="prose lg:prose-xl dark:prose-invert w-2/3 max-w-full!">
-					<item.component />
+					{@html item.html}
 				</article>
 
 
 			</div>
 		{:else}
 			<article class="w-full max-w-full! prose lg:prose-xl dark:prose-invert text-center">
-				<item.component />
+				{@html item.html}
 			</article>
 			<div class="flex items-center justify-center rounded-xl">
 				<video
