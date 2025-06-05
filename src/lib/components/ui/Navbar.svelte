@@ -155,8 +155,8 @@ $: if (sections) {
 		class="{navbarClass} w-full transition-colors duration-300 flex justify-center h-24 -mb-24"
 	>
 		<div
-			class="container  transition-colors duration-500 px-4 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-svh {mobileNavOpen
-				? 'h-svh bg-white dark:bg-black'
+			class="container  transition-colors duration-500 px-4 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-dvh {mobileNavOpen
+				? 'h-dvh bg-white dark:bg-black'
 				: 'bg-transparent'}"
 		>
 			<div class="w-full lg:w-auto flex justify-between items-center">
