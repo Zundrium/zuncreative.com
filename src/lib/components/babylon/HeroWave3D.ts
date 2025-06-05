@@ -30,7 +30,7 @@ export class HeroWave3D implements IBabylonGraphics {
 	private particleSize: number = 5;
 	private mobileParticleSize: number = 3;
 	private matrixParticleCount = 50000;
-	private mobileMatrixParticleCount = 10000;
+	private mobileMatrixParticleCount = 30000;
 
 	private matrixHeight = 0.35;
 	private textureSamplers: ITextureSampler[] = [];
