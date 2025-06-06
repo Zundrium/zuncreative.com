@@ -46,7 +46,7 @@ $effect(() => {
 <section
 	id="hero"
 	style="clip-path: inset(0 0 0 0); backface-visibility: hidden;"
-	class="relative px-4 w-full bg-slate-500 flex flex-col gap-8 items-center justify-end pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32 h-svh"
+	class="relative px-6 w-full bg-slate-500 flex flex-col gap-8 items-center justify-end pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32 h-svh"
 >
 	{#if post.header_image}
 		<Image

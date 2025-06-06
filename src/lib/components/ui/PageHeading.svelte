@@ -11,7 +11,7 @@ export { className as class };
     class="w-full flex flex-col items-center bg-gray-100 dark:bg-gray-900 py-8 lg:py-24 text-white"
 >
     <NavbarFiller />
-    <div class="container px-4">
+    <div class="container px-6">
         <hgroup
             class="flex flex-col gap-4 xl:gap-6 {className} {centered
                 ? 'text-center'
