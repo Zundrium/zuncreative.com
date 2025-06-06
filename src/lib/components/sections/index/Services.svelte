@@ -17,7 +17,7 @@ import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 	/>
 
 <AnimatedParagraph class="text-center w-full md:w-1/2">
-			Ik ben <i>Sem</i>, een web developer voor meer dan 15 jaar uit Amsterdam. Ik maak audiovisuele websites en web applicaties die snel, toegankelijk en gebruiksvriendelijk zijn. Mijn focus ligt op het creëren van een geweldige gebruikerservaring door middel van moderne technologieën en designprincipes.
+			Ik ben <i>Sem</i>, een web developer met meer dan 15 jaar ervaring uit Amsterdam. Ik maak audiovisuele websites en web applicaties die snel, toegankelijk en gebruiksvriendelijk zijn. Mijn focus ligt op het creëren van een geweldige gebruikerservaring door middel van moderne technologieën en designprincipes.
 		</AnimatedParagraph>
 
 	<div 

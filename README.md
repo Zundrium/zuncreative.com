@@ -6,7 +6,6 @@
 - @sveltejs/adapter-static 
 - svelte-sitemap
 - @types/node
-- mdsvex, parse markdown with meta data
 - @sentry/browser, analytics 
 
 ## Adjustments

@@ -1,7 +1,9 @@
 import { readdir, readFile } from "fs/promises";
 import { join } from "path";
-import { compile } from "mdsvex";
 import type { MarkdownTextfile } from "$lib/utils/types";
+import { compile as svelteCompile } from "svelte/compiler";
+import matter from "gray-matter";
+import markdownit from "markdown-it";
 
 async function parseMarkdownFromFile(
 	filePath: string,
@@ -10,18 +12,23 @@ async function parseMarkdownFromFile(
 	try {
 		const fileContent = await readFile(filePath, "utf-8");
 
-		const compiled = await compile(fileContent, {});
+		const result: any = matter(fileContent);
 
-		if (!compiled || !compiled.data) {
+		if (!result || !result.data) {
 			console.error(`Failed to preprocess markdown: ${filePath}`);
 			return null;
 		}
 
-		const metadata: any = compiled.data.fm || {};
+		const metadata: any = result.data || {};
 
 		if (!metadata) {
 			console.error(`No frontmatter found: ${filePath}`);
 		}
+
+		const md = markdownit({
+			html: true,
+		});
+		const html = md.render(result.content);
 
 		return {
 			title: metadata.title,
@@ -39,7 +46,7 @@ async function parseMarkdownFromFile(
 			external_url: metadata.external_url,
 			gallery: metadata.gallery,
 			partner_brand: metadata.partner_brand,
-			html: compiled.code,
+			html: html,
 		};
 	} catch (error) {
 		console.error(`Error parsing markdown file ${filePath}:`, error);

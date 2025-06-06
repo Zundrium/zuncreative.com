@@ -1,14 +1,8 @@
-import { mdsvex } from "mdsvex";
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 import adapter from "@sveltejs/adapter-static";
 
 const config = {
-	preprocess: [
-		mdsvex({
-			extensions: [".md"],
-		}),
-		vitePreprocess(),
-	],
+	preprocess: [vitePreprocess()],
 	kit: {
 		prerender: {
 			handleHttpError: ({ status, path, referrer }) => {

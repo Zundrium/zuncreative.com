@@ -7,16 +7,12 @@ keywords: 'JavaScript, animation, coding'
 header_image: '/images/lerp_vs_easing.png'
 ---
 
-<script>
-import CodePenEmbed from '$lib/utils/CodePenEmbed.svelte'
-</script>
-
 Als je werkt met animaties, games of UI-transities, heb je vast gehoord van `lerp()` en easing-functies. Maar wanneer gebruik je welke? Laten we deze krachtige technieken ontrafelen.
 
 ## Wat is een Lerp?  
 **Lerp** staat voor *Linear Interpolation*. Het is een wiskundige techniek om een waarde tussen twee punten te berekenen op basis van een verhouding (`t`). Simpel gezegd: "Geef me een punt dat X% van de weg ligt van A naar B."
 
-```javascript
+```js
 function lerp(start, end, t) {
   return start + (end - start) * t;
 }
@@ -28,7 +24,7 @@ console.log(lerp(0, 1, 0.5));
 ## Wat is Easing?  
 **Easing** regelt hoe een animatie versnelt of vertraagt. In plaats van lineaire beweging (lerp), kun je natuurlijkere effecten creëren zoals versnellen, vertragen of veren.
 
-```javascript
+```js
 function easeOutQuad(t) {
   return 1 - (1 - t) * (1 - t);
 }
@@ -39,7 +35,7 @@ console.log(easeOutQuad(0.5));
 
 ## Waar is Lerp Perfect Voor?  
 Het is geweldig voor bijvoorbeeld kleurtransities, als je een waarde tussen de 0 en 1 hebt, kan je een verloop maken aan de hand van een lerp door de `r`, `g` en `b` waardes te lerpen:  
-```javascript
+```js
 function colorLerp(color1, color2, t) {
   return {
     r: lerp(color1.r, color2.r, t),
@@ -61,7 +57,7 @@ Het ziet er elegant uit om met een enkele regel een vloeiende animatie te maken,
 Een `lerp()` pakt een fragment van een start en eind waarde, wat betekent dat het **nooit** het eind zal bereiken (wiskundige asymptoot). Hierdoor heb je geen controle over de duur van je animatie.
 
 Stel je hebt een update methode die je elke frame runt:
-```typescript
+```js
 function animate() {
   box.style.top = lerp(current, target, 0.1) + 'px';
   requestAnimationFrame(animate);
@@ -69,21 +65,15 @@ function animate() {
 animate();
 ```
 
-<CodePenEmbed 
-  slugHash="EajNjXM"
-  penTitle="Lerp vs Easing 1"
-  user="ZunCreative"
-/>
+<p class="codepen" data-default-tab="js,result" data-slug-hash="EajNjXM" data-user="ZunCreative" > </p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
 Hier zie je dat tijdens het scrollen de waarde nooit het eindgetal wordt. Dit kan gevolgen hebben op performance, in dit geval blijft het element animeren terwijl het stil staat.
 
 De makkelijkste oplossing hiervoor is het getal af te ronden voordat het toegepast word, in de achtergrond is de `current` waarde nog steeds hetzelfde, maar de toegepaste waarde bereikt het eindgetal dankzij een afronding naar boven.
 
-<CodePenEmbed 
-  slugHash="wBaoVKO"
-  penTitle="Lerp vs Easing 2"
-  user="ZunCreative"
-/>
+
+<p class="codepen" data-default-tab="js,result" data-slug-hash="wBaoVKO" data-user="ZunCreative" > </p>
 
 Als we het fundamentele probleem willen verhelpen, kunnen we niet meer telkens een fragment tot in de oneindigheid gebruiken. De oplossing: een vaste duratie van de animatie.
 Wat we moeten doen om te kunnen werken met een vaste duratie moeten we:
@@ -93,11 +83,7 @@ Wat we moeten doen om te kunnen werken met een vaste duratie moeten we:
 4. De duratie bepalen op basis van de afstand en snelheid
 5. Een minimale en maximale duratie vastleggen
 
-<CodePenEmbed 
-  slugHash="ZYGBgOW"
-  penTitle="Lerp vs Easing 3"
-  user="ZunCreative"
-/>
+<p class="codepen" data-default-tab="js,result" data-slug-hash="ZYGBgOW" data-user="ZunCreative" > </p>
 
 Fijn, het werkt, we hebben superveel controle over de animatie, maar het is absoluut niet zo soepel als de `lerp()` van eerst, wat nu?
 
@@ -108,11 +94,7 @@ Hier komt *easing* in het spel.
 
 That's it!
 
-<CodePenEmbed 
-  slugHash="emNgOyj"
-  penTitle="Lerp vs Easing 4"
-  user="ZunCreative"
-/>
+<p class="codepen" data-default-tab="js,result" data-slug-hash="emNgOyj" data-user="ZunCreative" > </p>
 
 Op (easings.net)[https://easings.net/] kan je allemaal easings outproberen om te kijken welke je het mooiste vind door de `easeOutQuint()` vervangen.
 
