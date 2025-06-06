@@ -1,6 +1,6 @@
 ---
 title: 'Inside the Box'
-description: ''
+description: "Web-AR ervaring via ZappAR, geactiveerd door QR-code op een fysieke kubus, gebruikt image tracking voor een cinematische en dynamische contentbeleving."
 publish_date: '2022-02-10'
 keywords: 'ar, web'
 mobile: true

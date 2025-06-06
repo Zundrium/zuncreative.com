@@ -1,6 +1,6 @@
 ---
 title: 'Haal Lilian in Huis'
-description: ''
+description: "Web-AR ervaring met 8th Wall en greenscreen voor Lilian Marijnissen (SP) om tijdens COVID-19 beleidskwesties en partijvisie virtueel te communiceren."
 publish_date: '2021-01-26'
 keywords: 'ar, web'
 mobile: true

@@ -1,6 +1,6 @@
 ---
 title: 'History Lesson'
-description: 'Many lessons like these tend to be dry and easily forgotten, but it''s completely different when you can explore how they lived.'
+description: "Een interactieve 3D-geschiedenisles over Romeinse eetgewoonten, met realtime belichting die ook mobiel werkt, biedt een levendige en beklijvende leerervaring."
 publish_date: '2020-08-05'
 keywords: '3d, web'
 mobile: false

@@ -1,6 +1,6 @@
 ---
 title: 'Car Customization'
-description: 'An interactive presentation to show how you can present your product in your style.'
+description: "Een 3D-autodemo toont interactieve presentatie van exterieur en interieur, wat een completer beeld geeft dan foto's en potentieel biedt voor uitgebreide online auto-ervaringen."
 publish_date: '2020-08-05'
 keywords: '3d, web'
 mobile: false

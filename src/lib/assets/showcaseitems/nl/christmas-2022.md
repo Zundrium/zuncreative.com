@@ -1,6 +1,6 @@
 ---
 title: 'Christmas card'
-description: 'A walk experience in a tunnel, with multiple animated shop windows using spatial audio.'
+description: "Demonstratie van een interactief 3D 'walk-in' visitekaartje met AI-gegenereerde textures en muziek in een doorloopbare tunnel, verrijkt met geluidseffecten voor een immersieve ervaring."
 publish_date: '2022-03-03'
 keywords: '3d, web, ai'
 mobile: false

@@ -1,6 +1,6 @@
 ---
 title: 'Hebweb.nl'
-description: 'A cinematic journey through different personalities, each made with NFTs that are provided by xSpectar themselves.'
+description: "Hebweb.nl biedt 3D webdesign en -ontwikkeling aan Nederlandse MKB'ers via een abonnementsmodel, inclusief volledig beheer, maatwerk design, prestatieoptimalisatie, hosting en Cloudflare-beveiliging."
 publish_date: '2025-04-04'
 keywords: '3d, web'
 mobile: false

@@ -1,6 +1,6 @@
 ---
 title: 'Kryptonite.show'
-description: 'A technical proof of concept showing a realistically lit threedimensional space using the newest image compression techniques.'
+description: "De 'Kryptonite Show' is een 3D-webapplicatie met een cinematische virtuele rondleiding, gebaseerd op een AI-podcast en cryptovaluta-thematiek, gericht op dynamische visuals en sfeer."
 publish_date: '2024-05-31'
 keywords: '3d, web'
 mobile: false

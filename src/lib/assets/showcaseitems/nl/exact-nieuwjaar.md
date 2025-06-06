@@ -1,6 +1,6 @@
 ---
 title: 'Nieuwjaar AR Speech'
-description: ''
+description: "Een web-AR nieuwjaarsspeech, ontwikkeld met 8th Wall en greenscreen-technologie, bood een toegankelijk alternatief tijdens de COVID-19 pandemie, waarbij de spreker virtueel werd gepresenteerd."
 publish_date: '2020-12-14'
 keywords: 'ar, web'
 mobile: true

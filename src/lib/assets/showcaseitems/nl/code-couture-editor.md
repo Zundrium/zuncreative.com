@@ -1,7 +1,7 @@
 ---
 title: 'Code Couture Editor'
 featured: true
-description: 'With this editor, it''s possible to create an unlimited amount of different garments using a procedural shader.'
+description: "De 'Code Couture Editor' genereert via een procedurele shader onbeperkt unieke virtuele kledingstukken, met sliders voor parameters als kleur en patroondikte; gebruikt in Design Museum Den Bosch."
 publish_date: '2022-10-10'
 keywords: '3d, web'
 mobile: false

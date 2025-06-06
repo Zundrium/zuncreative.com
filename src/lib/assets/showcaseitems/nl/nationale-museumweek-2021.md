@@ -1,6 +1,6 @@
 ---
 title: 'Nationale Museumweek 2021'
-description: 'An online alternative to a national museum event, where over 400 museums show their favourite work to the entire country.'
+description: "Vanwege COVID-19 werd de Nationale Museumweek 2021 een virtueel evenement op een 3D-Museumplein, waar ruim 400 musea hun kunstwerken digitaal presenteerden."
 publish_date: '2021-04-21'
 keywords: '3d, web'
 mobile: false

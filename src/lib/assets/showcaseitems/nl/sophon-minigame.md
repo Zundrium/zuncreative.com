@@ -1,6 +1,6 @@
 ---
 title: 'Sophon minigame'
-description: 'A technical proof of concept showing a realistically lit threedimensional space using the newest image compression techniques.'
+description: "De Sophon Minigame, een op fysica gebaseerd kanonspel genaamd 'Sophon Cannon', introduceert spelers in het Sophon-universum, met scorevergelijking en mogelijke impact op het bredere platform."
 publish_date: '2025-01-04'
 keywords: '3d, web'
 mobile: false

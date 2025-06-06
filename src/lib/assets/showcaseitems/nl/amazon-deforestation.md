@@ -1,6 +1,6 @@
 ---
 title: 'Amazon Deforestation'
-description: 'This demo is to show the power of experience. Facts about amazon deforestation come to life once you can actually see what happens.'
+description: "Een realtime 3D-webervaring visualiseert de impact van mondiale problemen, zoals Amazone-ontbossing, om grote, abstracte feiten concreet en begrijpelijk te maken."
 publish_date: '2020-08-05'
 keywords: '3d, web'
 mobile: false

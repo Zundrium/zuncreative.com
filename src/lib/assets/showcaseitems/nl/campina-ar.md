@@ -1,6 +1,6 @@
 ---
 title: 'Campina AR'
-description: 'Campina is all about longevity. This campaign which is accessible through a printed QR Code on multiple Campina products.'
+description: "Een meertalige web-AR ervaring voor Campina (via ZappAR) communiceert duurzaamheidspraktijken met feiten, cijfers en een greenscreen-presentator, inclusief een Franstalige versie."
 publish_date: '2021-11-02'
 keywords: 'ar, web'
 mobile: true

@@ -1,6 +1,6 @@
 ---
 title: 'Poly Landscape'
-description: 'This proof on concept tries a new way of navigating through moving to the side and selecting certain objects.'
+description: "Een 'proof of concept' voor webnavigatie leidt gebruikers door een 3D-omgeving via zijwaartse beweging en objectselectie, wat een immersieve en avontuurlijke browse-ervaring biedt."
 publish_date: '2020-03-05'
 keywords: '3d, web'
 mobile: false

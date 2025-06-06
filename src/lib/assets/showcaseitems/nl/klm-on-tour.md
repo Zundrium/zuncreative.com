@@ -1,6 +1,6 @@
 ---
 title: 'KLM On Tour'
-description: 'An interactive AR experience that allows you to select one of the six cases with a chance to win a golden ticket!'
+description: "AR-ervaring voor KLM via 8th Wall met greenscreen-host, waarbij gebruikers navigeren tussen virtuele koffers en kans maken op een 'gouden ticket' via een gamified selectieproces."
 publish_date: '2022-09-21'
 keywords: 'ar, web'
 mobile: true

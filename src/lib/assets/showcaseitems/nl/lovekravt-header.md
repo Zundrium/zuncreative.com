@@ -1,6 +1,6 @@
 ---
 title: 'Interactive header'
-description: 'An interactive mini game in the header of the main webite, showing the creative side of LoveKRAVT.'
+description: "Een interactieve minigame in de header van de LoveKRAVT-website toont hun creatieve kant, in samenwerking met LucasGuzman3D."
 publish_date: '2023-09-29'
 keywords: '3d, web'
 mobile: false

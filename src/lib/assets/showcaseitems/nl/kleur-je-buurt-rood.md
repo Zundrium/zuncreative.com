@@ -1,6 +1,6 @@
 ---
 title: 'Kleur je buurt Rood'
-description: ''
+description: "AR-applicatie plaatst virtuele SP-billboards in de omgeving via 8th Wall (web-AR) en Spark AR (social media), als interactief communicatiemiddel bij beperkte fysieke advertentiemogelijkheden."
 publish_date: '2022-02-22'
 keywords: 'ar, web'
 mobile: true

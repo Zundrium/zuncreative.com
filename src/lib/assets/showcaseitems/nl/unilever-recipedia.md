@@ -1,6 +1,6 @@
 ---
 title: 'Recipedia'
-description: 'This proof of concept was meant to find a way to digest the information of a recipe in less than 20 seconds. First you see a short animation with the key ingredients, followed by a card that has a complete summary of the related recipe.'
+description: "Unilever Recipedia, een web-AR PoC via ZappAR, biedt snelle receptinformatie (binnen 20 sec) via een geanimeerde visualisatie gevolgd door een gedetailleerde AR-receptkaart."
 publish_date: '2020-07-02'
 keywords: 'ar, web'
 mobile: true

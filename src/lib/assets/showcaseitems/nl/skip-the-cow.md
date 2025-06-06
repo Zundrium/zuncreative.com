@@ -1,6 +1,6 @@
 ---
 title: 'Skip the Cow'
-description: ''
+description: "AR-project 'Skip the Cow' voor Upfield promoot Flora Plant Butter intern via QR-code, met interactieve animatie, recepten en duurzaamheidsstatistieken om productvoordelen te tonen."
 publish_date: '2023-04-12'
 keywords: 'ar, web'
 mobile: true

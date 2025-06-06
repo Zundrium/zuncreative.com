@@ -1,6 +1,6 @@
 ---
 title: 'Novartis Kesimpta'
-description: ''
+description: "Web-AR applicatie voor Novartis Kesimpta (via ZappAR) instrueert medische professionals over medicijngebruik via fysieke kaarten die AR-modules triggeren voor stapsgewijze demonstraties."
 publish_date: '2021-07-22'
 keywords: 'ar, web'
 mobile: true

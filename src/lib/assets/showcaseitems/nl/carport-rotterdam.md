@@ -1,6 +1,6 @@
 ---
 title: 'Carport Rotterdam'
-description: ''
+description: "Web-AR ervaring voor de opening van Carport Rotterdam, via 8th Wall, met een 3D live mesh-presentatie door Robert Doornbos en een virtuele AR-bezichtiging van het gebouw."
 publish_date: '2021-10-19'
 keywords: 'ar, web'
 mobile: true

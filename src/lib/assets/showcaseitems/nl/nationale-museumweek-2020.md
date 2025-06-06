@@ -1,6 +1,6 @@
 ---
 title: 'Nationale Museumweek 2020'
-description: 'An online alternative to a national museum event, where over 400 museums show their favourite work to the entire country.'
+description: "Door COVID-19 in 2020 werd de Nationale Museumweek een online evenement, waarbij een 3D virtueel Museumplein diende als platform voor 400+ musea om hun kunst te tonen."
 publish_date: '2020-05-10'
 keywords: '3d, web'
 mobile: false

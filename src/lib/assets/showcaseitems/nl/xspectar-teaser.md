@@ -1,6 +1,6 @@
 ---
 title: 'xSpectar 3D Teaser'
-description: 'A cinematic journey through different personalities, each made with NFTs that are provided by xSpectar themselves.'
+description: "xSpectar, een NFT- en Web3.0-project met eigen $XSPECTAR-token op XRPL, werd gerealiseerd door een 3D-artist-team met geoptimaliseerde workflow voor cameraposities."
 publish_date: '2023-01-01'
 modify_date: '2023-01-01'
 keywords: '3d, web'
