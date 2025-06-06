@@ -15,11 +15,8 @@ import { scrollToTop } from "$lib/utils/lenis.js";
 let { data } = $props();
 const { post, posts } = $derived(data);
 import "/node_modules/highlight.js/styles/base16/default-dark.min.css"
-    import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass.js";
+import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass.js";
 
-function capitalizeAndStripesToSpaces(str: string) {
-	return str.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
-}
 
 onMount(() => {
 	scrollToTop();

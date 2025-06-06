@@ -43,11 +43,11 @@ $effect(() => {
 {#key item}
 	<Section 
 		id="showcase-item"
-		class="bg-white dark:bg-black text-black dark:text-white pt-12 flex flex-col gap-4 "
+		class="bg-white dark:bg-black text-black dark:text-white pt-12 flex flex-col gap-4"
 
 	>
 	{#if partnerBrand}
-	<div class="w-full flex items-center justify-center gap-6">
+	<div class="w-full flex items-center justify-center gap-6 pb-4">
 		<object class="size-14" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 		<MaterialSymbolsLightClose class="size-14"/>
 		<object class="{partnerBrand.height} invert" data="{partnerBrand.url}" type="image/svg+xml" title="Zun Creative Logo"></object>
