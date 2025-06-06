@@ -216,7 +216,7 @@ onMount(() => {
 });
 </script>
 
-<div bind:this={sequenceContainer} class="w-full relative h-[4000px]">
+<div bind:this={sequenceContainer} class="w-full relative h-[3000px] md:h-[4000px]">
 	<Section
 		id="scroll-sequence"
 		containerClasses="cursor-scroll sticky top-0 h-dvh overflow-x-hidden pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32"
