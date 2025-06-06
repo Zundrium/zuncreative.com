@@ -65,15 +65,13 @@ function animate() {
 animate();
 ```
 
-<p class="codepen" data-default-tab="js,result" data-slug-hash="EajNjXM" data-user="ZunCreative" > </p>
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+<iframe class="codepen-embed" src="https://codepen.io/ZunCreative/embed/EajNjXM"></iframe>
 
 Hier zie je dat tijdens het scrollen de waarde nooit het eindgetal wordt. Dit kan gevolgen hebben op performance, in dit geval blijft het element animeren terwijl het stil staat.
 
 De makkelijkste oplossing hiervoor is het getal af te ronden voordat het toegepast word, in de achtergrond is de `current` waarde nog steeds hetzelfde, maar de toegepaste waarde bereikt het eindgetal dankzij een afronding naar boven.
 
-
-<p class="codepen" data-default-tab="js,result" data-slug-hash="wBaoVKO" data-user="ZunCreative" > </p>
+<iframe class="codepen-embed" src="https://codepen.io/ZunCreative/embed/wBaoVKO"></iframe>
 
 Als we het fundamentele probleem willen verhelpen, kunnen we niet meer telkens een fragment tot in de oneindigheid gebruiken. De oplossing: een vaste duratie van de animatie.
 Wat we moeten doen om te kunnen werken met een vaste duratie moeten we:
@@ -83,7 +81,7 @@ Wat we moeten doen om te kunnen werken met een vaste duratie moeten we:
 4. De duratie bepalen op basis van de afstand en snelheid
 5. Een minimale en maximale duratie vastleggen
 
-<p class="codepen" data-default-tab="js,result" data-slug-hash="ZYGBgOW" data-user="ZunCreative" > </p>
+<iframe class="codepen-embed" src="https://codepen.io/ZunCreative/embed/ZYGBgOW"></iframe>
 
 Fijn, het werkt, we hebben superveel controle over de animatie, maar het is absoluut niet zo soepel als de `lerp()` van eerst, wat nu?
 
@@ -94,7 +92,7 @@ Hier komt *easing* in het spel.
 
 That's it!
 
-<p class="codepen" data-default-tab="js,result" data-slug-hash="emNgOyj" data-user="ZunCreative" > </p>
+<iframe class="codepen-embed" src="https://codepen.io/ZunCreative/embed/emNgOyj"></iframe>
 
 Op (easings.net)[https://easings.net/] kan je allemaal easings outproberen om te kijken welke je het mooiste vind door de `easeOutQuint()` vervangen.
 

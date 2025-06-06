@@ -107,3 +107,9 @@ body[style*="cursor: none"] .cursor-pointer {
 .stripe-reveal.open {
 	-webkit-mask-position: 0 0;
 }
+
+.codepen-embed {
+	height: 300px;
+	width: 100%;
+	padding: 2rem 0;
+}
