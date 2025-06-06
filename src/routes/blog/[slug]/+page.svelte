@@ -31,7 +31,7 @@ $effect(() => {
 
 <SeoHead
 	props={{
-		title: post.title,
+		title: `${post.title} | Zun Creative`,
 		description: post.description,
 		keywords: post.keywords.join(", "),
 		slug: post.slug,

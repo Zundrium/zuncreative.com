@@ -17,7 +17,7 @@ onMount(() => {
 
 <SeoHead
 	props={{
-		title: data.title,
+		title: `${data.title} | Zun Creative`,
 		description: data.description,
 		keywords: data.keywords.join(", "),
 		slug: data.slug,
