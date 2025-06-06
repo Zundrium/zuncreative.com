@@ -31,12 +31,12 @@ $effect(() => {
 
 <SeoHead
 	props={{
-		title: m.blog_title(),
-		description: m.blog_description(),
-		keywords: m.blog_keywords(),
-		slug: "blog",
-		thumbnail: "/images/2d_matrix.png",
-		type: "Blog",
+		title: item.title,
+		description: item.description,
+		keywords: item.keywords.join(", "),
+		slug: item.slug,
+		thumbnail: item.header_image,
+		type: "WebPage",
 	}}
 />
 

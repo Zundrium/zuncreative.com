@@ -39,7 +39,7 @@ $effect(() => {
 		keywords: post.keywords.join(", "),
 		slug: post.slug,
 		thumbnail: `${post.header_image}`,
-		type: "BlogPosting",
+		type: "Article",
 		datePublished: formatDateToISO8601(post.publish_date),
 		dateModified: formatDateToISO8601(post.modify_date),
 	}}
