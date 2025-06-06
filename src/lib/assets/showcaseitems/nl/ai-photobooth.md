@@ -1,6 +1,6 @@
 ---
 title: 'AI Photobooth'
-description: 'A cinematic journey through different personalities, each made with NFTs that are provided by xSpectar themselves.'
+description: "Innovatieve AI Photobooth genereert unieke, gepersonaliseerde afbeeldingen, lokaal of cloud-gebaseerd, met 'Virtual Try-On' en ComfyUI-ondersteuning voor geavanceerde resultaten."
 publish_date: '2025-04-04'
 keywords: '3d, web, ai'
 mobile: false
