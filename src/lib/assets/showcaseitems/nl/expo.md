@@ -1,6 +1,6 @@
 ---
 title: '3D Expo'
-description: 'A technical proof of concept showing a realistically lit threedimensional space using the newest image compression techniques.'
+description: "Demonstratie van 3D-expositie die door effectieve textuurcompressie de bestandsgrootte reduceert tot 9MB met behoud van visuele kwaliteit, resulterend in snelle laadtijden en mobiele compatibiliteit."
 publish_date: '2024-05-14'
 keywords: '3d, web'
 mobile: false
