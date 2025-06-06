@@ -15,6 +15,7 @@ import { scrollToTop } from "$lib/utils/lenis.js";
 let { data } = $props();
 const { post, posts } = $derived(data);
 import "/node_modules/highlight.js/styles/base16/default-dark.min.css"
+    import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass.js";
 
 function capitalizeAndStripesToSpaces(str: string) {
 	return str.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
@@ -48,7 +49,7 @@ $effect(() => {
 <section
 	id="hero"
 	style="clip-path: inset(0 0 0 0); backface-visibility: hidden;"
-	class="relative px-4 h-svh w-full bg-slate-500 flex flex-col gap-8 items-center justify-end pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32"
+	class="relative px-4 w-full bg-slate-500 flex flex-col gap-8 items-center justify-end pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32 h-svh"
 >
 	{#if post.header_image}
 		<Image
@@ -59,7 +60,7 @@ $effect(() => {
 	{/if}
 
 	<div
-		class="absolute top-0 left-0 right-0 bottom-0 bg-black/50 w-full h-full z-10"
+		class="absolute top-0 left-0 right-0 bottom-0 bg-black/40 w-full h-full z-10"
 	></div>
 
 	<div class="container relative z-20">

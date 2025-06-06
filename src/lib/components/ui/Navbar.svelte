@@ -20,7 +20,7 @@ const navLinks = [
 
 let initialized: boolean = false;
 const mainNavTransparent =
-	"bg-gradient-to-b from-black/60 to-transparent text-white";
+	"bg-white dark:bg-transparent dark:bg-gradient-to-b dark:from-black/70 dark:to-transparent text-white";
 const mainNavOpaque = "bg-white dark:bg-black text-black dark:text-white";
 let mobileNavOpen = false;
 let navbar: HTMLElement;
@@ -162,7 +162,7 @@ $: if (sections) {
 			<div class="w-full lg:w-auto flex justify-between items-center">
 				<a href="/" class="cursor-pointer relative w-14 h-14" aria-label="Home">
 					<object class="absolute pointer-events-none inset-0 w-full h-full duration-500 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
-					<object class="absolute pointer-events-none inset-0 w-full h-full duration-500 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+					<object class="absolute pointer-events-none inset-0 w-full h-full duration-500 invert dark:invert-0 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 				</a>
 				<button
 					class="size-12 p-2 cursor-pointer lg:hidden"

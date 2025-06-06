@@ -36,13 +36,13 @@ const contactMethods = [
 
 <Section
     id="contact"
-    class="flex flex-col justify-center gap-8 md:gap-10 lg:gap-12 items-center text-center min-h-svh"
+    class="flex flex-col justify-center gap-8 md:gap-10 lg:gap-12 items-center text-center"
     backgroundColor="bg-white dark:bg-black"
 >
     <SectionHeading subtitle="Contact" title="Laten we <i>ontmoeten</i>" />
     <div class="flex flex-col items-center w-full" use:viewportSlideInTop>
         <AnimatedParagraph size="xl" class="w-full md:w-1/2">
-				Contact opnemen kan altijd via e-mail of telefoon. Voor vragen over mijn werk of om een project te bespreken, aarzel niet om contact op te nemen. Ik kijk ernaar uit om iets te horen!	
+				Voor vragen over mijn werk of om een project te bespreken, aarzel niet om contact op te nemen. 
         </AnimatedParagraph>
     </div>
     <div

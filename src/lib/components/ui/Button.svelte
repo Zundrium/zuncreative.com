@@ -1,4 +1,3 @@
-
 <script lang="ts">
 import { onDestroy } from "svelte";
 import gsap from "gsap";
@@ -13,7 +12,6 @@ export let iconRight: any = undefined;
 export let style: "normal" | "text" | "line" | "secondary" = "line";
 export let size: "sm" | "md" | "lg" = "md";
 export let click: (() => void) | undefined = undefined;
-export let rounded: "left-only" | "right-only" | "full" | "none" = "full";
 
 let buttonEl: HTMLElement;
 let maskEl: HTMLElement;
@@ -21,17 +19,8 @@ let iconLeftEl: HTMLElement | null = null;
 let iconRightEl: HTMLElement | null = null;
 let maskTween: gsap.core.Tween | null = null;
 
-let roundClass = "rounded-full";
-if (rounded === "left-only") {
-	roundClass = " rounded-l-full";
-} else if (rounded === "right-only") {
-	roundClass = " rounded-r-full";
-} else if (rounded === "none") {
-	roundClass = " rounded-none";
-}
-
 // Base classes for all buttons
-let baseClasses = `${classes} ${roundClass} cursor-pointer font-medium w-full relative inline-flex items-center justify-center transition-colors duration-300 ease-[cubic-bezier(0.215,0.61,0.355,1)] focus:outline-none focus:ring-2 focus:ring-offset-2 z-10`;
+let baseClasses = `${classes} rounded-full cursor-pointer font-medium w-full relative inline-flex items-center justify-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 z-10`;
 
 // Style variants
 const styleClasses = {
@@ -50,7 +39,6 @@ const sizeClasses = {
 	lg: "px-8 py-3.5 text-lg",
 };
 
-// Icon container classes
 const iconClasses =
 	"flex items-center justify-center transition-transform duration-300 w-[1.2em] h-[1.2em] z-20";
 
@@ -89,8 +77,6 @@ const handleMouseEnter = (e: MouseEvent) => {
 	gsap.set(maskEl, {
 		left: x,
 		top: y,
-		xPercent: -50,
-		yPercent: -50,
 		width: 0,
 		height: 0,
 		opacity: 1,
@@ -109,7 +95,7 @@ const handleMouseLeave = (e: MouseEvent) => {
 
 	// Position mask at exit point
 	const { x, y } = setMaskPosition(e);
-	gsap.set(maskEl, { left: x, top: y, xPercent: -50, yPercent: -50 });
+	gsap.set(maskEl, { left: x, top: y });
 
 	// Shrink animation
 	startMaskAnimation(0, 0.5, "expo.out");
@@ -123,85 +109,30 @@ const handleMouseLeave = (e: MouseEvent) => {
 onDestroy(() => maskTween?.kill());
 </script>
 
-<style>
-    .button-container {
-        position: relative;
-        overflow: hidden;
-        display: inline-flex;
-    }
-    
-    .mask {
-        position: absolute;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        pointer-events: none;
-        z-index: 5;
-        opacity: 0;
-        transform-origin: center;
-    }
-    
-    .content {
-        position: relative;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-</style>
-
-{#if href}
-    <div class="button-container {roundClass}">
-       <a 
-            {...$$props}
-            {href}
-            aria-label={ariaLabel}
-            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]}`}
-            bind:this={buttonEl}
-            on:mouseenter|stopPropagation={handleMouseEnter}
-            on:mouseleave|stopPropagation={handleMouseLeave}
-            on:click={click}
-        >
-            <div class="mask bg-black dark:bg-white" bind:this={maskEl}></div>
-            <div class="content">
-                {#if iconLeft}
-                    <div class={`${iconClasses} mr-1`} bind:this={iconLeftEl}>
-                        <svelte:component this={iconLeft} />
-                    </div>
-                {/if}
-                <slot />
-                {#if iconRight}
-                    <div class={`${iconClasses} ml-1`} bind:this={iconRightEl}>
-                        <svelte:component this={iconRight} />
-                    </div>
-                {/if}
-            </div>
-        </a>
-    </div>
-{:else}
-    <div class="button-container {roundClass}">
-        <button
-            aria-label={ariaLabel}
-            class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]} `}
-            bind:this={buttonEl}
-            on:mouseenter|stopPropagation={handleMouseEnter}
-            on:mouseleave|stopPropagation={handleMouseLeave}
-            on:click|preventDefault={click}
-        >
-            <div class="mask" bind:this={maskEl}></div>
-            <div class="content">
-                {#if iconLeft}
-                    <div class={`${iconClasses} mr-1`} bind:this={iconLeftEl}>
-                        <svelte:component this={iconLeft} />
-                    </div>
-                {/if}
-                <slot />
-                {#if iconRight}
-                    <div class={`${iconClasses} ml-1`} bind:this={iconRightEl}>
-                        <svelte:component this={iconRight} />
-                    </div>
-                {/if}
-            </div>
-        </button>
-    </div>
-{/if}
-
+<div class="relative overflow-hidden rounded-full">
+    <svelte:element this={href ? "a": "button"}
+        {...$$props}
+        {href}
+        aria-label={ariaLabel}
+        class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]}`}
+        bind:this={buttonEl}
+        on:mouseenter|stopPropagation={handleMouseEnter}
+        on:mouseleave|stopPropagation={handleMouseLeave}
+        on:click={click}
+    >
+        <div class="absolute rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none z-5 opacity-0 translate bg-black dark:bg-white" bind:this={maskEl}></div>
+        <div class="relative z-10 flex items-center gap-1">
+            {#if iconLeft}
+                <div class={`${iconClasses} mr-1`} bind:this={iconLeftEl}>
+                    <svelte:component this={iconLeft} />
+                </div>
+            {/if}
+            <slot />
+            {#if iconRight}
+                <div class={`${iconClasses} ml-1`} bind:this={iconRightEl}>
+                    <svelte:component this={iconRight} />
+                </div>
+            {/if}
+        </div>
+    </svelte:element>
+</div>

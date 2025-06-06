@@ -33,7 +33,7 @@
 		"svelte-check": "^4.0.0",
 		"svelte-render-scan": "^1.0.5",
 		"svelte-sitemap": "^2.7.0",
-		"tailwindcss": "^4.0.7",
+		"tailwindcss": "^4.1.8",
 		"typescript": "^5.0.0",
 		"typescript-svelte-plugin": "^0.3.45",
 		"unplugin-icons": "^22.1.0",
