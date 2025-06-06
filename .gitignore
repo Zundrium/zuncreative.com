@@ -20,7 +20,3 @@ vite.config.ts.timestamp-*
 src/lib/paraglide
 dist/
 .aider*
-.env
-.env
-.env
-.env
