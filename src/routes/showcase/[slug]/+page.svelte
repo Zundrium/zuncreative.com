@@ -53,7 +53,7 @@ $effect(() => {
 		<object class="{partnerBrand.height} invert" data="{partnerBrand.url}" type="image/svg+xml" title="Zun Creative Logo"></object>
 	</div>
 	{/if}
-		<div class="flex flex-col gap-4 lg:gap-8 xl:gap-12 ">
+		<div class="flex flex-col gap-8 xl:gap-12 ">
 		<H1 class="text-center"><i>{item.title}</i></H1>
 
 		<div class="flex justify-between flex-row gap-4">

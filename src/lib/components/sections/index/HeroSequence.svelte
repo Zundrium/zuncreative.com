@@ -53,6 +53,7 @@ interface SequenceItem {
 }
 
 const animateScrollContainer = (scrollValue: number) => {
+	if(!scrollContainerElement) return;
 	currentScrollValue = scrollValue;
 	gsap.to(scrollContainerElement, {
 		scrollLeft: scrollValue * scrollContainerElement!.scrollWidth,
