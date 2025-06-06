@@ -15,6 +15,7 @@ import {
 } from "$lib/utils/babylonjs/textureSampler";
 import { SineWaveNoise } from "$lib/utils/babylonjs/sineWaveNoise";
 import { getScreenState } from "$lib/utils/screenState";
+import { StandardMaterial, Texture } from "@babylonjs/core";
 
 export class HeroWave3D implements IBabylonGraphics {
 	private babylonScene: BabylonScene | null = null;
@@ -101,7 +102,7 @@ export class HeroWave3D implements IBabylonGraphics {
 		);
 	}
 
-	private createPointsCloud(scene: Scene): PointsCloudSystem {
+	private async createPointsCloud(scene: Scene): Promise<PointsCloudSystem> {
 		const pointCloudSystem = new PointsCloudSystem(
 			"cloud",
 			this.particleSize,
@@ -121,7 +122,7 @@ export class HeroWave3D implements IBabylonGraphics {
 			},
 		);
 
-		pointCloudSystem.buildMeshAsync();
+		await pointCloudSystem.buildMeshAsync();
 
 		return pointCloudSystem;
 	}
@@ -254,7 +255,7 @@ export class HeroWave3D implements IBabylonGraphics {
 
 		await this.babylonScene.init();
 
-		this.pointCloudSystem = this.createPointsCloud(this.babylonScene.scene);
+		this.pointCloudSystem = await this.createPointsCloud(this.babylonScene.scene);
 		this.pointCloudSystem.updateParticle = (particle: CloudPoint) => {
 			return this.updateParticle(particle);
 		};
