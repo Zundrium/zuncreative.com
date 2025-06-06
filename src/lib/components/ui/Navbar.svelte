@@ -20,7 +20,7 @@ const navLinks = [
 
 let initialized: boolean = false;
 const mainNavTransparent =
-	"bg-white dark:bg-transparent dark:bg-gradient-to-b dark:from-black/70 dark:to-transparent text-white";
+	"bg-white dark:bg-transparent dark:bg-gradient-to-b dark:from-black/70 dark:to-transparent text-black dark:text-white";
 const mainNavOpaque = "bg-white dark:bg-black text-black dark:text-white";
 let mobileNavOpen = false;
 let navbar: HTMLElement;
