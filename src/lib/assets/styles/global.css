@@ -113,3 +113,13 @@ body[style*="cursor: none"] .cursor-pointer {
 	width: 100%;
 	padding: 2rem 0;
 }
+
+.babylonjs-embed {
+	height: 500px;
+	width: 100%;
+	padding: 2rem 0;
+}
+
+pre code.hljs {
+	border-radius: 0.5rem;
+}

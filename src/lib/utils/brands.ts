@@ -30,6 +30,7 @@ const coreBrands: readonly Brand[] = [
     { name: "walmart", height: "h-12", url: `${BASE_SVG_PATH}walmart_logo.svg` },
     { name: "sp", height: "h-14", url: `${BASE_SVG_PATH}sp_logo.svg` },
     { name: "upfield", height: "h-14", url: `${BASE_SVG_PATH}upfield_logo.svg` },
+    { name: "videorbit", height: "h-10", url: `${BASE_SVG_PATH}videorbit_logo.svg` },
 ];
 
 /**

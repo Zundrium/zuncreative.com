@@ -14,18 +14,14 @@ import { onMount } from "svelte";
 import { scrollToTop } from "$lib/utils/lenis.js";
 let { data } = $props();
 const { post, posts } = $derived(data);
+import "/node_modules/highlight.js/styles/base16/default-dark.min.css"
 
 function capitalizeAndStripesToSpaces(str: string) {
 	return str.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
 }
 
-import Prism from "prismjs";
-import "prismjs/themes/prism-tomorrow.css";
-import "prismjs/components/prism-typescript.js";
-
 onMount(() => {
 	scrollToTop();
-	Prism.highlightAll();
 });
 
 $effect(() => {
@@ -67,7 +63,7 @@ $effect(() => {
 	></div>
 
 	<div class="container relative z-20">
-		<div class="w-full md:w-1/2">
+		<div class="w-full md:w-2/3">
 		<hgroup class="flex flex-col gap-2 lg:gap-4 text-white w-full">
 			<H1>{post.title}</H1>
 			<Paragraph size="xl" class="opacity-80">
@@ -77,6 +73,8 @@ $effect(() => {
 				<div
 					class="flex flex-col lg:flex-row gap-2 lg:gap-6 lg:items-center opacity-60"
 				>
+					<i>Geschreven door Sem Verbraak</i>
+					<span class="hidden lg:inline">|</span>
 					<span
 						><i>{m.lastModifiedOn()}</i>
 						<i>{formatDate(post.modify_date)}</i>
@@ -95,52 +93,55 @@ $effect(() => {
 {/key}
 
 <Section
-	id="blogArticle"
-	class="flex flex-col lg:flex-row gap-4 md:gap-8 lg:gap-12 xl:gap-16 justify-center"
+	id="article"
+	class="flex flex-col gap-4 md:gap-8 lg:gap-12 xl:gap-16 items-center"
 >
 	{#key post}
-	<article class="w-full prose lg:prose-xl dark:prose-invert">
+	<article class="prose lg:prose-xl dark:prose-invert prose-strong:font-extralight">
 		{@html post.html}
 	</article>
 	{/key}
+</Section>
 
-	<div class="w-full flex flex-col lg:w-1/5 lg:gap-8">
+<Section 
+id="recent-posts"
+	class="flex flex-col gap-4 md:gap-8 lg:gap-12 xl:gap-16 justify-center"
+>
 		<H3>Recente blogposts</H3>
-		<div class="gap-4 xl:gap-8 flex flex-col">
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 flex">
 			{#each posts as relatedPost}
 				{#if post.slug !== relatedPost.slug}
-					<div class="w-full flex flex-col items-start gap-2">
-						<Image
-							thumb
-							src={relatedPost.header_image}
-							alt={relatedPost.title}
-							class="cursor-pointer opacity-70 hover:opacity-100 duration-300"
-						/>
-						<span
-							class="mb-1 text-xs text-slate-700 dark:text-slate-400"
-							>{formatDate(post.publish_date)}</span
-						>
-						<a class="font-bold" href="/blog/{relatedPost.slug}"
-							>{relatedPost.title}</a
-						>
-						<Paragraph size="sm">
-							{relatedPost.description}
-						</Paragraph>
-						<Button
-							style="text"
-							size="sm"
-ariaLabel="Lees meer over {capitalizeAndStripesToSpaces(
-								relatedPost.slug,
-							)}"
-
-							href="/blog/{relatedPost.slug}"
-							iconRight={MdiArrowRight}
-						>
-							Lees meer
-						</Button>
-					</div>
+					<div
+			class="flex flex-col gap-4 md:gap-4 lg:gap-6 xl:gap-8 items-start"
+		>
+			<a href="/blog/{relatedPost.slug}" class="relative cursor-pointer w-full aspect-4/2 overflow-hidden rounded-xl" data-cursor-icon="fullscreen" use:viewportSlideInBottom> 
+				<Image
+					parallax
+					alt={relatedPost.title}
+					src={relatedPost.header_image}
+					class="absolute inset-0 w-full h-full object-cover "
+					sizes="(min-width:1920px) 1920px, (min-width:1280px) 1280px, (min-width:768px) 480px"
+				/>
+			</a>
+			<div class="flex flex-col gap-2">
+				<hgroup class="flex flex-col gap-1 md:gap-2">
+					<H3>{relatedPost.title}</H3>
+				</hgroup>
+				<Paragraph class="flex-1">
+					{relatedPost.description}
+				</Paragraph>
+			</div>
+			<div class="w-full flex items-center justify-between gap-2">
+				<Button
+					style="line"
+					href={`/blog/${relatedPost.slug}`}
+					ariaLabel="Blogpost: {relatedPost.title}"
+					iconRight={MdiArrowRight}>Lees meer</Button>
+				<span class="text-black/80 dark:text-white/80">{formatDate(relatedPost.publish_date)}</span>
+			</div>
+		</div>
 				{/if}
 			{/each}
 		</div>
-	</div>
 </Section>
+

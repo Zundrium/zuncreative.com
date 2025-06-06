@@ -46,7 +46,7 @@ export let posts: any = [];
 					href={`/blog/${posts[0].slug}`}
 					ariaLabel="Blogpost: {posts[0].title}"
 					iconRight={MdiArrowRight}>Lees meer</Button>
-				<span class="text-black/80 dark:text-white/80">{formatDate(posts[0].publish_date)}</span>
+				<span class="hidden md:block text-black/80 dark:text-white/80">{formatDate(posts[0].publish_date)}</span>
 
 			</div>
 		</div>
@@ -55,27 +55,26 @@ export let posts: any = [];
 		<div class="flex flex-col gap-6 xl:gap-8 justify-between items-start">
 			{#each posts.slice(1) as post}
 				<div
-					class="flex flex-col gap-2 md:gap-2 lg:gap-4 items-start w-full"
+					class="flex md:flex-col gap-2 md:gap-2 lg:gap-4 items-start w-full"
 					use:viewportSlideInBottom
 				>
 
-					<div class="flex flex-col gap-2">
+					<div class="flex-1 w-full flex flex-col gap-2">
 						<hgroup class="flex flex-col gap-1 md:gap-2">
 							<H3>{post.title}</H3>
 						</hgroup>
-						<Paragraph class="flex-1">
+						<Paragraph class="flex-1 hidden md:flex">
 							{post.description}
-
 						</Paragraph>
 					</div>
-					<div class="w-full flex items-center justify-between gap-2">
+					<div class="h-full md:w-full flex items-center justify-center md:justify-between gap-2">
 						<Button
 							style="text"
 							href={`/blog/${post.slug}`}
 							ariaLabel="Blogpost: {post.title}"
 							iconRight={MdiArrowRight}>Lees meer</Button>
 
-						<span class="text-black/80 dark:text-white/80">{formatDate(post.publish_date)}</span>
+						<span class="hidden md:block text-black/80 dark:text-white/80">{formatDate(post.publish_date)}</span>
 					</div>
 				</div>
 			{/each}

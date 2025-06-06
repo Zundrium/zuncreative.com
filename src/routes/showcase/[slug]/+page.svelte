@@ -80,25 +80,26 @@ $effect(() => {
 			{/if}
 		</div>
 		{#if item.video!.includes("_mobile")}
-			<div class="flex items-start rounded-xl flex gap-4 lg:gap-8 xl:gap-12 w-full">
+			<div class="flex flex-col md:flex-row items-start rounded-xl flex gap-4 lg:gap-8 xl:gap-12 w-full">
 				<video
-					class="rounded-xl object-cover overflow-hidden w-1/3"
+					class="rounded-xl object-cover overflow-hidden w-full md:w-1/3"
 					autoplay
 					loop
+					controls
 					muted
 					preload="none"
 					playsinline>
 					<source src="{item.video}" type="video/mp4">
 					Your browser does not support the video tag.
 				</video>
-				<article class="prose lg:prose-xl dark:prose-invert w-2/3 max-w-full!">
+				<article class="prose lg:prose-xl dark:prose-invert w-full md:w-2/3 max-w-full! prose-strong:font-extralight">
 					{@html item.html}
 				</article>
 
 
 			</div>
 		{:else}
-			<article class="w-full max-w-full! prose lg:prose-xl dark:prose-invert text-center">
+			<article class="w-full max-w-full! prose lg:prose-xl dark:prose-invert text-center prose-strong:font-extralight">
 				{@html item.html}
 			</article>
 			<div class="flex items-center justify-center rounded-xl">
@@ -107,6 +108,7 @@ $effect(() => {
 					autoplay
 					loop
 					muted
+					controls
 					preload="none"
 					playsinline>
 					<source src="{item.video}" type="video/mp4">

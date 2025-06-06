@@ -54,6 +54,6 @@ onMount(() => {
 	</div>
 </PageHeading>
 
-<article class="py-12 px-6 prose lg:prose-xl dark:prose-invert mx-auto">
+<article class="py-12 px-6 prose lg:prose-xl dark:prose-invert mx-auto prose-strong:font-extralight">
 	{@html data.html}
 </article>
