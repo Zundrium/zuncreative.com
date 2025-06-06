@@ -1,5 +1,5 @@
 import { TargetCamera } from "@babylonjs/core/Cameras/targetCamera";
-import { Color4, Matrix } from "@babylonjs/core/Maths/math";
+import { Color4 } from "@babylonjs/core/Maths/math.color";
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { Scene } from "@babylonjs/core/scene";

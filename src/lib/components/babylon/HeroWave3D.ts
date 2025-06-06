@@ -3,7 +3,7 @@ import { Scene } from "@babylonjs/core/scene";
 import type { IBabylonGraphics } from "./utils";
 import { PointsCloudSystem } from "@babylonjs/core/Particles/pointsCloudSystem";
 import { Vector3, Vector2 } from "@babylonjs/core/Maths/math.vector";
-import { Color3, Color4 } from "@babylonjs/core/Maths/math.color";
+import { Color3 } from "@babylonjs/core/Maths/math.color";
 import type { TargetCamera } from "@babylonjs/core/Cameras";
 //import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
 import type { CloudPoint } from "@babylonjs/core/Particles";
