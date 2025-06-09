@@ -31,7 +31,7 @@ const slides: Slide[] = [
 	{
 		title: "Iets wat blijft <i>hangen</i>",
 		description:
-			"Ik ben Sem, ik bouw werelden die je niet zomaar wegklikt. Met 3D krijgt je website karakter, een gevoel, iets dat mensen echt onthouden.",
+			"Werelden bouwen die je niet zomaar wegklikt. Met 3D krijgt een website karakter, een gevoel, iets dat mensen echt onthouden.",
 	},
 	{
 		title: "Interactieve <i>verhalen</i>",
@@ -53,7 +53,7 @@ interface SequenceItem {
 }
 
 const animateScrollContainer = (scrollValue: number) => {
-	if(!scrollContainerElement) return;
+	if (!scrollContainerElement) return;
 	currentScrollValue = scrollValue;
 	gsap.to(scrollContainerElement, {
 		scrollLeft: scrollValue * scrollContainerElement!.scrollWidth,
@@ -238,12 +238,12 @@ onMount(() => {
 			<div bind:this={scrollContainerElement} class="h-full w-auto flex overflow-x-hidden">
 				{#each slides as slide, index}
 					<div
-						class="flex flex-none flex-col justify-end gap-4 md:gap-6 lg:gap-8 xl:gap-10 h-full w-dvw p-8 lg:p-12 xl:p-16 2xl:p-24"
+						class="flex flex-none flex-col justify-end gap-12 md:gap-14 lg:gap-16 xl:gap-24 h-full w-dvw p-8 lg:p-12 xl:p-16 2xl:p-24"
 					>
-						<div bind:this={slideElements[index]} class="flex flex-col gap-4 lg:gap-6">
+						<div bind:this={slideElements[index]} class="flex flex-col w-full md:w-1/2 xl:w-1/3 gap-6">
 							<H2 class="text-black dark:text-white"
 							>{@html slide.title}</H2>
-							<Paragraph class="text-black/80 dark:text-white/80">
+							<Paragraph size="xl" class="text-black/80 dark:text-white/80">
 								{@html slide.description}
 							</Paragraph>
 						</div>

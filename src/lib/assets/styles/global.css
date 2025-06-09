@@ -9,6 +9,7 @@ body {
 	font-family: "Noto Sans Variable", serif;
 	font-optical-sizing: auto;
 	font-style: normal;
+	font-weight: 300;
 	i {
 		font-family: "Noto Serif Variable", serif;
 		font-optical-sizing: auto;
@@ -124,3 +125,4 @@ body[style*="cursor: none"] .cursor-pointer {
 pre code.hljs {
 	border-radius: 0.5rem;
 }
+

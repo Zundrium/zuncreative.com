@@ -92,7 +92,7 @@ $effect(() => {
 					<source src="{item.video}" type="video/mp4">
 					Your browser does not support the video tag.
 				</video>
-				<article class="prose lg:prose-xl dark:prose-invert w-full md:w-2/3 max-w-full! prose-strong:font-extralight">
+				<article class="prose xl:prose-xl dark:prose-invert w-full md:w-2/3 max-w-full! prose-strong:font-extralight">
 					{@html item.html}
 				</article>
 

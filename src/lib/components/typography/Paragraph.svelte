@@ -9,7 +9,7 @@ const sizeStyles = {
 	sm: "text-xs/4 lg:text-sm/5 2xl:text-base/6",
 	md: "text-base/6 lg:text-lg/7",
 	lg: "text-lg/7 lg:text-lg/8",
-	xl: "text-lg/7 lg:text-xl/8 xl:text-2xl/9",
+	xl: "text-lg/6 lg:text-xl/7 xl:text-2xl/8",
 	"2xl": "text-xl/9 lg:text-2xl/10 xl:text-3xl/11",
 };
 </script>
