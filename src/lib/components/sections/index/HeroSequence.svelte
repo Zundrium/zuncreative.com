@@ -181,10 +181,6 @@ function handleScroll() {
 	});
 }
 
-function onCanvasReady() {
-	handleScroll();
-}
-
 onMount(() => {
 	sequenceItemsStates = sequence.map(() => false);
 	minScrollY = sequenceContainer.offsetTop;
@@ -202,7 +198,7 @@ onMount(() => {
 		(entries) => {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
-					window.addEventListener("scroll", handleScroll);
+					window.addEventListener("scroll", handleScroll, { passive: true });
 				} else {
 					window.removeEventListener("scroll", handleScroll);
 				}
@@ -214,6 +210,7 @@ onMount(() => {
 		},
 	);
 	observer.observe(sequenceContainer);
+	handleScroll();
 });
 </script>
 
@@ -227,7 +224,7 @@ onMount(() => {
 	>
 
 		<div class="w-full h-full absolute inset-0">
-			<HeroWave3DCanvas bind:this={heroWave3DCanvas} onReady={onCanvasReady} />
+			<HeroWave3DCanvas bind:this={heroWave3DCanvas} />
 		</div>
 
 		<!-- bottom gradient overlay -->

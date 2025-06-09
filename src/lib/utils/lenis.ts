@@ -56,6 +56,8 @@ export function scrollTo(target: string | number | HTMLElement, options?: any) {
 		setTimeout(() => {
 			ScrollTrigger.refresh();
 		});
+	} else {
+		window.scrollTo({ target, ...options });
 	}
 }
 
@@ -65,6 +67,8 @@ export function scrollToTop() {
 		setTimeout(() => {
 			ScrollTrigger.refresh();
 		});
+	} else {
+		window.scrollTo(0, 0);
 	}
 }
 
