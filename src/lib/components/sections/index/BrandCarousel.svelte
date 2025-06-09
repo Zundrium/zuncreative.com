@@ -31,12 +31,12 @@ onMount(() => {
 </script>
 
 <div class="brand-carousel">
-	<div class="scroll-container" class:loaded={imagesLoaded}>
+	<div class="scroll-container dark:invert" class:loaded={imagesLoaded}>
 		{#each doubledBrands as { name, height, url }, index (name + index)} 
 			<img 
 				src={url} 
 				alt="{name} logo" 
-				class="brand-logo {height} opacity-70 dark:invert"
+				class="brand-logo {height} opacity-70"
 				loading="lazy"
 				decoding="async"
 			/>
