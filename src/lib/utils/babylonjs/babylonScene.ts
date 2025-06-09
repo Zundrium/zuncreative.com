@@ -1,9 +1,10 @@
 import { TargetCamera } from "@babylonjs/core/Cameras/targetCamera";
-import { Color4, Matrix } from "@babylonjs/core/Maths/math";
+import { Color4 } from "@babylonjs/core/Maths/math.color";
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { Scene } from "@babylonjs/core/scene";
 import { getScreenState } from "../screenState";
+import { DefaultRenderingPipeline } from "@babylonjs/core";
 
 export interface InitOptions {
 	direct?: boolean;
@@ -41,6 +42,12 @@ export class BabylonScene {
 		});
 	}
 
+	private createRenderPipeline() {
+		const pipeline = new DefaultRenderingPipeline("default", true, this.scene, [this.camera]);
+		pipeline.fxaaEnabled = true;
+		pipeline.samples = 2;
+	}
+
 	private delayedInit(): void {
 		this.initializing = false;
 		this.engine = new Engine(this.renderCanvas);
@@ -57,6 +64,10 @@ export class BabylonScene {
 		this.camera.maxZ = 1000;
 		this.camera.setTarget(Vector3.Zero());
 		this.applyCorrectFOV();
+
+		if(getScreenState() == "sm" || getScreenState() == "md" ) {
+			this.createRenderPipeline();
+		}
 
 		//camera.attachControl(renderCanvas, true);
 		//this.createRenderPipeline(this.scene, this.camera);

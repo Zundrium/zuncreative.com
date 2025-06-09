@@ -20,7 +20,7 @@ const navLinks = [
 
 let initialized: boolean = false;
 const mainNavTransparent =
-	"bg-white dark:bg-transparent dark:bg-gradient-to-b dark:from-black/70 dark:to-transparent text-white";
+	"bg-white dark:bg-transparent dark:bg-gradient-to-b dark:from-black/70 dark:to-transparent text-black dark:text-white";
 const mainNavOpaque = "bg-white dark:bg-black text-black dark:text-white";
 let mobileNavOpen = false;
 let navbar: HTMLElement;
@@ -116,36 +116,6 @@ $: if (sections) {
 <!-- Bind scrollY from the window -->
 <svelte:window bind:scrollY />
 
-<!-- <div -->
-<!-- 	class="hidden md:flex relative z-10 bg-white/30 h-8 dark:bg-black/30 text-slate-300 w-full flex items-center justify-center" -->
-<!-- > -->
-<!-- 	<div class="container flex px-4 py-2 justify-between text-xs"> -->
-<!-- 		<nav aria-label="top left navigation"> -->
-<!-- 			<ul class="flex gap-8"> -->
-<!-- 				<li> -->
-<!-- 					<a href="#" class="hover:text-slate-100">Left link #1</a> -->
-<!-- 				</li> -->
-<!-- 				<li> -->
-<!-- 					<a href="#" class="hover:text-slate-100">Left link #2</a> -->
-<!-- 				</li> -->
-<!-- 			</ul> -->
-<!-- 		</nav> -->
-<!-- 		<nav aria-label="top right navigation"> -->
-<!-- 			<ul class="flex gap-8"> -->
-<!-- 				<li> -->
-<!-- 					<a href="#" class="hover:text-slate-100">Right link #1</a> -->
-<!-- 				</li> -->
-<!-- 				<li> -->
-<!-- 					<a href="#" class="hover:text-slate-100">Right link #2</a> -->
-<!-- 				</li> -->
-<!-- 				<li> -->
-<!-- 					<a href="#" class="hover:text-slate-100">Right link #3</a> -->
-<!-- 				</li> -->
-<!-- 			</ul> -->
-<!-- 		</nav> -->
-<!-- 	</div> -->
-<!-- </div> -->
-
 <header
 	bind:this={navbar}
 	use:setupNavbar
@@ -155,7 +125,7 @@ $: if (sections) {
 		class="{navbarClass} w-full transition-colors duration-300 flex justify-center h-24 -mb-24"
 	>
 		<div
-			class="container  transition-colors duration-500 px-4 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-dvh {mobileNavOpen
+			class="container  transition-colors duration-500 px-6 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-dvh {mobileNavOpen
 				? 'h-dvh bg-white dark:bg-black'
 				: 'bg-transparent'}"
 		>

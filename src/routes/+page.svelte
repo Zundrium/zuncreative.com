@@ -17,8 +17,8 @@ export let data: {
 
 <SeoHead
     props={{
-        title: "Zun Creative | 3D Freelance Webdeveloper",
-        description: "Hey, ik ben Sem en ik focus op het maken van onvergetelijke ervaringen op het web.",
+        title: "3D Freelance Webdeveloper | Zun Creative",
+        description: "Een focus op het maken van onvergetelijke ervaringen op het web.",
         keywords: "Zun Creative, freelance developer, Amsterdam",
         slug: "website",
 		thumbnail: "/images/2d_matrix.png",

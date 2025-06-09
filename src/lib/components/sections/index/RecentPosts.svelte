@@ -36,7 +36,7 @@ export let posts: any = [];
 				<hgroup class="flex flex-col gap-1 md:gap-2">
 					<H3>{posts[0].title}</H3>
 				</hgroup>
-				<Paragraph class="flex-1">
+				<Paragraph class="hidden md:flex flex-1">
 					{posts[0].description}
 				</Paragraph>
 			</div>

@@ -53,6 +53,7 @@ interface SequenceItem {
 }
 
 const animateScrollContainer = (scrollValue: number) => {
+	if(!scrollContainerElement) return;
 	currentScrollValue = scrollValue;
 	gsap.to(scrollContainerElement, {
 		scrollLeft: scrollValue * scrollContainerElement!.scrollWidth,
@@ -216,7 +217,7 @@ onMount(() => {
 });
 </script>
 
-<div bind:this={sequenceContainer} class="w-full relative h-[4000px]">
+<div bind:this={sequenceContainer} class="w-full relative h-[3000px] md:h-[4000px]">
 	<Section
 		id="scroll-sequence"
 		containerClasses="cursor-scroll sticky top-0 h-dvh overflow-x-hidden pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32"
@@ -246,9 +247,9 @@ onMount(() => {
 								{@html slide.description}
 							</Paragraph>
 						</div>
-						<div class="w-full h-[1px] bg-white/20">
+						<div class="w-full h-1 md:h-[2px] bg-black/20 dark:bg-white/20">
 							<div
-								class="h-full bg-white"
+								class="h-full bg-black dark:bg-white"
 								style="width: {Math.max(0, Math.min(100, (currentProgress.value - index * 33.33) * 3))}%"
 							> </div>
 						</div>

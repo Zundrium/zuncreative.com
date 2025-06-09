@@ -47,8 +47,8 @@ const year = new Date().getFullYear();
 </script>
 
 <footer class="text-black dark:text-white flex flex-col items-center bg-slate-50 dark:bg-white/5">
-  <div class="w-full flex flex-col items-center px-4 py-12 lg:py-24">
-    <div class="container px-4 flex-1">
+  <div class="w-full flex flex-col items-center px-6 py-12 lg:py-24">
+    <div class="container px-6 flex-1">
       <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
         {#each columnLinks as column}
           <div class="flex flex-col gap-4">

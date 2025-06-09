@@ -31,29 +31,29 @@ $effect(() => {
 
 <SeoHead
 	props={{
-		title: m.blog_title(),
-		description: m.blog_description(),
-		keywords: m.blog_keywords(),
-		slug: "blog",
-		thumbnail: "/images/2d_matrix.png",
-		type: "Blog",
+		title: `${item.title} | Zun Creative`,
+		description: item.description,
+		keywords: item.keywords.join(", "),
+		slug: item.slug,
+		thumbnail: item.header_image,
+		type: "WebPage",
 	}}
 />
 
 {#key item}
 	<Section 
 		id="showcase-item"
-		class="bg-white dark:bg-black text-black dark:text-white pt-12 flex flex-col gap-4 "
+		class="bg-white dark:bg-black text-black dark:text-white pt-12 flex flex-col gap-4"
 
 	>
 	{#if partnerBrand}
-	<div class="w-full flex items-center justify-center gap-6">
+	<div class="w-full flex items-center justify-center gap-6 pb-4">
 		<object class="size-14" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 		<MaterialSymbolsLightClose class="size-14"/>
 		<object class="{partnerBrand.height} invert" data="{partnerBrand.url}" type="image/svg+xml" title="Zun Creative Logo"></object>
 	</div>
 	{/if}
-		<div class="flex flex-col gap-4 lg:gap-8 xl:gap-12 ">
+		<div class="flex flex-col gap-8 xl:gap-12 ">
 		<H1 class="text-center"><i>{item.title}</i></H1>
 
 		<div class="flex justify-between flex-row gap-4">

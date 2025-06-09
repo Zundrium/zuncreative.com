@@ -10,7 +10,7 @@ import HeroWave3DCanvas from "$lib/components/babylon/HeroWave3DCanvas.svelte";
 
 <section
     id="hero"
-    class="relative px-4 min-h-svh w-full flex flex-col gap-8 lg:gap-12 items-center justify-center pb-32 pt-32 -mt-20 md:-mt-27"
+    class="relative px-6 min-h-svh w-full flex flex-col gap-8 lg:gap-12 items-center justify-center pb-32 pt-32 -mt-20 md:-mt-27"
 >
     <!-- <ShaderToyExample /> -->
     <div class="absolute left-0 top-0 w-full h-full">
