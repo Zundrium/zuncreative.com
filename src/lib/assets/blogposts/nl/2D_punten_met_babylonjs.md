@@ -78,7 +78,6 @@ const createScene = (): Scene => {
 
     // Maak een camera en positioneer deze
     const camera = new FreeCamera("camera1", new Vector3(0, 1.5, -4), scene);
-    camera.setTarget(Vector3.Zero()); // Richt de camera op het midden
     camera.attachControl(canvas, true);
 
     // Hier voegen we straks onze dot matrix toe!

@@ -4,10 +4,12 @@ import type { IBabylonGraphics } from "./utils";
 import { PointsCloudSystem } from "@babylonjs/core/Particles/pointsCloudSystem";
 import { Vector3, Vector2 } from "@babylonjs/core/Maths/math.vector";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
-import type { TargetCamera } from "@babylonjs/core/Cameras";
+import type { FreeCamera } from "@babylonjs/core/Cameras/freeCamera";
 //import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
 import type { CloudPoint } from "@babylonjs/core/Particles";
 //import { DepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
+//import { Inspector } from "@babylonjs/inspector";
+import { Quaternion } from "@babylonjs/core/Maths/math.vector";
 
 import {
 	TextureSampler,
@@ -181,16 +183,36 @@ export class HeroWave3D implements IBabylonGraphics {
 		);
 	}
 
-	private setupCamera(camera: TargetCamera): void {
+	private setupCamera(camera: FreeCamera): void {
 		//camera.position = new Vector3(0.4, 1, 3.14);
 		//camera.setTarget(new Vector3(0, 0, 0.7));
+		camera.position = new Vector3(0.43, 0.93, 2.77);
+		const degreesToRadians = (degrees: any) => degrees * (Math.PI / 180);
 
-		camera.position = new Vector3(0.2, 1, 3.14);
-		camera.setTarget(new Vector3(0.1, 0, 0.2));
+		if (getScreenState() == "sm") {
+			camera.rotationQuaternion = Quaternion.FromEulerAngles(
+				degreesToRadians(-27.0),
+				degreesToRadians(3.23),
+				0,
+			);
+		} else {
+			camera.rotationQuaternion = Quaternion.FromEulerAngles(
+				degreesToRadians(-17.36),
+				degreesToRadians(3.47),
+				0,
+			);
+		}
+		//camera.setTarget(new Vector3(0, 0, 0));
 	}
 
 	private setuptextureSamplers(): void {
 		this.textureSamplers[0] = new SineWaveNoise();
+		//this.textureSamplers[0] = new TextureSampler(
+		//	"/textures/hell2.png",
+		//	0.3,
+		//	new Vector2(0.05, 0.0),
+		//	1,
+		//);
 
 		this.textureSamplers[1] = new TextureSampler(
 			"/textures/hello.png",
@@ -208,9 +230,9 @@ export class HeroWave3D implements IBabylonGraphics {
 
 		this.textureSamplers[3] = new TextureSampler(
 			"/textures/wave.png",
-			0.3,
+			0.4,
 			new Vector2(0.05, -0.02),
-			1.75,
+			1.5,
 		);
 
 		this.textureSamplers[4] = new TextureSampler(
@@ -221,7 +243,7 @@ export class HeroWave3D implements IBabylonGraphics {
 		);
 		this.textureSamplers[5] = new TextureSampler(
 			"/textures/world_map_blurred.png",
-			0.5,
+			0.6,
 			new Vector2(0.04, 0.0),
 			1,
 		);
@@ -249,14 +271,15 @@ export class HeroWave3D implements IBabylonGraphics {
 
 	public async initialize(renderCanvas: HTMLCanvasElement): Promise<void> {
 		this.babylonScene = new BabylonScene(renderCanvas);
-		this.babylonScene.mediaQueryFOVs = [0.7, 0.6, 0.5, 0.4, 0.4];
+		this.babylonScene.mediaQueryFOVs = [0.8, 0.6, 0.5, 0.4, 0.4];
 
+		await this.babylonScene.init();
 		if (getScreenState() == "sm") {
 			this.particleSize = this.mobileParticleSize;
 			this.matrixParticleCount = this.mobileMatrixParticleCount;
 		}
 
-		await this.babylonScene.init();
+		//Inspector.Show(this.babylonScene.scene, {});
 
 		this.pointCloudSystem = await this.createPointsCloud(
 			this.babylonScene.scene,

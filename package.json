@@ -40,8 +40,8 @@
 		"vite": "^6.2.2"
 	},
 	"dependencies": {
-		"@babylonjs/core": "^8.1.1",
-		"@babylonjs/inspector": "^8.8.5",
+		"@babylonjs/core": "^8.11.0",
+		"@babylonjs/inspector": "^8.11.0",
 		"@babylonjs/loaders": "^8.1.1",
 		"@babylonjs/procedural-textures": "^8.8.5",
 		"@fontsource-variable/dm-sans": "^5.2.5",

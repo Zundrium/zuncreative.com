@@ -31,7 +31,7 @@ onDestroy(() => {
 </script>
 
 <div
-	class="absolute top-0 left-0 w-full h-full flex justify-center items-center transition-[opacity,visibility] visible duration-2000 {initialized
+	class="absolute pointer-events-none top-0 left-0 w-full h-full flex justify-center items-center transition-[opacity,visibility] visible duration-2000 {initialized
 		? 'opacity-0 invisible'
 		: ''}"
 >
@@ -49,7 +49,7 @@ onDestroy(() => {
 <!-- </div> -->
 <canvas
 	bind:this={renderCanvas}
-	class="pointer-events-none w-full h-full opacity-0 transition-opacity duration-2000 {initialized
+	class="w-full h-full opacity-0 transition-opacity duration-2000 {initialized
 		? 'opacity-100'
 		: ''}"
 ></canvas>

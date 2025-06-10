@@ -227,9 +227,9 @@ onMount(() => {
 		</div>
 
 		<!-- bottom gradient overlay -->
-		<div class="absolute inset-0 bg-gradient-to-t from-white to-transparent dark:from-black dark:to-transparent"></div>
+		<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-white to-transparent dark:from-black dark:to-transparent"></div>
 
-		<div class="absolute inset-0 select-none">
+		<div class="pointer-events-none absolute inset-0 select-none">
 			<!-- scroll container -->
 			<div bind:this={scrollContainerElement} class="h-full w-auto flex overflow-x-hidden">
 				{#each slides as slide, index}

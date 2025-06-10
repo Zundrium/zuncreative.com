@@ -1,4 +1,4 @@
-import { TargetCamera } from "@babylonjs/core/Cameras/targetCamera";
+import { FreeCamera } from "@babylonjs/core/Cameras/freeCamera";
 import { Color4 } from "@babylonjs/core/Maths/math.color";
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
@@ -15,7 +15,7 @@ export class BabylonScene {
 	private renderCanvas: HTMLCanvasElement;
 	public engine!: Engine;
 	public scene!: Scene;
-	public camera!: TargetCamera;
+	public camera!: FreeCamera;
 	public onRender: (deltaTime: number) => void = () => {};
 	private onReady: () => void = () => {};
 	private observer: IntersectionObserver | null = null;
@@ -43,7 +43,9 @@ export class BabylonScene {
 	}
 
 	private createRenderPipeline() {
-		const pipeline = new DefaultRenderingPipeline("default", true, this.scene, [this.camera]);
+		const pipeline = new DefaultRenderingPipeline("default", true, this.scene, [
+			this.camera,
+		]);
 		pipeline.fxaaEnabled = true;
 		pipeline.samples = 2;
 	}
@@ -55,21 +57,17 @@ export class BabylonScene {
 		this.scene.useRightHandedSystem = true;
 		this.scene.clearColor = new Color4(0, 0, 0, 0);
 
-		this.camera = new TargetCamera(
-			"camera1",
-			new Vector3(0, 5, -10),
-			this.scene,
-		);
+		this.camera = new FreeCamera("camera1", new Vector3(0, 5, -10), this.scene);
+		this.camera.speed = 0.1;
+		this.camera.attachControl(this.renderCanvas, true);
 		this.camera.minZ = 0.1;
 		this.camera.maxZ = 1000;
-		this.camera.setTarget(Vector3.Zero());
 		this.applyCorrectFOV();
 
-		if(getScreenState() == "sm" || getScreenState() == "md" ) {
+		if (getScreenState() == "sm" || getScreenState() == "md") {
 			this.createRenderPipeline();
 		}
 
-		//camera.attachControl(renderCanvas, true);
 		//this.createRenderPipeline(this.scene, this.camera);
 		this.initializeRenderLoop();
 

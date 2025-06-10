@@ -126,3 +126,7 @@ pre code.hljs {
 	border-radius: 0.5rem;
 }
 
+#scene-explorer-host,
+#inspector-host {
+	z-index: 99999;
+}
