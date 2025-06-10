@@ -15,7 +15,6 @@ export let posts: any = [];
 <Section
 	id="post"
 	class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-center"
-	backgroundColor="bg-white dark:bg-black"
 >
 	<SectionHeading centered title="Eigen <i>woorden</i>" subtitle="Blog" />
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-8 xl:gap-12">

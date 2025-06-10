@@ -2,25 +2,23 @@
 import MdiMenu from "~icons/mdi/menu";
 import MdiClose from "~icons/mdi/close";
 import MdiPhone from "~icons/mdi/phone";
-import MdiArrowDown from "~icons/mdi/arrow-down";
 
 import Button from "$lib/components/ui/Button.svelte";
 import { onMount } from "svelte";
-import H3 from "$lib/components/typography/H3.svelte";
-import Paragraph from "$lib/components/typography/Paragraph.svelte";
 import { page } from "$app/stores";
-    import DarkAndLightSwitch from "./DarkAndLightSwitch.svelte";
+import DarkAndLightIcon from "./DarkAndLightIcon.svelte";
 
-const navLinks = [
+const navLinks: any[] = [
 	// { name: "Showcase", href: "/#showcase" },
 	{ name: "Over mij", href: "/#over-mij" },
 	{ name: "Blog", href: "/blog" },
 	{ name: "Showcase", href: "/#showcase" },
+	{ name: "Contact", href: "/#contact", style: "line" },
 ];
 
 let initialized: boolean = false;
 const mainNavTransparent =
-	"bg-white dark:bg-transparent dark:bg-gradient-to-b dark:from-black/70 dark:to-transparent text-black dark:text-white";
+	"bg-transparent dark:bg-gradient-to-b dark:from-black/70 dark:to-transparent text-black dark:text-white";
 const mainNavOpaque = "bg-white dark:bg-black text-black dark:text-white";
 let mobileNavOpen = false;
 let navbar: HTMLElement;
@@ -62,7 +60,6 @@ function handleKeyDown(event: KeyboardEvent, menuKey?: string) {
 		event.preventDefault();
 		toggleMobileNav();
 	}
-	
 }
 
 function updateCurrentSection() {
@@ -122,19 +119,24 @@ $: if (sections) {
 	class="sticky flex flex-col items-center z-50 top-0 left-0 right-0"
 >
 	<div
-		class="{navbarClass} w-full transition-colors duration-300 flex justify-center h-24 -mb-24"
-	>
-		<div
-			class="container  transition-colors duration-500 px-6 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-dvh {mobileNavOpen
+		class="{navbarClass} w-full transition-colors duration-300 flex justify-center h-24 -mb-24 {mobileNavOpen
 				? 'h-dvh bg-white dark:bg-black'
 				: 'bg-transparent'}"
+	>
+		<div
+			class="container transition-colors duration-300 px-6 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-dvh "
 		>
-			<div class="w-full lg:w-auto flex justify-between items-center">
-				<a href="/" class="cursor-pointer relative w-14 h-14" aria-label="Home">
-					<object class="absolute pointer-events-none inset-0 w-full h-full duration-500 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
-					<object class="absolute pointer-events-none inset-0 w-full h-full duration-500 invert dark:invert-0 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
-				</a>
-				<button
+			<div class="w-full flex items-center justify-between {mobileNavOpen ? 'flex-col h-dvh' : ''}">
+
+				<div class="lg:flex-1 flex lg:h-full w-full items-center justify-between">
+					<a href="/" class="cursor-pointer relative w-14 h-14" aria-label="Home">
+						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 invert dark:invert-0 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+					</a>
+<div class="lg:hidden">
+						<DarkAndLightIcon />
+					</div>
+<button
 					class="size-12 p-2 cursor-pointer lg:hidden"
 					on:click={toggleMobileNav}
 					on:keydown={handleKeyDown}
@@ -160,46 +162,44 @@ $: if (sections) {
 						/>
 					</div>
 				</button>
-			</div>
+				</div>
 
-			<nav
-				aria-label="primary navigation"
-				class="transition-height transition-opacity duration-300 justify-center items-center w-full lg:w-auto lg:pb-0 text-xl md:text-base h-full overflow-auto lg:overflow-hidden {mobileNavOpen
-					? 'flex flex-col items-center'
-					: 'hidden'} lg:flex"
-				id="mobile-nav"
-			>
-				<ul
-					class="flex flex-1 flex-col lg:flex-row gap-2 lg:gap-4 items-center justify-center h-full"
+				<div class="hidden lg:flex flex-none items-center justify-center h-full">
+					<DarkAndLightIcon />
+				</div>
+
+
+
+				<nav
+					aria-label="primary navigation"
+					class="flex-1 transition-opacity duration-300 justify-center items-center text-xl md:text-base h-full {mobileNavOpen
+						? 'flex flex-col items-center w-full'
+						: 'hidden'} lg:flex"
+					id="mobile-nav"
 				>
-					{#each navLinks as navLink, index}
-						<li
-							class="flex flex-col flex-none items-center w-full lg:w-auto lg:border-none border-black/10 dark:border-white/10 py-2"
-						>
-							<Button
-								style="text"
-								click={() => {hideMobileNav()}}
-								href={navLink.href}
+					<ul
+						class="flex flex-col lg:flex-row gap-2 lg:gap-4 items-center justify-center h-full"
+					>
+						{#each navLinks as navLink}
+							<li
+								class="flex flex-col flex-none items-center w-full lg:w-auto lg:border-none border-black/10 dark:border-white/10 py-2"
 							>
-								{navLink.name}
-							</Button>
-						</li>
-					{/each}
-				</ul>
+								<Button
+									style="{navLink.style || 'text'}"
+									click={() => {hideMobileNav()}}
+									href={navLink.href}
+								>
+									{navLink.name}
+								</Button>
+							</li>
+						{/each}
+					</ul>
 
-				<div class="md:hidden">
-				<DarkAndLightSwitch />
-</div>
-			</nav>
-			<Button
-				href="/#contact"
-				style="line"
-				class="hidden! lg:inline-flex!"
-				ariaLabel="Call to Action Button"
-				iconLeft={MdiPhone}
-			>
-				Contact
-			</Button>
+					
+				</nav>
+				
+
+			</div>
 		</div>
 	</div>
 </header>

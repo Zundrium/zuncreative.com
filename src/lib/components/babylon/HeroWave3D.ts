@@ -182,8 +182,11 @@ export class HeroWave3D implements IBabylonGraphics {
 	}
 
 	private setupCamera(camera: TargetCamera): void {
-		camera.position = new Vector3(0.4, 1, 3.14);
-		camera.setTarget(new Vector3(0, 0, 0.7));
+		//camera.position = new Vector3(0.4, 1, 3.14);
+		//camera.setTarget(new Vector3(0, 0, 0.7));
+
+		camera.position = new Vector3(0.2, 1, 3.14);
+		camera.setTarget(new Vector3(0.1, 0, 0.2));
 	}
 
 	private setuptextureSamplers(): void {
@@ -255,7 +258,9 @@ export class HeroWave3D implements IBabylonGraphics {
 
 		await this.babylonScene.init();
 
-		this.pointCloudSystem = await this.createPointsCloud(this.babylonScene.scene);
+		this.pointCloudSystem = await this.createPointsCloud(
+			this.babylonScene.scene,
+		);
 		this.pointCloudSystem.updateParticle = (particle: CloudPoint) => {
 			return this.updateParticle(particle);
 		};

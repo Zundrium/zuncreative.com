@@ -70,7 +70,6 @@ function getItemClasses(item: MarkdownTextfile): string {
 <Section
 	id="showcase"
 	class="flex flex-col gap-4 md:gap-6 lg:gap-12 justify-center"
-	backgroundColor="bg-white dark:bg-black"
 >
 	<SectionHeading centered title="Mijn <i>werk</i>" subtitle="Showcase" />
 

@@ -39,7 +39,6 @@ onMount(() => {
 <Section
 	id="post"
 	class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-center pt-24"
-	backgroundColor="bg-white dark:bg-black"
 >
 	<SectionHeading centered title="Recente <i>gedachten</i>" subtitle="Blog" />
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-4 lg:gap-6 xl:gap-8">

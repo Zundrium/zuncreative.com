@@ -43,7 +43,7 @@ $effect(() => {
 {#key item}
 	<Section 
 		id="showcase-item"
-		class="bg-white dark:bg-black text-black dark:text-white pt-12 flex flex-col gap-4"
+		class="text-black dark:text-white pt-12 flex flex-col gap-4"
 
 	>
 	{#if partnerBrand}
