@@ -59,7 +59,7 @@ export class BabylonScene {
 
 		this.camera = new FreeCamera("camera1", new Vector3(0, 5, -10), this.scene);
 		this.camera.speed = 0.1;
-		this.camera.attachControl(this.renderCanvas, true);
+		//this.camera.attachControl(this.renderCanvas, true);
 		this.camera.minZ = 0.1;
 		this.camera.maxZ = 1000;
 		this.applyCorrectFOV();
