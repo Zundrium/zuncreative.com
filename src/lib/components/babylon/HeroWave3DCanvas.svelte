@@ -49,7 +49,7 @@ onDestroy(() => {
 <!-- </div> -->
 <canvas
 	bind:this={renderCanvas}
-	class="w-full h-full opacity-0 transition-opacity duration-2000 {initialized
+	class="pointer-events-none w-full h-full opacity-0 transition-opacity duration-2000 {initialized
 		? 'opacity-100'
 		: ''}"
 ></canvas>
