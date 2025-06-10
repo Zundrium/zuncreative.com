@@ -129,7 +129,7 @@ $: if (sections) {
 			<div class="w-full flex items-center justify-between {mobileNavOpen ? 'flex-col h-dvh' : ''}">
 
 				<div class="lg:flex-1 flex lg:h-full w-full items-center justify-between">
-					<a href="/" class="cursor-pointer relative w-14 h-14" aria-label="Home">
+					<a href="/" class="cursor-pointer relative w-14 h-14" aria-label="Home" style="width: 56px; height: 56px; overflow: hidden;">
 						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 invert dark:invert-0 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 					</a>
