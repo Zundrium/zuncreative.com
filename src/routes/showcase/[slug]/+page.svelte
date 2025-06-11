@@ -80,9 +80,9 @@ $effect(() => {
 			{/if}
 		</div>
 		{#if item.video!.includes("_mobile")}
-			<div class="flex flex-col md:flex-row items-start rounded-xl flex gap-4 lg:gap-8 xl:gap-12 w-full">
+			<div class="flex flex-col md:flex-row items-start flex gap-4 lg:gap-8 xl:gap-12 w-full">
 				<video
-					class="rounded-xl object-cover overflow-hidden w-full md:w-1/3"
+					class="object-cover overflow-hidden w-full md:w-1/3"
 					autoplay
 					loop
 					controls
@@ -102,9 +102,9 @@ $effect(() => {
 			<article class="w-full max-w-full! prose lg:prose-xl dark:prose-invert text-center prose-strong:font-extralight">
 				{@html item.html}
 			</article>
-			<div class="flex items-center justify-center rounded-xl">
+			<div class="flex items-center justify-center">
 				<video
-					class="rounded-xl w-full h-full bg-gray-100 dark:bg-gray-900"
+					class="w-full h-full bg-gray-100 dark:bg-gray-900"
 					autoplay
 					loop
 					muted
@@ -124,7 +124,7 @@ $effect(() => {
 					parallax
 					src={galleryImage}
 					alt={item.title}
-					class="rounded-xl object-cover w-full h-full overflow-hidden"
+					class="object-cover w-full h-full overflow-hidden"
 					sizes="(min-width: 1920px) 1920px, (min-width: 1280px) 1280px, (min-width: 768px) 480px"
 				/>
 			{/each}

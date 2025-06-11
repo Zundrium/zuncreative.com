@@ -22,7 +22,7 @@ export let posts: any = [];
 		<div
 			class="flex flex-col gap-6 xl:gap-8 items-start"
 		>
-			<a href="/blog/{posts[0].slug}" class="relative cursor-pointer w-full flex-1 min-h-48 overflow-hidden rounded-xl" data-cursor-icon="fullscreen" use:viewportSlideInBottom> 
+			<a href="/blog/{posts[0].slug}" class="relative cursor-pointer w-full flex-1 min-h-48 overflow-hidden" data-cursor-icon="fullscreen" use:viewportSlideInBottom> 
 				<Image
 					parallax
 					alt="{posts[0].title}"

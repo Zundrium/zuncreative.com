@@ -5,9 +5,10 @@ publish_date: '2025-01-04'
 keywords: '3d, web'
 mobile: false
 featured: true
-header_image: '/images/showcase/sophon-minigame/gallery/02.jpg'
+header_image: '/images/showcase/sophon-minigame/gallery/01.jpg'
 external_url: 'https://app.sophon.xyz/detail/sophon-play/'
 video: '/video/showcase/sophon-minigame/video.mp4'
+partner_brand: sophon
 gallery:
     - '/images/showcase/sophon-minigame/gallery/01.jpg'
     - '/images/showcase/sophon-minigame/gallery/02.jpg'

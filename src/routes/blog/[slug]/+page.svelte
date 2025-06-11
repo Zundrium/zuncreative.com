@@ -112,7 +112,7 @@ id="recent-posts"
 					<div
 			class="flex flex-col gap-4 md:gap-4 lg:gap-6 xl:gap-8 items-start"
 		>
-			<a href="/blog/{relatedPost.slug}" class="relative cursor-pointer w-full aspect-4/2 overflow-hidden rounded-xl" data-cursor-icon="fullscreen" use:viewportSlideInBottom> 
+			<a href="/blog/{relatedPost.slug}" class="relative cursor-pointer w-full aspect-4/2 overflow-hidden" data-cursor-icon="fullscreen" use:viewportSlideInBottom> 
 				<Image
 					parallax
 					alt={relatedPost.title}

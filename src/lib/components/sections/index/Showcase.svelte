@@ -55,7 +55,7 @@ const showAllHandler = () => setActiveTag(null);
 
 // Memoized class computation
 function getItemClasses(item: MarkdownTextfile): string {
-	const baseClasses = "flex flex-col cursor-pointer";
+	const baseClasses = "flex flex-col cursor-pointer overflow-hidden relative";
 
 	if (item.featured) {
 		return `${baseClasses} row-span-2 col-span-2`;
@@ -104,17 +104,15 @@ function getItemClasses(item: MarkdownTextfile): string {
 				data-cursor-icon="fullscreen"
 				use:viewportSlideInBottom
 			>  
-				<div class="overflow-hidden object-cover flex-1 relative rounded-xl">	
-					<div class="absolute inset-0 bg-gradient-to-t from-white dark:from-black to-transparent opacity-20 dark:opacity-50 z-1"></div>
-					<Image 
-						parallax 
-						src={showcaseItem.header_image} 
-						alt={showcaseItem.title} 
-						class="w-full h-full"
-						loading="lazy"
-					/>
-					<i class="absolute left-5 bottom-5 z-2">{showcaseItem.title}</i>
-				</div>
+				<div class="absolute inset-0 bg-gradient-to-t from-white dark:from-black to-transparent opacity-20 dark:opacity-50 z-1"></div>
+				<Image 
+					parallax 
+					src={showcaseItem.header_image} 
+					alt={showcaseItem.title} 
+					class="w-full h-full transition-transform hover:scale-200 duration-300"
+					loading="lazy"
+				/>
+				<span class="absolute rounded-tr-4xl bg-white dark:bg-black text-black dark:text-white font-medium px-8 py-4 left-0 bottom-0 z-10">{showcaseItem.title}</span>
 			</a>
 		{/each}
 	</div>
