@@ -8,7 +8,7 @@ import Image from "$lib/components/ui/Image.svelte";
 import Section from "$lib/components/ui/Section.svelte";
 import { showcaseItemTags } from "$lib/utils/types/showcaseItem";
 import type { MarkdownTextfile } from "$lib/utils/types";
-import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
+import { viewportFade, viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 import { onMount } from "svelte";
 
 export let showcaseItems: MarkdownTextfile[] = [];
@@ -102,7 +102,7 @@ function getItemClasses(item: MarkdownTextfile): string {
 				href="/showcase/{showcaseItem.slug}"
 				class={getItemClasses(showcaseItem)}
 				data-cursor-icon="fullscreen"
-				use:viewportSlideInBottom
+				use:viewportFade
 			>  
 				<div class="absolute inset-0 bg-gradient-to-t from-white dark:from-black to-transparent opacity-20 dark:opacity-50 z-1"></div>
 				<Image 
