@@ -4,7 +4,6 @@ import { Engine } from "@babylonjs/core/Engines/engine";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { Scene } from "@babylonjs/core/scene";
 import { getScreenState } from "../screenState";
-import { DefaultRenderingPipeline } from "@babylonjs/core";
 
 export interface InitOptions {
 	direct?: boolean;
@@ -42,12 +41,8 @@ export class BabylonScene {
 		});
 	}
 
-	private createRenderPipeline() {
-		const pipeline = new DefaultRenderingPipeline("default", true, this.scene, [
-			this.camera,
-		]);
-		pipeline.fxaaEnabled = true;
-		pipeline.samples = 2;
+	private increaseResolution(): void {
+		this.engine.setHardwareScalingLevel(0.75);
 	}
 
 	private delayedInit(): void {
@@ -65,7 +60,7 @@ export class BabylonScene {
 		this.applyCorrectFOV();
 
 		if (getScreenState() == "sm" || getScreenState() == "md") {
-			this.createRenderPipeline();
+			this.increaseResolution();
 		}
 
 		//this.createRenderPipeline(this.scene, this.camera);

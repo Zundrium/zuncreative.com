@@ -5,10 +5,7 @@ import { PointsCloudSystem } from "@babylonjs/core/Particles/pointsCloudSystem";
 import { Vector3, Vector2 } from "@babylonjs/core/Maths/math.vector";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
 import type { FreeCamera } from "@babylonjs/core/Cameras/freeCamera";
-//import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
-import type { CloudPoint } from "@babylonjs/core/Particles";
-//import { DepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
-//import { Inspector } from "@babylonjs/inspector";
+import type { CloudPoint } from "@babylonjs/core/Particles/cloudPoint";
 import { Quaternion } from "@babylonjs/core/Maths/math.vector";
 
 import {
@@ -17,7 +14,6 @@ import {
 } from "$lib/utils/babylonjs/textureSampler";
 import { SineWaveNoise } from "$lib/utils/babylonjs/sineWaveNoise";
 import { getScreenState } from "$lib/utils/screenState";
-import { StandardMaterial, Texture } from "@babylonjs/core";
 
 export class HeroWave3D implements IBabylonGraphics {
 	private babylonScene: BabylonScene | null = null;
