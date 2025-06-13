@@ -1,6 +1,6 @@
-
 <script lang="ts">
 import Paragraph from "$lib/components/typography/Paragraph.svelte";
+import * as m from "$lib/paraglide/messages";
 
 import MdiFacebook from "~icons/mdi/facebook";
 import MdiTwitter from "~icons/mdi/twitter";
@@ -30,14 +30,14 @@ for (let i = 0; i < posts.length; i++) {
 
 const columnLinks = [
 	{
-		title: "Blog",
+		title: m.footer_blog_title(),
 		links: blogLinks,
 	},
 	{
-		title: "Algemeen",
+		title: m.footer_general_title(),
 		links: [
-			{ name: "Over mij", href: "/#over-mij" },
-			{ name: "Showcase", href: "/#showcase" },
+			{ name: m.nav_about_me(), href: "/#over-mij" },
+			{ name: m.nav_showcase(), href: "/#showcase" },
 		],
 	},
 ];
@@ -63,12 +63,12 @@ const year = new Date().getFullYear();
 					</div>
 				{/each}
 				<address class="flex flex-col gap-8">
-					<a href="/" class="font-bold text-3xl w-14 h-14" aria-label="Home">
-						<object class="pointer-events-none inset-0 w-full h-full duration-500" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+					<a href="/" class="font-bold text-3xl w-14 h-14" aria-label={m.nav_aria_home()}>
+						<object class="pointer-events-none inset-0 w-full h-full duration-500" data="/svg/logo.svg" type="image/svg+xml" title={m.nav_logo_title()}></object>
 					</a>
 					<div class="flex flex-col gap-4 text-slate-700 dark:text-slate-400">
 						<Paragraph size="sm">
-							Vlierweg 12<br />1032LG<br/>Amsterdam
+							{@html m.footer_address()}
 						</Paragraph>
 						<a href="mailto:sem@zuncreative.com" class="cursor-pointer hover:underline flex items-center gap-2">
 							<MdiEmail class="size-4" />
@@ -88,18 +88,18 @@ const year = new Date().getFullYear();
 		</div>
 	</div>
 	<div class="halfcontainer w-full flex items-center justify-between text-sm text-slate-700 dark:text-slate-400 gap-4 lg:gap-8 p-4 lg:px-12 rounded-t-4xl">
-		<div>&copy; {year} All rights reserved.</div>
+		<div>{@html m.footer_copyright({ year })}</div>
 		<!-- <div> -->
 		<!-- 	<DarkAndLightIcon /> -->
 		<!-- </div> -->
-		<nav aria-label="Legal">
+		<nav aria-label={m.footer_aria_legal()}>
 			<ul class="flex gap-4 lg:gap-8 items-center">
 				<li>
-					<a class="cursor-pointer" href="/privacy">Privacy</a>
+					<a class="cursor-pointer" href="/privacy">{m.nav_privacy()}</a>
 				</li>
 				<li>
 					<a class="cursor-pointer" href="/terms">
-						Terms <span class="hidden lg:inline-block">&amp; conditions</span>
+						{@html m.nav_terms_and_conditions()}
 					</a>
 				</li>
 			</ul>
@@ -107,4 +107,3 @@ const year = new Date().getFullYear();
 	</div>
 	<div class="w-full h-10 lg:h-20"></div>
 </footer>
-

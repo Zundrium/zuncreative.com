@@ -49,5 +49,10 @@
 	"nav_aria_open_menu": "Open navigatiemenu",
 	"nav_aria_close_menu": "Sluit navigatiemenu",
 	"nav_menu_open_text": "Open Menu",
-	"nav_menu_close_text": "Sluit Menu"
+	"nav_menu_close_text": "Sluit Menu",
+	"footer_blog_title": "Blog",
+	"footer_general_title": "Algemeen",
+	"footer_address": "Vlierweg 12<br />1032LG<br/>Amsterdam",
+	"footer_copyright": "&copy; {year} Alle rechten voorbehouden.",
+	"footer_aria_legal": "Wettelijke links"
 }
