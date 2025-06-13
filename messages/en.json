@@ -1,8 +1,3 @@
 {
-	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"lastModifiedOn": "Last modified on",
-	"publishedOn": "Published on",
-	"blog_title": "Blog",
-	"blog_description": "Read the latest articles about us.",
-	"blog_keywords": "online marketing, blog"
+	"$schema": "https://inlang.com/schema/inlang-message-format"
 }
