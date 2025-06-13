@@ -28,5 +28,10 @@
 	"read_more": "Lees meer",
 	"recent_posts_aria_read_more": "Blogpost: {title}",
 	"view_all": "Bekijk alles",
-	"recent_posts_aria_view_all": "Bekijk alle blogposts"
+	"recent_posts_aria_view_all": "Bekijk alle blogposts",
+	"showcase_section_subtitle": "Showcase",
+	"showcase_section_title": "Mijn <i>werk</i>",
+	"showcase_aria_filter_by_tag": "Toon items met de tag {tag}",
+	"showcase_aria_show_all": "Toon alle showcase items",
+	"showcase_filter_all": "Alles"
 }

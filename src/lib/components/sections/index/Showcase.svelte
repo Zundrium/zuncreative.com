@@ -10,6 +10,7 @@ import { showcaseItemTags } from "$lib/utils/types/showcaseItem";
 import type { MarkdownTextfile } from "$lib/utils/types";
 import { viewportFade, viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 import { onMount } from "svelte";
+import * as m from "$lib/paraglide/messages";
 
 export let showcaseItems: MarkdownTextfile[] = [];
 let filteredShowcaseItems: MarkdownTextfile[] = [];
@@ -71,14 +72,14 @@ function getItemClasses(item: MarkdownTextfile): string {
 	id="showcase"
 	class="flex flex-col gap-4 md:gap-6 lg:gap-12 justify-center"
 >
-	<SectionHeading centered title="Mijn <i>werk</i>" subtitle="Showcase" />
+	<SectionHeading centered title={m.showcase_section_title()} subtitle={m.showcase_section_subtitle()} />
 
 	<div class="flex gap-2 items-center w-full justify-center">	
 		{#each showcaseItemTags as tag (tag)}
 			<Button
 				style="text"
 				size="sm"
-				ariaLabel="Showcase items tagged with {tag}"
+				ariaLabel={m.showcase_aria_filter_by_tag({ tag })}
 				click={tagHandlers[tag]}
 			>
 				{tag}
@@ -87,10 +88,10 @@ function getItemClasses(item: MarkdownTextfile): string {
 		<Button
 			style="text"
 			size="sm"
-			ariaLabel="Show all showcase items"
+			ariaLabel={m.showcase_aria_show_all()}
 			click={showAllHandler}
 		>
-			All
+			{m.showcase_filter_all()}
 		</Button>
 	</div>
 
