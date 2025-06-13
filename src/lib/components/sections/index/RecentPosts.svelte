@@ -8,6 +8,7 @@ import Image from "$lib/components/ui/Image.svelte";
 import Section from "$lib/components/ui/Section.svelte";
 import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 import { formatDate } from "$lib/utils/formatDate";
+import * as m from "$lib/paraglide/messages";
 
 export let posts: any = [];
 </script>
@@ -16,7 +17,7 @@ export let posts: any = [];
 	id="post"
 	class="flex flex-col gap-4 md:gap-6 lg:gap-8 xl:gap-12 justify-center"
 >
-	<SectionHeading centered title="Eigen <i>woorden</i>" subtitle="Blog" />
+	<SectionHeading centered title={m.recent_posts_section_title()} subtitle={m.recent_posts_section_subtitle()} />
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-8 xl:gap-12">
 		<!-- Latest blog post with thumbnail -->
 		<div
@@ -25,8 +26,8 @@ export let posts: any = [];
 			<a href="/blog/{posts[0].slug}" class="relative cursor-pointer w-full flex-1 min-h-48 overflow-hidden" data-cursor-icon="fullscreen" use:viewportSlideInBottom> 
 				<Image
 					parallax
-					alt="{posts[0].title}"
-					src="{posts[0].header_image}"
+					alt={posts[0].title}
+					src={posts[0].header_image}
 					class="absolute inset-0 w-full h-full object-cover "
 					sizes="(min-width:1920px) 1920px, (min-width:1280px) 1280px, (min-width:768px) 480px"
 				/>
@@ -43,8 +44,9 @@ export let posts: any = [];
 				<Button
 					style="line"
 					href={`/blog/${posts[0].slug}`}
-					ariaLabel="Blogpost: {posts[0].title}"
-					iconRight={MdiArrowRight}>Lees meer</Button>
+					ariaLabel={m.recent_posts_aria_read_more({ title: posts[0].title })}
+					iconRight={MdiArrowRight}>{m.read_more()}</Button
+				>
 				<span class="hidden md:block text-black/80 dark:text-white/80">{formatDate(posts[0].publish_date)}</span>
 
 			</div>
@@ -62,7 +64,7 @@ export let posts: any = [];
 						<hgroup class="flex flex-col gap-1 md:gap-2">
 							<H3>{post.title}</H3>
 						</hgroup>
-						<Paragraph class="flex-1 hidden md:flex">
+						<Paragraph class="hidden md:flex flex-1">
 							{post.description}
 						</Paragraph>
 					</div>
@@ -70,8 +72,9 @@ export let posts: any = [];
 						<Button
 							style="text"
 							href={`/blog/${post.slug}`}
-							ariaLabel="Blogpost: {post.title}"
-							iconRight={MdiArrowRight}>Lees meer</Button>
+							ariaLabel={m.recent_posts_aria_read_more({ title: post.title })}
+							iconRight={MdiArrowRight}>{m.read_more()}</Button
+						>
 
 						<span class="hidden md:block text-black/80 dark:text-white/80">{formatDate(post.publish_date)}</span>
 					</div>
@@ -80,8 +83,9 @@ export let posts: any = [];
 			<Button
 				href="/blog"
 				style="line"
-				ariaLabel="View all blog posts"
-				iconRight={MdiArrowRight}>Bekijk alles</Button>
+				ariaLabel={m.recent_posts_aria_view_all()}
+				iconRight={MdiArrowRight}>{m.view_all()}</Button
+			>
 		</div>
 
 

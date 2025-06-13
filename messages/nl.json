@@ -22,5 +22,11 @@
 	"contact_section_description": "Voor vragen over mijn werk of om een project te bespreken, aarzel niet om contact op te nemen.",
 	"contact_phone_aria": "Bellen",
 	"contact_email_aria": "Mailen naar",
-	"contact_linkedin_aria": "LinkedIn profiel"
+	"contact_linkedin_aria": "LinkedIn profiel",
+	"recent_posts_section_subtitle": "Blog",
+	"recent_posts_section_title": "Eigen <i>woorden</i>",
+	"read_more": "Lees meer",
+	"recent_posts_aria_read_more": "Blogpost: {title}",
+	"view_all": "Bekijk alles",
+	"recent_posts_aria_view_all": "Bekijk alle blogposts"
 }
