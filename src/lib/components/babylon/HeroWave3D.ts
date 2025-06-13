@@ -2,17 +2,20 @@ import { BabylonScene } from "$lib/utils/babylonjs/babylonScene";
 import { Scene } from "@babylonjs/core/scene";
 import type { IBabylonGraphics } from "./utils";
 import { PointsCloudSystem } from "@babylonjs/core/Particles/pointsCloudSystem";
-import { Vector3, Vector2, Quaternion } from "@babylonjs/core/Maths/math.vector";
+import {
+	Vector3,
+	Vector2,
+	Quaternion,
+} from "@babylonjs/core/Maths/math.vector";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
-import type { FreeCamera } from "@babylonjs/core/Cameras/freeCamera";
 import type { CloudPoint } from "@babylonjs/core/Particles/cloudPoint";
-
 import {
 	TextureSampler,
 	type ITextureSampler,
 } from "$lib/utils/babylonjs/textureSampler";
 import { SineWaveNoise } from "$lib/utils/babylonjs/sineWaveNoise";
 import { getScreenState } from "$lib/utils/screenState";
+import type { BasicCamera } from "$lib/utils/babylonjs/basicCamera";
 
 export class HeroWave3D implements IBabylonGraphics {
 	private babylonScene: BabylonScene | null = null;
@@ -178,7 +181,7 @@ export class HeroWave3D implements IBabylonGraphics {
 		);
 	}
 
-	private setupCamera(camera: FreeCamera): void {
+	private setupCamera(camera: BasicCamera): void {
 		//camera.position = new Vector3(0.4, 1, 3.14);
 		//camera.setTarget(new Vector3(0, 0, 0.7));
 		camera.position = new Vector3(0.43, 0.93, 2.77);

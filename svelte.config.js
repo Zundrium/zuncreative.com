@@ -18,9 +18,9 @@ const config = {
 				}
 			},
 			handleMissingId: ({ status, path, referrer }) => {
-				console.warn(
-					`Prerender warning: ${status} at ${path} (linked from ${referrer}).`,
-				);
+				// console.warn(
+				// 	`Prerender warning: ${status} at ${path} (linked from ${referrer}).`,
+				// );
 			},
 		},
 		adapter: adapter({
