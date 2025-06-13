@@ -9,6 +9,8 @@ import MdiLinkedin from "~icons/mdi/linkedin";
 import MdiPhone from "~icons/mdi/phone";
 import MdiEmail from "~icons/mdi/email";
 import DarkAndLightIcon from "./DarkAndLightIcon.svelte";
+import DarkAndLightSwitch from "./DarkAndLightSwitch.svelte";
+import LanguageLinks from "./LanguageLinks.svelte";
 
 const socialLinks = [
 	{ icon: MdiFacebook, name: "Facebook", href: "https://facebook.com" },
@@ -38,6 +40,9 @@ const columnLinks = [
 		links: [
 			{ name: m.nav_about_me(), href: "/#over-mij" },
 			{ name: m.nav_showcase(), href: "/#showcase" },
+			{ name: m.nav_privacy(), href: "/privacy" },
+			{ name: m.nav_terms_and_conditions(), href: "/terms" },
+			{ name: m.nav_contact(), href: "/#contact" },
 		],
 	},
 ];
@@ -51,12 +56,12 @@ const year = new Date().getFullYear();
 		<div class="container px-6 flex-1">
 			<div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
 				{#each columnLinks as column}
-					<div class="flex flex-col gap-4">
+					<div class="flex flex-col gap-8">
 						<span class="font-bold">{column.title}</span>
 						<ul class="flex flex-col gap-2 text-slate-700 dark:text-slate-400">
 							{#each column.links as link}
 								<li>
-									<a href={link.href}>{link.name}</a>
+									<a class="cursor-pointer" href={link.href}>{link.name}</a>
 								</li>
 							{/each}
 						</ul>
@@ -87,23 +92,15 @@ const year = new Date().getFullYear();
 			</div>
 		</div>
 	</div>
-	<div class="halfcontainer w-full flex items-center justify-between text-sm text-slate-700 dark:text-slate-400 gap-4 lg:gap-8 p-4 lg:px-12 rounded-t-4xl">
+	<div class="halfcontainer w-full flex items-center justify-between text-sm text-slate-700 dark:text-slate-400 gap-4 lg:gap-8 p-4 lg:px-12 rounded-t-4xl bg-white dark:bg-black">
+		<div>
+			<DarkAndLightSwitch />
+		</div> 
 		<div>{@html m.footer_copyright({ year })}</div>
-		<!-- <div> -->
-		<!-- 	<DarkAndLightIcon /> -->
-		<!-- </div> -->
-		<nav aria-label={m.footer_aria_legal()}>
-			<ul class="flex gap-4 lg:gap-8 items-center">
-				<li>
-					<a class="cursor-pointer" href="/privacy">{m.nav_privacy()}</a>
-				</li>
-				<li>
-					<a class="cursor-pointer" href="/terms">
-						{@html m.nav_terms_and_conditions()}
-					</a>
-				</li>
-			</ul>
-		</nav>
+		<div>
+			<LanguageLinks />
+		</div> 
+		
 	</div>
-	<div class="w-full h-10 lg:h-20"></div>
+	<div class="w-full h-10 lg:h-20 bg-white dark:bg-black"></div>
 </footer>

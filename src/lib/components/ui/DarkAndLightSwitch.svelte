@@ -46,40 +46,34 @@ $effect(() => {
 </script>
 
 <div
-    class="flex items-center bg-slate-200 dark:bg-neutral-900 text-black dark:text-white rounded-full p-2 gap-2"
+    class="flex items-center gap-4"
 >
     <button
-        class="p-1 lg:p-2 rounded-full cursor-pointer {activeTheme === 'system'
-            ? 'bg-white dark:bg-black'
-            : 'hover:bg-slate-300 dark:hover:bg-black'}"
+        class="cursor-pointer duration-300 {activeTheme === 'system' ? 'opacity-100': 'opacity-50 hover:opacity-100'}"
         aria-label="Switch to system theme"
         onclick={() => {
             activeTheme = "system";
         }}
     >
-        <MdiLaptop class="size-6" />
+        <MdiLaptop class="size-6 lg:size-4" />
     </button>
     <button
-        class="p-1 lg:p-2 rounded-full cursor-pointer {activeTheme === 'light'
-            ? 'bg-white dark:bg-black'
-            : 'hover:bg-slate-300 dark:hover:bg-black'}"
+        class="cursor-pointer duration-300 {activeTheme === 'light' ? 'opacity-100': 'opacity-50 hover:opacity-100'}"
         aria-label="Switch to light theme"
         onclick={() => {
             activeTheme = "light";
         }}
     >
-        <MdiWhiteBalanceSunny class="size-6" />
+        <MdiWhiteBalanceSunny class="size-6 lg:size-4" />
     </button>
     <button
-        class="p-1 lg:p-2 rounded-full cursor-pointer {activeTheme === 'dark'
-            ? 'bg-white dark:bg-black'
-            : 'hover:bg-slate-300 dark:hover:bg-black'}"
+        class="cursor-pointer duration-300 {activeTheme === 'dark' ? 'opacity-100': 'opacity-50 hover:opacity-100'}"
         aria-label="Switch to dark theme"
         onclick={() => {
             activeTheme = "dark";
         }}
     >
-        <MdiMoonAndStars class="size-6" />
+        <MdiMoonAndStars class="size-6 lg:size-4" />
     </button>
 </div>
 
