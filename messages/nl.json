@@ -33,5 +33,21 @@
 	"showcase_section_title": "Mijn <i>werk</i>",
 	"showcase_aria_filter_by_tag": "Toon items met de tag {tag}",
 	"showcase_aria_show_all": "Toon alle showcase items",
-	"showcase_filter_all": "Alles"
+	"showcase_filter_all": "Alles",
+	"nav_about_me": "Over mij",
+	"nav_blog": "Blog",
+	"nav_showcase": "Showcase",
+	"nav_contact": "Contact",
+	"nav_privacy": "Privacy",
+	"nav_terms_and_conditions": "Terms <span class=\"hidden lg:inline-block\">&amp; conditions</span>",
+	"nav_aria_top_center": "Top center navigatie",
+	"nav_aria_top_left": "Top left navigatie",
+	"nav_aria_language_select": "Taal selectie",
+	"nav_aria_primary": "Primaire navigatie",
+	"nav_aria_home": "Home",
+	"nav_logo_title": "Zun Creative Logo",
+	"nav_aria_open_menu": "Open navigatiemenu",
+	"nav_aria_close_menu": "Sluit navigatiemenu",
+	"nav_menu_open_text": "Open Menu",
+	"nav_menu_close_text": "Sluit Menu"
 }

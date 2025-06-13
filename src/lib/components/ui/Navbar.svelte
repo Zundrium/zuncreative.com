@@ -8,13 +8,14 @@ import { page } from "$app/stores";
 import DarkAndLightIcon from "./DarkAndLightIcon.svelte";
 import DarkAndLightSwitch from "./DarkAndLightSwitch.svelte";
 import LanguageLinks from "./LanguageLinks.svelte";
+import * as m from "$lib/paraglide/messages";
 
 const navLinks: any[] = [
 	// { name: "Showcase", href: "/#showcase" },
-	{ name: "Over mij", href: "/#over-mij" },
-	{ name: "Blog", href: "/blog" },
-	{ name: "Showcase", href: "/#showcase" },
-	{ name: "Contact", href: "/#contact", style: "line" },
+	{ name: m.nav_about_me(), href: "/#over-mij" },
+	{ name: m.nav_blog(), href: "/blog" },
+	{ name: m.nav_showcase(), href: "/#showcase" },
+	{ name: m.nav_contact(), href: "/#contact", style: "line" },
 ];
 
 let initialized: boolean = false;
@@ -119,22 +120,22 @@ $: if (sections) {
 	class="hidden md:flex relative z-10 h-6 text-neutral-600 dark:text-neutral-500 w-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-900 duration-300"
 >
 	<div class="container flex items-center px-6 py-2 justify-between text-xs">
-		<nav aria-label="top center navigation">
+		<nav aria-label={m.nav_aria_top_center()}>
 			<ul class="flex gap-8 ">
 				<li>
-					<a class="cursor-pointer hover:underline" href="/privacy">Privacy</a>
+					<a class="cursor-pointer hover:underline" href="/privacy">{m.nav_privacy()}</a>
 				</li>
 				<li>
 					<a class="cursor-pointer hover:underline" href="/terms">
-						Terms <span class="hidden lg:inline-block">&amp; conditions</span>
+						{@html m.nav_terms_and_conditions()}
 					</a>
 				</li>
 			</ul>
 		</nav>
-<nav aria-label="top left navigation">
+<nav aria-label={m.nav_aria_top_left()}>
 			<DarkAndLightSwitch />
 		</nav>
-		<nav aria-label="language select">
+		<nav aria-label={m.nav_aria_language_select()}>
 			<LanguageLinks />
 		</nav>
 	</div>
@@ -157,9 +158,9 @@ $: if (sections) {
 			<div class="w-full flex items-center justify-between {mobileNavOpen ? 'flex-col h-dvh' : ''}">
 
 				<div class="lg:flex-1 flex lg:h-full w-full items-center justify-between">
-					<a href="/" class="cursor-pointer relative w-12 h-12" aria-label="Home">
-						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
-						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 invert dark:invert-0 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+					<a href="/" class="cursor-pointer relative w-12 h-12" aria-label={m.nav_aria_home()}>
+						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title={m.nav_logo_title()}></object>
+						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 invert dark:invert-0 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title={m.nav_logo_title()}></object>
 					</a>
 
 					
@@ -168,14 +169,14 @@ $: if (sections) {
 					on:click={toggleMobileNav}
 					on:keydown={handleKeyDown}
 					aria-label={mobileNavOpen
-						? "Close Navigation Menu"
-						: "Open Navigation Menu"}
+						? m.nav_aria_close_menu()
+						: m.nav_aria_open_menu()}
 					aria-expanded={mobileNavOpen}
 					aria-controls="mobile-nav"
 				>
 					<div class="relative h-full w-full">
 						<span class="sr-only"
-						>{mobileNavOpen ? "Close" : "Open"} Menu</span
+						>{mobileNavOpen ? m.nav_menu_close_text() : m.nav_menu_open_text()}</span
 						>
 						<MdiMenu
 							class="absolute left-0 top-0 h-full w-full transition-transform duration-300 {mobileNavOpen
@@ -198,7 +199,7 @@ $: if (sections) {
 
 
 				<nav
-					aria-label="primary navigation"
+					aria-label={m.nav_aria_primary()}
 					class="flex-1 transition-opacity duration-300 justify-center items-center md:justify-end text-xl md:text-base h-full {mobileNavOpen
 						? 'flex flex-col items-center w-full'
 						: 'hidden'} lg:flex"
@@ -241,4 +242,3 @@ class="fixed top-0 right-0 bottom-0 left-0 bg-black/60 z-40 backdrop-blur-xs tra
 aria-hidden="true"
 on:click={hideMobileNav}
 ></div> -->
-
