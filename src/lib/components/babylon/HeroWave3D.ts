@@ -15,7 +15,7 @@ import {
 } from "$lib/utils/babylonjs/textureSampler";
 import { SineWaveNoise } from "$lib/utils/babylonjs/sineWaveNoise";
 import { getScreenState } from "$lib/utils/screenState";
-import type { BasicCamera } from "$lib/utils/babylonjs/basicCamera";
+import type { InteractiveCamera } from "$lib/utils/babylonjs/interactiveCamera";
 
 export class HeroWave3D implements IBabylonGraphics {
 	private babylonScene: BabylonScene | null = null;
@@ -181,26 +181,31 @@ export class HeroWave3D implements IBabylonGraphics {
 		);
 	}
 
-	private setupCamera(camera: BasicCamera): void {
-		//camera.position = new Vector3(0.4, 1, 3.14);
-		//camera.setTarget(new Vector3(0, 0, 0.7));
+	private setupCamera(camera: InteractiveCamera): void {
+		// --- 1. Set your desired position and rotation ---
 		camera.position = new Vector3(0.43, 0.93, 2.77);
-		const degreesToRadians = (degrees: any) => degrees * (Math.PI / 180);
 
+		const degreesToRadians = (degrees: number) => degrees * (Math.PI / 180);
+
+		// IMPORTANT: Make sure you are using the .rotation setter, which correctly
+		// updates the internal rotationQuaternion.
 		if (getScreenState() == "sm") {
-			camera.rotationQuaternion = Quaternion.FromEulerAngles(
+			camera.rotation = new Vector3(
 				degreesToRadians(-27.0),
 				degreesToRadians(3.23),
-				0,
+				0, // Always good to be explicit about roll
 			);
 		} else {
-			camera.rotationQuaternion = Quaternion.FromEulerAngles(
+			camera.rotation = new Vector3(
 				degreesToRadians(-17.36),
 				degreesToRadians(3.47),
 				0,
 			);
 		}
-		//camera.setTarget(new Vector3(0, 0, 0));
+
+		// --- 2. Lock in this new state as the base for all interactions ---
+		// This is the crucial new step.
+		camera.setBaseState();
 	}
 
 	private setuptextureSamplers(): void {

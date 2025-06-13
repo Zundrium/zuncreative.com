@@ -3,7 +3,7 @@ import { Engine } from "@babylonjs/core/Engines/engine";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { Scene } from "@babylonjs/core/scene";
 import { getScreenState } from "../screenState";
-import { BasicCamera } from "./basicCamera";
+import { InteractiveCamera } from "./interactiveCamera";
 
 export interface InitOptions {
 	direct?: boolean;
@@ -14,7 +14,7 @@ export class BabylonScene {
 	private renderCanvas: HTMLCanvasElement;
 	public engine!: Engine;
 	public scene!: Scene;
-	public camera!: BasicCamera;
+	public camera!: InteractiveCamera;
 	public onRender: (deltaTime: number) => void = () => {};
 	private onReady: () => void = () => {};
 	private observer: IntersectionObserver | null = null;
@@ -52,11 +52,12 @@ export class BabylonScene {
 		this.scene.useRightHandedSystem = true;
 		this.scene.clearColor = new Color4(0, 0, 0, 0);
 
-		this.camera = new BasicCamera(
+		this.camera = new InteractiveCamera(
 			"camera1",
-			new Vector3(0, 5, -10),
+			new Vector3(0, 0, 0),
 			this.scene,
 		);
+		this.camera.attachControl();
 		this.camera.minZ = 0.1;
 		this.camera.maxZ = 1000;
 		this.applyCorrectFOV();
