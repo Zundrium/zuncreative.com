@@ -1,7 +1,6 @@
 <script lang="ts">
 import { onDestroy, onMount } from "svelte";
 import "../../src/lib/assets/styles/global.css";
-
 import "@fontsource-variable/noto-serif";
 import "@fontsource-variable/noto-sans";
 import "@fontsource-variable/noto-sans-display";

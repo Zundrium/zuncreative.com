@@ -1,3 +1,5 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -8,7 +10,7 @@ body {
 	font-optical-sizing: auto;
 	font-style: normal;
 	font-weight: 300;
-	font-display: swap;
+
 	i {
 		font-family: "Noto Serif Variable", serif;
 		font-optical-sizing: auto;
