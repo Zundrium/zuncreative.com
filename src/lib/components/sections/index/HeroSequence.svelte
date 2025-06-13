@@ -6,6 +6,7 @@ import SectionHeading from "$lib/components/typography/SectionHeading.svelte";
 import Section from "$lib/components/ui/Section.svelte";
 import { onMount } from "svelte";
 import gsap from "gsap";
+import * as m from "$lib/paraglide/messages";
 
 let sequenceItemsStates: boolean[] = [];
 let sequenceContainer: HTMLElement;
@@ -29,19 +30,16 @@ interface Slide {
 
 const slides: Slide[] = [
 	{
-		title: "Iets wat blijft <i>hangen</i>",
-		description:
-			"Werelden bouwen die je niet zomaar wegklikt. Met 3D krijgt een website karakter, een gevoel, iets dat mensen echt onthouden.",
+		title: m.hero_sequence_slide1_title(),
+		description: m.hero_sequence_slide1_description(),
 	},
 	{
-		title: "Interactieve <i>verhalen</i>",
-		description:
-			"Jouw muis wordt een toverstaf in een betoverende digitale wereld. Elk element reageert op jouw aanraking, en samen creëren we een ervaring die je blijft raken.",
+		title: m.hero_sequence_slide2_title(),
+		description: m.hero_sequence_slide2_description(),
 	},
 	{
-		title: "Voor iedereen <i>toegankelijk</i>",
-		description:
-			"Geen gedoe, geen downloads, 3D op het web opent deuren met één klik. Voor iedereen, overal, meteen toegankelijk en klaar om te fascineren.",
+		title: m.hero_sequence_slide3_title(),
+		description: m.hero_sequence_slide3_description(),
 	},
 ];
 
