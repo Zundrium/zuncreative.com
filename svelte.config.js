@@ -1,5 +1,5 @@
 import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
-import adapter from "@sveltejs/adapter-cloudflare";
+import adapter from "@sveltejs/adapter-static";
 
 const config = {
 	preprocess: [vitePreprocess()],
@@ -25,6 +25,8 @@ const config = {
 		},
 		adapter: adapter({
 			fallback: "404.html",
+			pages: "dist",
+			assets: "dist",
 		}),
 	},
 
