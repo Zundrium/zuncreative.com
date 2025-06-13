@@ -8,7 +8,7 @@ import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 import * as m from "$lib/paraglide/messages";
 </script>
 <Section
-	id="over-mij"
+	id="about-me"
 	class="flex flex-col gap-4 lg:gap-6 xl:gap-12 justify-center items-center"
 >
 	<SectionHeading 

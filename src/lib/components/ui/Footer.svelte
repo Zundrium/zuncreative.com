@@ -38,7 +38,7 @@ const columnLinks = [
 	{
 		title: m.footer_general_title(),
 		links: [
-			{ name: m.nav_about_me(), href: "/#over-mij" },
+			{ name: m.nav_about_me(), href: "/#about-me" },
 			{ name: m.nav_showcase(), href: "/#showcase" },
 			{ name: m.nav_privacy(), href: "/privacy" },
 			{ name: m.nav_terms_and_conditions(), href: "/terms" },

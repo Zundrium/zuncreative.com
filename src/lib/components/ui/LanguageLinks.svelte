@@ -19,6 +19,7 @@ onMount(() => {
                     class="cursor-pointer"
                     href={i18n.route($page.url.pathname)}
                     hreflang={lang}
+						  target="_self"
                     aria-current={lang === languageTag() ? "page" : undefined}
                 >
                     <img

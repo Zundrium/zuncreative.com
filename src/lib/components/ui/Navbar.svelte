@@ -12,7 +12,7 @@ import * as m from "$lib/paraglide/messages";
 
 const navLinks: any[] = [
 	// { name: "Showcase", href: "/#showcase" },
-	{ name: m.nav_about_me(), href: "/#over-mij" },
+	{ name: m.nav_about_me(), href: "/#about-me" },
 	{ name: m.nav_blog(), href: "/blog" },
 	{ name: m.nav_showcase(), href: "/#showcase" },
 	{ name: m.nav_contact(), href: "/#contact", style: "line" },
