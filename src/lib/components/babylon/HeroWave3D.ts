@@ -2,11 +2,10 @@ import { BabylonScene } from "$lib/utils/babylonjs/babylonScene";
 import { Scene } from "@babylonjs/core/scene";
 import type { IBabylonGraphics } from "./utils";
 import { PointsCloudSystem } from "@babylonjs/core/Particles/pointsCloudSystem";
-import { Vector3, Vector2 } from "@babylonjs/core/Maths/math.vector";
+import { Vector3, Vector2, Quaternion } from "@babylonjs/core/Maths/math.vector";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
 import type { FreeCamera } from "@babylonjs/core/Cameras/freeCamera";
 import type { CloudPoint } from "@babylonjs/core/Particles/cloudPoint";
-import { Quaternion } from "@babylonjs/core/Maths/math.vector";
 
 import {
 	TextureSampler,

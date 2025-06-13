@@ -1,4 +1,4 @@
-import { gsap } from "gsap";
+import { gsap, type GSAPTween } from "gsap";
 
 //// icons to use
 //open-external

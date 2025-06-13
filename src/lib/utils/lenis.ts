@@ -1,6 +1,6 @@
 // src/lib/lenis.ts
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
 import { browser } from "$app/environment";
 import { writable } from "svelte/store";
