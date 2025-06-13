@@ -5,6 +5,7 @@ import Paragraph from "$lib/components/typography/Paragraph.svelte";
 import SectionHeading from "$lib/components/typography/SectionHeading.svelte";
 import Section from "$lib/components/ui/Section.svelte";
 import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
+import * as m from "$lib/paraglide/messages";
 </script>
 <Section
 	id="over-mij"
@@ -12,12 +13,12 @@ import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 >
 	<SectionHeading 
 		centered
-		subtitle="over mij"
-		title="Waar ik op <i>focus</i>"
+		subtitle={m.services_section_subtitle()}
+		title={m.services_section_title()}
 	/>
 
 <AnimatedParagraph class="text-center w-full md:w-1/2">
-			Ik ben <i>Sem</i>, een web developer met meer dan 15 jaar ervaring uit Amsterdam. Ik maak audiovisuele websites en web applicaties die snel, toegankelijk en gebruiksvriendelijk zijn. Mijn focus ligt op het creëren van een onvergetelijke gebruikerservaring door middel van moderne technologieën en designprincipes.
+			{@html m.services_section_intro()}
 		</AnimatedParagraph>
 
 	<div 
@@ -26,19 +27,19 @@ import { viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
 		<div class="text-center flex flex-col gap-4 lg:gap-6 xl:gap-12">
 			<h3 class="text-6xl md:text-7xl lg:text-8xl xl:text-9xl serif-display" use:viewportSlideInBottom>AI</h3>
 			<AnimatedParagraph>
-				Alles is te versnellen, verbeteren en te personaliseren met Artificial Intelligence. Ik pas het toe in al mijn recente werk. 
+				{@html m.services_section_ai_description()}
 			</AnimatedParagraph>
 		</div>
 		<div class="text-center flex flex-col gap-4 lg:gap-6 xl:gap-12">
 			<h3 class="text-6xl md:text-7xl lg:text-8xl xl:text-9xl serif-display" use:viewportSlideInBottom>AR</h3>
 			<AnimatedParagraph>
-				Ervaringen met Augmented Reality vergeet je niet, in combinatie met de laatste AI trends kan je een persoonlijke ervaring bieden.
+				{@html m.services_section_ar_description()}
 			</AnimatedParagraph>
 		</div>
 		<div class="text-center flex flex-col gap-4 lg:gap-6 xl:gap-12">
 			<h3 class="text-6xl md:text-7xl lg:text-8xl xl:text-9xl serif-display" use:viewportSlideInBottom>3D</h3>
 			<AnimatedParagraph>
-				Een audiovisuele ervaring kan direct in je browser met een enkele klik. Een cinematisch verhaal dat toegankelijk is voor iedereen.
+				{@html m.services_section_3d_description()}
 			</AnimatedParagraph>
 		</div>
 
