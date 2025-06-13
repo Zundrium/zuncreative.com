@@ -1,11 +1,11 @@
 <script lang="ts">
 import { onDestroy, onMount } from "svelte";
+import "../../src/lib/assets/styles/global.css";
 
 import "@fontsource-variable/noto-serif";
 import "@fontsource-variable/noto-sans";
 import "@fontsource-variable/noto-sans-display";
 import "@fontsource-variable/noto-serif-display";
-import "../../src/lib/assets/styles/global.css";
 
 import { i18n } from "$lib/i18n";
 import Navbar from "$lib/components/ui/Navbar.svelte";

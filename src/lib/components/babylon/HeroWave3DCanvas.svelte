@@ -2,7 +2,6 @@
 import { onMount, onDestroy } from "svelte";
 
 let renderCanvas: HTMLCanvasElement;
-let fpsCounterElement: HTMLDivElement;
 let initialized: boolean = false;
 
 let babylonGraphics: any | null = null;
