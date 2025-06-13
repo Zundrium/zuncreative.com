@@ -32,24 +32,25 @@ function isMobileOrTablet() {
 }
 
 onMount(async () => {
-	let destroyLenisFn: () => void;
 
 	if (!isMobileOrTablet()) {
 		const { default: CircleCursor } = await import("$lib/utils/circleCursor");
 		cursor = new CircleCursor();
 	}
 
-	const { initLenis, destroyLenis } = await import("$lib/utils/lenis");
+	const { initLenis } = await import("$lib/utils/lenis");
 	initLenis();
-	destroyLenisFn = destroyLenis;
 
-	onDestroy(() => {
+	
+});
+
+onDestroy(async () => {
+	const {  destroyLenis } = await import("$lib/utils/lenis");
 		if (cursor) {
 			cursor.destroy();
 		}
-		destroyLenisFn?.();
+		destroyLenis();
 	});
-});
 </script>
 
 <ParaglideJS {i18n}>

@@ -1,6 +1,7 @@
-
-<script module lang="ts">
+<script lang="ts">
 import { viewportParallaxImage } from "$lib/utils/viewportSwitchClass";
+
+// resulting in 400kb javascript 
 
 const images: Record<string, any> = import.meta.glob(
 	["../../assets/images/**/*.{avif,gif,heif,jpeg,jpg,png,tiff,webp}"],
@@ -44,9 +45,6 @@ const getLqipSrc = (desired_image: string) => {
 	}
 	return lqip.default;
 };
-</script>
-
-<script lang="ts">
 let classes: string = "";
 export { classes as class };
 
