@@ -12,9 +12,8 @@ import Footer from "$lib/components/ui/Footer.svelte";
 import { ParaglideJS } from "@inlang/paraglide-sveltekit";
 let { children, data } = $props();
 
-import CircleCursor from "$lib/utils/circleCursor";
+import type {CircleCursor} from "$lib/utils/circleCursor";
 let cursor: CircleCursor;
-import { initLenis, destroyLenis } from "$lib/utils/lenis";
 
 function isMobileOrTablet() {
 	let check = false;
@@ -32,18 +31,24 @@ function isMobileOrTablet() {
 	return check;
 }
 
-onDestroy(() => {
-	if (cursor) {
-		cursor.destroy();
-	}
-	destroyLenis();
-});
+onMount(async () => {
+	let destroyLenisFn: () => void;
 
-onMount(() => {
 	if (!isMobileOrTablet()) {
+		const { default: CircleCursor } = await import("$lib/utils/circleCursor");
 		cursor = new CircleCursor();
 	}
+
+	const { initLenis, destroyLenis } = await import("$lib/utils/lenis");
 	initLenis();
+	destroyLenisFn = destroyLenis;
+
+	onDestroy(() => {
+		if (cursor) {
+			cursor.destroy();
+		}
+		destroyLenisFn?.();
+	});
 });
 </script>
 
