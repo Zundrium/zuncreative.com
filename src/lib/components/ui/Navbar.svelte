@@ -158,7 +158,7 @@ $: if (sections) {
 			: 'bg-transparent'}"
 	>
 		<div
-			class="container transition-colors duration-300 px-6 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-dvh "
+			class="container transition-colors duration-300 px-6 py-3 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-dvh "
 		>
 			<div class="w-full flex items-center justify-between {mobileNavOpen ? 'flex-col h-dvh' : ''}">
 
