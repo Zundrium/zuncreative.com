@@ -17,6 +17,7 @@
 		"@fontsource-variable/inter": "^5.1.1",
 		"@iconify/json": "^2.2.318",
 		"@inlang/paraglide-sveltekit": "^0.15.5",
+		"@sveltejs/adapter-cloudflare": "^7.0.4",
 		"@sveltejs/adapter-static": "^3.0.8",
 		"@sveltejs/enhanced-img": "^0.4.4",
 		"@sveltejs/kit": "^2.19.2",
