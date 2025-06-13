@@ -1,6 +1,7 @@
-
 <script module lang="ts">
 import { viewportParallaxImage } from "$lib/utils/viewportSwitchClass";
+
+// resulting in 400kb javascript 
 
 const images: Record<string, any> = import.meta.glob(
 	["../../assets/images/**/*.{avif,gif,heif,jpeg,jpg,png,tiff,webp}"],
@@ -8,7 +9,7 @@ const images: Record<string, any> = import.meta.glob(
 		eager: true,
 		query: {
 			enhanced: true,
-			w: "1280;1024;640;400;250",
+			w: "1280;640;250",
 		},
 	},
 );

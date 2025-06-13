@@ -72,9 +72,9 @@ $: preferredLanguageName = preferredLanguageTag
 
 {#if showBanner && preferredLanguageTag}
 	<div
-		class="relative z-10 w-full flex items-center justify-center bg-orange-500"
+		class="relative z-10 w-full flex items-center justify-center bg-orange-300 dark:bg-orange-700 text-black dark:text-white"
 	>
-		<div class="container flex items-center justify-center text-black dark:text-white gap-2 lg:gap-6 px-6 py-4">
+		<div class="container flex items-center justify-center gap-2 lg:gap-6 px-6 py-4">
 			<Paragraph size="sm" class="w-1/2 lg:w-auto">
 				Your browser is set to {preferredLanguageName}. Would you like to switch to the {preferredLanguageName} version?
 			</Paragraph>

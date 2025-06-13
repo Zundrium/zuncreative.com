@@ -10,6 +10,8 @@ body {
 	font-optical-sizing: auto;
 	font-style: normal;
 	font-weight: 300;
+	@apply bg-white dark:bg-black text-black dark:text-white;
+
 	i {
 		font-family: "Noto Serif Variable", serif;
 		font-optical-sizing: auto;
