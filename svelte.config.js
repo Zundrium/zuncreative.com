@@ -7,9 +7,9 @@ const config = {
 		prerender: {
 			handleHttpError: ({ status, path, referrer }) => {
 				if (status === 404) {
-					console.warn(
-						`Prerender warning: ${status} at ${path} (linked from ${referrer}).`,
-					);
+					//console.warn(
+					//	`Prerender warning: ${status} at ${path} (linked from ${referrer}).`,
+					//);
 					return;
 				} else {
 					throw new Error(
