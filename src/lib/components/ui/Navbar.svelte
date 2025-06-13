@@ -1,12 +1,13 @@
 <script lang="ts">
 import MdiMenu from "~icons/mdi/menu";
 import MdiClose from "~icons/mdi/close";
-import MdiPhone from "~icons/mdi/phone";
 
 import Button from "$lib/components/ui/Button.svelte";
 import { onMount } from "svelte";
 import { page } from "$app/stores";
 import DarkAndLightIcon from "./DarkAndLightIcon.svelte";
+import DarkAndLightSwitch from "./DarkAndLightSwitch.svelte";
+import LanguageLinks from "./LanguageLinks.svelte";
 
 const navLinks: any[] = [
 	// { name: "Showcase", href: "/#showcase" },
@@ -111,7 +112,34 @@ $: if (sections) {
 </script>
 
 <!-- Bind scrollY from the window -->
+
 <svelte:window bind:scrollY />
+
+<div
+	class="hidden md:flex relative z-10 h-6 text-neutral-600 dark:text-neutral-500 w-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-900 duration-300"
+>
+	<div class="container flex items-center px-6 py-2 justify-between text-xs">
+		<nav aria-label="top center navigation">
+			<ul class="flex gap-8 ">
+				<li>
+					<a class="cursor-pointer hover:underline" href="/privacy">Privacy</a>
+				</li>
+				<li>
+					<a class="cursor-pointer hover:underline" href="/terms">
+						Terms <span class="hidden lg:inline-block">&amp; conditions</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+<nav aria-label="top left navigation">
+			<DarkAndLightSwitch />
+		</nav>
+		<nav aria-label="language select">
+			<LanguageLinks />
+		</nav>
+	</div>
+</div>
+
 
 <header
 	bind:this={navbar}
@@ -119,7 +147,7 @@ $: if (sections) {
 	class="sticky flex flex-col items-center z-50 top-0 left-0 right-0"
 >
 	<div
-		class="{navbarClass} w-full transition-colors duration-300 flex justify-center h-24 -mb-24 {mobileNavOpen
+		class="{navbarClass} w-full transition-colors duration-300 flex justify-center h-18 -mb-24 {mobileNavOpen
 				? 'h-dvh bg-white dark:bg-black'
 				: 'bg-transparent'}"
 	>
@@ -129,13 +157,12 @@ $: if (sections) {
 			<div class="w-full flex items-center justify-between {mobileNavOpen ? 'flex-col h-dvh' : ''}">
 
 				<div class="lg:flex-1 flex lg:h-full w-full items-center justify-between">
-					<a href="/" class="cursor-pointer relative w-14 h-14" aria-label="Home" style="width: 56px; height: 56px; overflow: hidden;">
+					<a href="/" class="cursor-pointer relative w-12 h-12" aria-label="Home">
 						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 {isOpaque ? 'opacity-100' : 'opacity-0'}" data="/svg/logo.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 invert dark:invert-0 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 					</a>
-<div class="lg:hidden">
-						<DarkAndLightIcon />
-					</div>
+
+					
 <button
 					class="size-12 p-2 cursor-pointer lg:hidden"
 					on:click={toggleMobileNav}
@@ -164,15 +191,15 @@ $: if (sections) {
 				</button>
 				</div>
 
-				<div class="hidden lg:flex flex-none items-center justify-center h-full">
-					<DarkAndLightIcon />
-				</div>
+				<!-- <div class="hidden lg:flex flex-none items-center justify-center h-full"> -->
+				<!-- 	<DarkAndLightSwitch /> -->
+				<!-- </div> -->
 
 
 
 				<nav
 					aria-label="primary navigation"
-					class="flex-1 transition-opacity duration-300 justify-center items-center text-xl md:text-base h-full {mobileNavOpen
+					class="flex-1 transition-opacity duration-300 justify-center items-center md:justify-end text-xl md:text-base h-full {mobileNavOpen
 						? 'flex flex-col items-center w-full'
 						: 'hidden'} lg:flex"
 					id="mobile-nav"
@@ -195,7 +222,10 @@ $: if (sections) {
 						{/each}
 					</ul>
 
-					
+					<div class="lg:hidden flex flex-col items-center gap-6">
+						<LanguageLinks />
+						<DarkAndLightSwitch />
+					</div>
 				</nav>
 				
 
