@@ -20,7 +20,7 @@ let iconRightEl: HTMLElement | null = null;
 let maskTween: gsap.core.Tween | null = null;
 
 // Base classes for all buttons
-let baseClasses = `${classes} rounded-full cursor-pointer font-medium w-full relative inline-flex items-center justify-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 z-10`;
+let baseClasses = `${classes} text-center rounded-full cursor-pointer font-medium w-full relative inline-flex items-center justify-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 z-10`;
 
 // Style variants
 const styleClasses = {

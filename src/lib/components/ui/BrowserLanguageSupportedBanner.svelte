@@ -74,25 +74,24 @@ $: preferredLanguageName = preferredLanguageTag
 	<div
 		class="relative z-10 w-full flex items-center justify-center bg-orange-500"
 	>
-		<div class="container flex items-center justify-center text-black dark:text-white gap-6 px-6 py-4">
-			<Paragraph size="sm">
+		<div class="container flex items-center justify-center text-black dark:text-white gap-2 lg:gap-6 px-6 py-4">
+			<Paragraph size="sm" class="w-1/2 lg:w-auto">
 				Your browser is set to {preferredLanguageName}. Would you like to switch to the {preferredLanguageName} version?
 			</Paragraph>
 
-			<div class="flex items-center gap-4">
-				<Button
-					href={switchToUrl}
-					data-sveltekit-reload
-				>
-					Switch to {preferredLanguageName}
-				</Button>
+			<Button
+				class="flex-grow"
+				href={switchToUrl}
+				data-sveltekit-reload
+			>
+				Switch to {preferredLanguageName}
+			</Button>
 
-				<Button
-					style="text"
-					click={handleDismiss} >
-					<MaterialSymbolsClose />
-				</Button>
-			</div>
+			<Button
+				style="text"
+				click={handleDismiss} >
+				<MaterialSymbolsClose />
+			</Button>
 		</div>
 	</div>
 {/if}
