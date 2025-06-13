@@ -12,17 +12,6 @@
 	<script async>
 		document.documentElement.classList.toggle("dark", localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),);
 	</script>
-	<style>
-		body {
-			background-color: #ffffff;
-		}
-
-		@media (prefers-color-scheme: dark) {
-			body {
-				background-color: #000000;
-			}
-		}
-	</style>
 	%sveltekit.head%
 </head>
 
