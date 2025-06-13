@@ -9,6 +9,7 @@ import DarkAndLightIcon from "./DarkAndLightIcon.svelte";
 import DarkAndLightSwitch from "./DarkAndLightSwitch.svelte";
 import LanguageLinks from "./LanguageLinks.svelte";
 import * as m from "$lib/paraglide/messages";
+import BrowserLanguageSupportedBanner from "./BrowserLanguageSupportedBanner.svelte";
 
 const navLinks: any[] = [
 	// { name: "Showcase", href: "/#showcase" },
@@ -116,9 +117,13 @@ $: if (sections) {
 
 <svelte:window bind:scrollY />
 
+<BrowserLanguageSupportedBanner />
+
 <div
 	class="hidden md:flex relative z-10 h-6 text-neutral-600 dark:text-neutral-500 w-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-900 duration-300"
 >
+
+
 	<div class="container flex items-center px-6 py-2 justify-between text-xs">
 		<nav aria-label={m.nav_aria_top_center()}>
 			<ul class="flex gap-8 ">
@@ -132,7 +137,7 @@ $: if (sections) {
 				</li>
 			</ul>
 		</nav>
-<nav aria-label={m.nav_aria_top_left()}>
+		<nav aria-label={m.nav_aria_top_left()}>
 			<DarkAndLightSwitch />
 		</nav>
 		<nav aria-label={m.nav_aria_language_select()}>
@@ -149,8 +154,8 @@ $: if (sections) {
 >
 	<div
 		class="{navbarClass} w-full transition-colors duration-300 flex justify-center h-18 -mb-24 {mobileNavOpen
-				? 'h-dvh bg-white dark:bg-black'
-				: 'bg-transparent'}"
+			? 'h-dvh bg-white dark:bg-black'
+			: 'bg-transparent'}"
 	>
 		<div
 			class="container transition-colors duration-300 px-6 py-6 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-dvh "
@@ -163,33 +168,33 @@ $: if (sections) {
 						<object class="absolute pointer-events-none inset-0 w-full h-full duration-300 invert dark:invert-0 {isOpaque ? 'opacity-0' : 'opacity-100'}" data="/svg/logo-white.svg" type="image/svg+xml" title={m.nav_logo_title()}></object>
 					</a>
 
-					
-<button
-					class="size-12 p-2 cursor-pointer lg:hidden"
-					on:click={toggleMobileNav}
-					on:keydown={handleKeyDown}
-					aria-label={mobileNavOpen
-						? m.nav_aria_close_menu()
-						: m.nav_aria_open_menu()}
-					aria-expanded={mobileNavOpen}
-					aria-controls="mobile-nav"
-				>
-					<div class="relative h-full w-full">
-						<span class="sr-only"
-						>{mobileNavOpen ? m.nav_menu_close_text() : m.nav_menu_open_text()}</span
-						>
-						<MdiMenu
-							class="absolute left-0 top-0 h-full w-full transition-transform duration-300 {mobileNavOpen
-								? 'scale-0 rotate-180'
-								: 'scale-100 rotate-0'}"
-						/>
-						<MdiClose
-							class="absolute left-0 top-0 h-full w-full transition-transform duration-300 {mobileNavOpen
-								? 'scale-100 rotate-0'
-								: 'scale-0 -rotate-180'}"
-						/>
-					</div>
-				</button>
+
+					<button
+						class="size-12 p-2 cursor-pointer lg:hidden"
+						on:click={toggleMobileNav}
+						on:keydown={handleKeyDown}
+						aria-label={mobileNavOpen
+							? m.nav_aria_close_menu()
+							: m.nav_aria_open_menu()}
+						aria-expanded={mobileNavOpen}
+						aria-controls="mobile-nav"
+					>
+						<div class="relative h-full w-full">
+							<span class="sr-only"
+							>{mobileNavOpen ? m.nav_menu_close_text() : m.nav_menu_open_text()}</span
+							>
+							<MdiMenu
+								class="absolute left-0 top-0 h-full w-full transition-transform duration-300 {mobileNavOpen
+									? 'scale-0 rotate-180'
+									: 'scale-100 rotate-0'}"
+							/>
+							<MdiClose
+								class="absolute left-0 top-0 h-full w-full transition-transform duration-300 {mobileNavOpen
+									? 'scale-100 rotate-0'
+									: 'scale-0 -rotate-180'}"
+							/>
+						</div>
+					</button>
 				</div>
 
 				<!-- <div class="hidden lg:flex flex-none items-center justify-center h-full"> -->
@@ -228,7 +233,7 @@ $: if (sections) {
 						<DarkAndLightSwitch />
 					</div>
 				</nav>
-				
+
 
 			</div>
 		</div>
