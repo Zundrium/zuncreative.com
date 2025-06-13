@@ -8,7 +8,7 @@ const images: Record<string, any> = import.meta.glob(
 		eager: true,
 		query: {
 			enhanced: true,
-			w: "1280;1024;640;400;250",
+			w: "1280;640;250",
 		},
 	},
 );
