@@ -15,7 +15,7 @@ import {
 } from "$lib/utils/babylonjs/textureSampler";
 import { SineWaveNoise } from "$lib/utils/babylonjs/sineWaveNoise";
 import { getScreenState } from "$lib/utils/screenState";
-import type { InteractiveCamera } from "$lib/utils/babylonjs/interactiveCamera";
+import type { BasicCamera } from "$lib/utils/babylonjs/basicCamera";
 
 export class HeroWave3D implements IBabylonGraphics {
 	private babylonScene: BabylonScene | null = null;
@@ -32,7 +32,7 @@ export class HeroWave3D implements IBabylonGraphics {
 
 	private particleSize: number = 4;
 	private mobileParticleSize: number = 4;
-	private matrixParticleCount = 20000;
+	private matrixParticleCount = 15000;
 	private mobileMatrixParticleCount = 5000;
 
 	private matrixHeight = 0.35;
@@ -183,7 +183,7 @@ export class HeroWave3D implements IBabylonGraphics {
 		);
 	}
 
-	private setupCamera(camera: InteractiveCamera): void {
+	private setupCamera(camera: BasicCamera): void {
 		// --- 1. Set your desired position and rotation ---
 		camera.position = new Vector3(0.43, 0.93, 2.77);
 
@@ -205,10 +205,6 @@ export class HeroWave3D implements IBabylonGraphics {
 				0,
 			);
 		}
-
-		// --- 2. Lock in this new state as the base for all interactions ---
-		// This is the crucial new step.
-		camera.setBaseState();
 	}
 
 	private setuptextureSamplers(): void {
