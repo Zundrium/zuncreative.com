@@ -26,12 +26,14 @@ export class HeroWave3D implements IBabylonGraphics {
 
 	private pointCloudSystem: PointsCloudSystem | null = null;
 
-	private matrixSize = 4;
+	private matrixWidth = 4;
+	private matrixDepth = 4;
+	private mobileMatrixWidth = 2.5;
 
 	private particleSize: number = 4;
-	private mobileParticleSize: number = 3;
-	private matrixParticleCount = 50000;
-	private mobileMatrixParticleCount = 30000;
+	private mobileParticleSize: number = 4;
+	private matrixParticleCount = 20000;
+	private mobileMatrixParticleCount = 5000;
 
 	private matrixHeight = 0.35;
 	private textureSamplers: ITextureSampler[] = [];
@@ -61,9 +63,9 @@ export class HeroWave3D implements IBabylonGraphics {
 		noise: number,
 		result: Vector3,
 	): void {
-		result.x = u * this.matrixSize - this.matrixSize * 0.5;
+		result.x = u * this.matrixWidth - this.matrixWidth * 0.5;
 		result.y = noise * this.matrixHeight;
-		result.z = v * this.matrixSize - this.matrixSize * 0.5;
+		result.z = v * this.matrixDepth - this.matrixDepth * 0.5;
 	}
 
 	public update(index: number): void {
@@ -190,9 +192,10 @@ export class HeroWave3D implements IBabylonGraphics {
 		// IMPORTANT: Make sure you are using the .rotation setter, which correctly
 		// updates the internal rotationQuaternion.
 		if (getScreenState() == "sm") {
+			camera.position = new Vector3(0, 0.93, 2.77);
 			camera.rotation = new Vector3(
 				degreesToRadians(-27.0),
-				degreesToRadians(3.23),
+				degreesToRadians(0),
 				0, // Always good to be explicit about roll
 			);
 		} else {
@@ -280,6 +283,7 @@ export class HeroWave3D implements IBabylonGraphics {
 		if (getScreenState() == "sm") {
 			this.particleSize = this.mobileParticleSize;
 			this.matrixParticleCount = this.mobileMatrixParticleCount;
+			this.matrixWidth = this.mobileMatrixWidth;
 		}
 
 		//Inspector.Show(this.babylonScene.scene, {});
