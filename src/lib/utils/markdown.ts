@@ -3,33 +3,30 @@ import matter from "front-matter";
 import { marked } from "marked";
 import hljs from "highlight.js";
 
-// Setup marked options for syntax highlighting
+// Setup marked for syntax highlighting
 marked.setOptions({
 	async: true,
-	highlight: async (code, lang) => {
-		if (hljs.getLanguage(lang)) {
+	highlight: async (code: string, lang: string) => {
+		if (lang && hljs.getLanguage(lang)) {
 			return hljs.highlight(code, { language: lang }).value;
 		}
-
-		return hljs.highlightAuto(code).value;
+		return code;
 	},
 });
 
-// Import all markdown files under src/lib/assets (eagerly for sync access)
-const allMarkdownFiles = import.meta.glob("/src/lib/assets/**/*.md", {
+// Load all markdown files (deferred)
+const allMarkdown = import.meta.glob("/src/lib/assets/**/*.md", {
 	as: "raw",
-	eager: true,
 });
 
-// Parses frontmatter + markdown with highlighting
-async function parseMarkdownContent(
+// Parse .md file content into usable post data
+export async function parseMarkdownContent(
 	fileContent: string,
 	slug: string,
 ): Promise<MarkdownTextfile | null> {
 	try {
 		const fm = matter<any>(fileContent);
-		const metadata = fm.attributes || {};
-
+		const metadata = fm.attributes ?? {};
 		const html = (await marked.parse(fm.body)) as string;
 
 		return {
@@ -39,9 +36,7 @@ async function parseMarkdownContent(
 			description: metadata.description,
 			slug,
 			keywords:
-				typeof metadata.keywords === "string"
-					? metadata.keywords.toLowerCase().replace(/\s/g, "").split(",")
-					: [],
+				metadata.keywords?.toLowerCase().replace(/\s/g, "").split(",") ?? [],
 			header_image: metadata.header_image,
 			header_image_position: metadata.header_image_position,
 			mobile: metadata.mobile,
@@ -53,14 +48,12 @@ async function parseMarkdownContent(
 			html,
 		};
 	} catch (err) {
-		console.error("Error parsing markdown:", slug, err);
+		console.error("Error parsing markdown content:", err);
 		return null;
 	}
 }
 
-/**
- * Load all markdown files in a specific category and language
- */
+// Load .md files for a specific category & language
 export async function loadMarkdownFiles(
 	category: string,
 	language: string,
@@ -68,47 +61,51 @@ export async function loadMarkdownFiles(
 ): Promise<MarkdownTextfile[]> {
 	const markdownFiles: MarkdownTextfile[] = [];
 
-	for (const path in allMarkdownFiles) {
-		// Normalize path and extract folder names and filename
-		const relativePath = path.replace("/src/lib/assets/", "");
+	for (const path in allMarkdown) {
+		// Expect structure: /src/lib/assets/{category}/{language}/{slug}.md
+		const relativePath = path.replace("/src/lib/assets/", ""); // e.g. showcaseitems/en/my-post.md
 		const parts = relativePath.split("/");
 
 		if (parts.length !== 3) continue;
 
 		const [cat, lang, filename] = parts;
 
-		if (cat !== category || lang !== language || !filename.endsWith(".md"))
+		if (cat !== category || lang !== language || !filename.endsWith(".md")) {
 			continue;
+		}
 
-		const slug = filename.replace(".md", "");
-		const fileContent = allMarkdownFiles[path] as string;
-
+		const slug = filename.replace(/\.md$/, "");
+		const fileContent = await allMarkdown[path](); // Deferred loading
 		const parsed = await parseMarkdownContent(fileContent, slug);
 		if (parsed) markdownFiles.push(parsed);
 	}
 
-	// Sort by publish_date (descending)
+	// Sort by publish date
 	markdownFiles.sort(
 		(a, b) =>
 			new Date(b.publish_date).getTime() - new Date(a.publish_date).getTime(),
 	);
 
-	// Apply limit if specified
 	return limit ? markdownFiles.slice(0, limit) : markdownFiles;
 }
 
-/**
- * Load a single markdown file by slug
- */
 export async function loadMarkdownFile(
 	category: string,
 	language: string,
 	slug: string,
-): Promise<MarkdownTextfile | undefined> {
-	const path = `/src/lib/assets/${category}/${language}/${slug}.md`;
+): Promise<MarkdownTextfile | null> {
+	// Construct the expected path based on the structure.
+	// e.g., /src/lib/assets/blog/en/my-first-post.md
+	const expectedPath = `/src/lib/assets/${category}/${language}/${slug}.md`;
 
-	const fileContent = allMarkdownFiles[path] as string | undefined;
-	if (!fileContent) return undefined;
+	// Check if this path exists in our glob import.
+	if (!(expectedPath in allMarkdown)) {
+		return null; // File not found
+	}
 
-	return (await parseMarkdownContent(fileContent, slug)) || undefined;
+	// If the path exists, call the deferred loader function.
+	const fileContent = await allMarkdown[expectedPath]();
+	const parsed = await parseMarkdownContent(fileContent, slug);
+
+	return parsed;
 }

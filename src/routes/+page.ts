@@ -1,7 +1,18 @@
-export async function load({ parent }) {
-	const { posts, showcaseItems } = await parent();
-
-	return { posts, showcaseItems };
-}
-
 export const prerender = true;
+
+import { loadMarkdownFiles } from "$lib/utils/markdown";
+import { languageTag } from "$lib/paraglide/runtime";
+
+export async function load() {
+	const lang = languageTag();
+
+	const [posts, showcaseItems] = await Promise.all([
+		loadMarkdownFiles("blogposts", lang),
+		loadMarkdownFiles("showcaseitems", lang),
+	]);
+
+	return {
+		posts,
+		showcaseItems,
+	};
+}
