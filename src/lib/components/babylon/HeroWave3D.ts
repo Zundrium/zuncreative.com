@@ -221,34 +221,34 @@ export class HeroWave3D implements IBabylonGraphics {
 		//);
 
 		this.textureSamplers[1] = new TextureSampler(
-			"/textures/hello.png",
+			"/textures/hello.webp",
 			0.3,
 			new Vector2(0.05, 0.0),
 			1.5,
 		);
 
 		this.textureSamplers[2] = new TextureSampler(
-			"/textures/seamless_mountain1.png",
+			"/textures/seamless_mountain1.webp",
 			1,
 			new Vector2(0.04, 0.04),
 			1,
 		);
 
 		this.textureSamplers[3] = new TextureSampler(
-			"/textures/wave.png",
+			"/textures/wave.webp",
 			0.4,
 			new Vector2(0.05, -0.02),
 			1.5,
 		);
 
 		this.textureSamplers[4] = new TextureSampler(
-			"/textures/world_map_blurred.png",
+			"/textures/world_map_blurred.webp",
 			0.2,
 			new Vector2(0.04, 0.0),
 			1,
 		);
 		this.textureSamplers[5] = new TextureSampler(
-			"/textures/world_map_blurred.png",
+			"/textures/world_map_blurred.webp",
 			0.6,
 			new Vector2(0.04, 0.0),
 			1,
