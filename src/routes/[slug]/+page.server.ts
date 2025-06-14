@@ -1,4 +1,7 @@
-import { loadMarkdownFile, loadMarkdownFiles } from "$lib/utils/markdown";
+import {
+	loadMarkdownFile,
+	loadMarkdownFiles,
+} from "$lib/utils/markdown.server";
 import { error } from "@sveltejs/kit";
 import { languageTag } from "$lib/paraglide/runtime";
 
