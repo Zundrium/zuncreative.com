@@ -8,7 +8,10 @@ import Image from "$lib/components/ui/Image.svelte";
 import Section from "$lib/components/ui/Section.svelte";
 import { showcaseItemTags } from "$lib/utils/types/showcaseItem";
 import type { MarkdownTextfile } from "$lib/utils/types";
-import { viewportFade, viewportSlideInBottom } from "$lib/utils/viewportSwitchClass";
+import {
+	viewportFade,
+	viewportSlideInBottom,
+} from "$lib/utils/viewportSwitchClass";
 import { onMount } from "svelte";
 import * as m from "$lib/paraglide/messages";
 
@@ -109,7 +112,7 @@ function getItemClasses(item: MarkdownTextfile): string {
 				<Image 
 					parallax 
 					src={showcaseItem.header_image} 
-					alt={showcaseItem.title} 
+					alt="thumbnail for {showcaseItem.title}"
 					class="w-full h-full transition-transform hover:scale-200 duration-300"
 					loading="lazy"
 				/>
