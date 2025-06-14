@@ -1,6 +1,6 @@
 export const prerender = true;
 export const ssr = true;
-import { loadMarkdownFiles } from "$lib/utils/markdown.server";
+import { loadMarkdownFiles } from "$lib/utils/markdown";
 import { languageTag } from "$lib/paraglide/runtime";
 
 export async function load() {
