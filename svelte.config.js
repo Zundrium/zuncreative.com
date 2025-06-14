@@ -5,6 +5,7 @@ const config = {
 	preprocess: [vitePreprocess()],
 	kit: {
 		prerender: {
+			entries: ["*"],
 			handleHttpError: ({ status, path, referrer }) => {
 				if (status === 404) {
 					//console.warn(
