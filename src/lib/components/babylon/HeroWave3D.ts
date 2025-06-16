@@ -32,8 +32,8 @@ export class HeroWave3D implements IBabylonGraphics {
 
 	private particleSize: number = 4;
 	private mobileParticleSize: number = 4;
-	private matrixParticleCount = 15000;
-	private mobileMatrixParticleCount = 5000;
+	private matrixParticleCount = 30000;
+	private mobileMatrixParticleCount = 7500;
 
 	private matrixHeight = 0.35;
 	private textureSamplers: ITextureSampler[] = [];
@@ -42,19 +42,38 @@ export class HeroWave3D implements IBabylonGraphics {
 	private topColor: Color3 = new Color3(1, 0.5, 0);
 	private bottomColor: Color3 = new Color3(0.5, 0, 1);
 
-	public constructor() {}
+	private gridRows: number = 0;
+	private gridColumns: number = 0;
+	private flip: boolean = false;
+
+	public constructor() {
+		this.updateGridDimensions(1);
+	}
+
+	public updateGridDimensions(aspectRatio: number): void {
+		if (this.matrixParticleCount === 0 || aspectRatio <= 0) {
+			this.gridColumns = 0;
+			this.gridRows = 0;
+			return;
+		}
+		this.gridColumns = Math.ceil(
+			Math.sqrt(this.matrixParticleCount * aspectRatio),
+		);
+		this.gridRows = Math.ceil(this.matrixParticleCount / this.gridColumns);
+	}
 
 	private getNormalizedParticleCoords(particleIndex: number): [number, number] {
-		const columns = Math.ceil(Math.sqrt(this.matrixParticleCount));
-		const rows = Math.ceil(this.matrixParticleCount / columns);
+		if (this.gridColumns === 0 || this.gridRows === 0) {
+			return [0, 0];
+		}
 
-		const row = Math.floor(particleIndex / columns);
-		const col = particleIndex % columns;
+		const row = Math.floor(particleIndex / this.gridColumns);
+		const col = particleIndex % this.gridColumns;
 
-		return [
-			columns > 1 ? col / (columns - 1) : 0,
-			rows > 1 ? row / (rows - 1) : 0,
-		];
+		const u = this.gridColumns > 1 ? col / (this.gridColumns - 1) : 0;
+		const v = this.gridRows > 1 ? row / (this.gridRows - 1) : 0;
+
+		return [u, v];
 	}
 
 	private calculateParticlePlanePositionToRef(
@@ -226,7 +245,7 @@ export class HeroWave3D implements IBabylonGraphics {
 		this.textureSamplers[2] = new TextureSampler(
 			"/textures/seamless_mountain1.webp",
 			1,
-			new Vector2(0.04, 0.04),
+			new Vector2(0.02, 0.02),
 			1,
 		);
 
@@ -234,7 +253,7 @@ export class HeroWave3D implements IBabylonGraphics {
 			"/textures/wave.webp",
 			0.4,
 			new Vector2(0.05, -0.02),
-			1.5,
+			1,
 		);
 
 		this.textureSamplers[4] = new TextureSampler(
@@ -300,8 +319,19 @@ export class HeroWave3D implements IBabylonGraphics {
 			this.deltaTime = delta / 1000;
 			this.elapsedTime += this.deltaTime;
 
-			if (this.pointCloudSystem) {
-				this.pointCloudSystem.setParticles();
+			this.flip = !this.flip;
+			if (this.flip) {
+				this.pointCloudSystem!.setParticles(
+					0,
+					this.matrixParticleCount / 2,
+					false,
+				);
+			} else {
+				this.pointCloudSystem!.setParticles(
+					this.matrixParticleCount / 2,
+					this.matrixParticleCount - 1,
+					true,
+				);
 			}
 		};
 
