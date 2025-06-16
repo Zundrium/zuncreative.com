@@ -8,6 +8,9 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
 	mode: "production",
+	build: {
+		sourcemap: false,
+	},
 	plugins: [
 		sveltekit(),
 		tailwindcss(),
