@@ -46,20 +46,19 @@ export class HeroWave3D implements IBabylonGraphics {
 	private gridColumns: number = 0;
 	private flip: boolean = false;
 
-	public constructor() {
-		this.updateGridDimensions(1);
-	}
+	public constructor() {}
 
-	public updateGridDimensions(aspectRatio: number): void {
-		if (this.matrixParticleCount === 0 || aspectRatio <= 0) {
+	public updateGridDimensions(
+		aspectRatio: number,
+		particleCount: number,
+	): void {
+		if (particleCount === 0 || aspectRatio <= 0) {
 			this.gridColumns = 0;
 			this.gridRows = 0;
 			return;
 		}
-		this.gridColumns = Math.ceil(
-			Math.sqrt(this.matrixParticleCount * aspectRatio),
-		);
-		this.gridRows = Math.ceil(this.matrixParticleCount / this.gridColumns);
+		this.gridColumns = Math.ceil(Math.sqrt(particleCount * aspectRatio));
+		this.gridRows = Math.ceil(particleCount / this.gridColumns);
 	}
 
 	private getNormalizedParticleCoords(particleIndex: number): [number, number] {
@@ -300,6 +299,7 @@ export class HeroWave3D implements IBabylonGraphics {
 			this.matrixParticleCount = this.mobileMatrixParticleCount;
 			this.matrixWidth = this.mobileMatrixWidth;
 		}
+		this.updateGridDimensions(1, this.matrixParticleCount);
 
 		//Inspector.Show(this.babylonScene.scene, {});
 
