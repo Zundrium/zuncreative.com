@@ -95,7 +95,7 @@ $effect(() => {
 	class="flex flex-col gap-4 md:gap-8 lg:gap-12 xl:gap-16 items-center"
 >
 	{#key post}
-	<article class="prose lg:prose-xl dark:prose-invert prose-strong:font-extralight">
+	<article class="prose lg:prose-xl dark:prose-invert prose-strong:font-extralight max-w-full md:max-w-prose prose-pre:overflow-x-auto">
 		{@html post.html}
 	</article>
 	{/key}
