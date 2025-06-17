@@ -59,8 +59,8 @@ if (!props.dateModified) {
 "keywords": "${props.keywords}",
 "inLanguage": "nl-NL",
 "image": "${get_social_image(props.thumbnail)}",
-"genre": "Prefab woningen",
-"url": "https://{domain}/${props.slug}",
+"genre": "3D Web Development",
+"url": "https://${domain}/${props.slug}",
 "description": "${props.description}",
 "author": {
 "@type": "Organization", 

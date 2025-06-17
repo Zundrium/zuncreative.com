@@ -1,5 +1,4 @@
 export const prerender = true;
-export const ssr = true;
 import { loadMarkdownFiles } from "$lib/utils/markdown.server";
 import { languageTag } from "$lib/paraglide/runtime";
 
