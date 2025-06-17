@@ -1,7 +1,53 @@
-
-<script lang="ts">
+<script module lang="ts">
 import { viewportParallaxImage } from "$lib/utils/viewportSwitchClass";
 
+// resulting in 400kb javascript 
+
+const images: Record<string, any> = import.meta.glob(
+	["../../assets/images/**/*.{avif,gif,heif,jpeg,jpg,png,tiff,webp}"],
+	{
+		eager: true,
+		query: {
+			enhanced: true,
+			w: "1280;640;250",
+		},
+	},
+);
+
+const lqips: Record<string, any> = import.meta.glob(
+	["../../assets/images/**/*.{avif,gif,heif,jpeg,jpg,png,tiff,webp}"],
+	{
+		eager: true,
+		query: {
+			enhanced: true,
+			w: "16",
+			inline: true,
+		},
+	},
+);
+
+const getHighResImageSrc = (desired_image: string) => {
+	const image = images[`../../assets${desired_image}`];
+	if (!image) {
+		throw new Error(
+			`High-resolution image not found for path: ../../assets${desired_image}. Available images: ${Object.keys(images).join(", ")}`,
+		);
+	}
+	return image.default;
+};
+
+const getLqipSrc = (desired_image: string) => {
+	const lqip = lqips[`../../assets${desired_image}`];
+	if (!lqip) {
+		throw new Error(
+			`LQIP image not found for path: ../../assets${desired_image}. Available images: ${Object.keys(lqips).join(", ")}`,
+		);
+	}
+	return lqip.default;
+};
+</script>
+
+<script lang="ts">
 let classes: string = "";
 export { classes as class };
 
@@ -15,8 +61,8 @@ $: imageSizes = thumb ? thumbSizes : sizes;
 export let src;
 export let alt = "";
 
-const imageMetaPromise = import(`../../assets${src}?enhanced&w=1280;640;250`);
-const lqipPromise = import(`../../assets${src}?enhanced&lqip`);
+const lqipSrc = getLqipSrc(src);
+const fullSrc = getHighResImageSrc(src);
 
 export let parallax: boolean = false;
 $: parallaxAction = parallax ? viewportParallaxImage : undefined;
@@ -24,23 +70,19 @@ $: parallaxAction = parallax ? viewportParallaxImage : undefined;
 
 <div class={classes} {...$$props}>
 	<div class="w-full h-full relative" use:parallaxAction={parallax} >
-		{#await lqipPromise then lqip}
 		<enhanced:img
 			loading="lazy"
 			class="w-full h-full object-cover"
-			src={lqip.default}
+			src={lqipSrc}
 			sizes={imageSizes}
 			{alt}
 		/>
-		{/await}
-		{#await imageMetaPromise then imageMeta}
 		<enhanced:img
 			loading="lazy"
 			class="absolute top-0 left-0 right-0 bottom-0 h-full w-full object-cover z-10"
-			src={imageMeta.default}
+			src={fullSrc}
 			sizes={imageSizes}
 			{alt}
 		/>
-		{/await}
 	</div>
 </div>
