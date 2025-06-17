@@ -7,6 +7,7 @@ import BrandCarousel from "$lib/components/sections/index/BrandCarousel.svelte";
 import RecentPosts from "$lib/components/sections/index/RecentPosts.svelte";
 import type { MarkdownTextfile } from "$lib/utils/types";
 import Services from "$lib/components/sections/index/Services.svelte";
+import * as m from "$lib/paraglide/messages.js";
 
 export let data: {
 	posts: MarkdownTextfile[];
@@ -17,9 +18,9 @@ export let data: {
 
 <SeoHead
     props={{
-        title: "3D Freelance Webdeveloper | Zun Creative",
-        description: "Een focus op het maken van onvergetelijke ervaringen op het web.",
-        keywords: "Zun Creative, freelance developer, Amsterdam",
+        title: m.index_title(),
+        description: m.index_description(),
+        keywords: m.index_keywords(),
         slug: "website",
 		thumbnail: "/images/2d_matrix.png",
         type: "WebPage",

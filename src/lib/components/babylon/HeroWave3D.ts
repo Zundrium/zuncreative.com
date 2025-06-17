@@ -15,7 +15,7 @@ import {
 } from "$lib/utils/babylonjs/textureSampler";
 import { SineWaveNoise } from "$lib/utils/babylonjs/sineWaveNoise";
 import { getScreenState } from "$lib/utils/screenState";
-import type { InteractiveCamera } from "$lib/utils/babylonjs/interactiveCamera";
+import type { BasicCamera } from "$lib/utils/babylonjs/basicCamera";
 
 export class HeroWave3D implements IBabylonGraphics {
 	private babylonScene: BabylonScene | null = null;
@@ -26,12 +26,14 @@ export class HeroWave3D implements IBabylonGraphics {
 
 	private pointCloudSystem: PointsCloudSystem | null = null;
 
-	private matrixSize = 4;
+	private matrixWidth = 4;
+	private matrixDepth = 4;
+	private mobileMatrixWidth = 2.5;
 
 	private particleSize: number = 4;
-	private mobileParticleSize: number = 3;
-	private matrixParticleCount = 50000;
-	private mobileMatrixParticleCount = 30000;
+	private mobileParticleSize: number = 4;
+	private matrixParticleCount = 30000;
+	private mobileMatrixParticleCount = 7500;
 
 	private matrixHeight = 0.35;
 	private textureSamplers: ITextureSampler[] = [];
@@ -40,19 +42,37 @@ export class HeroWave3D implements IBabylonGraphics {
 	private topColor: Color3 = new Color3(1, 0.5, 0);
 	private bottomColor: Color3 = new Color3(0.5, 0, 1);
 
+	private gridRows: number = 0;
+	private gridColumns: number = 0;
+	private flip: boolean = false;
+
 	public constructor() {}
 
+	public updateGridDimensions(
+		aspectRatio: number,
+		particleCount: number,
+	): void {
+		if (particleCount === 0 || aspectRatio <= 0) {
+			this.gridColumns = 0;
+			this.gridRows = 0;
+			return;
+		}
+		this.gridColumns = Math.ceil(Math.sqrt(particleCount * aspectRatio));
+		this.gridRows = Math.ceil(particleCount / this.gridColumns);
+	}
+
 	private getNormalizedParticleCoords(particleIndex: number): [number, number] {
-		const columns = Math.ceil(Math.sqrt(this.matrixParticleCount));
-		const rows = Math.ceil(this.matrixParticleCount / columns);
+		if (this.gridColumns === 0 || this.gridRows === 0) {
+			return [0, 0];
+		}
 
-		const row = Math.floor(particleIndex / columns);
-		const col = particleIndex % columns;
+		const row = Math.floor(particleIndex / this.gridColumns);
+		const col = particleIndex % this.gridColumns;
 
-		return [
-			columns > 1 ? col / (columns - 1) : 0,
-			rows > 1 ? row / (rows - 1) : 0,
-		];
+		const u = this.gridColumns > 1 ? col / (this.gridColumns - 1) : 0;
+		const v = this.gridRows > 1 ? row / (this.gridRows - 1) : 0;
+
+		return [u, v];
 	}
 
 	private calculateParticlePlanePositionToRef(
@@ -61,9 +81,9 @@ export class HeroWave3D implements IBabylonGraphics {
 		noise: number,
 		result: Vector3,
 	): void {
-		result.x = u * this.matrixSize - this.matrixSize * 0.5;
+		result.x = u * this.matrixWidth - this.matrixWidth * 0.5;
 		result.y = noise * this.matrixHeight;
-		result.z = v * this.matrixSize - this.matrixSize * 0.5;
+		result.z = v * this.matrixDepth - this.matrixDepth * 0.5;
 	}
 
 	public update(index: number): void {
@@ -181,7 +201,7 @@ export class HeroWave3D implements IBabylonGraphics {
 		);
 	}
 
-	private setupCamera(camera: InteractiveCamera): void {
+	private setupCamera(camera: BasicCamera): void {
 		// --- 1. Set your desired position and rotation ---
 		camera.position = new Vector3(0.43, 0.93, 2.77);
 
@@ -190,9 +210,10 @@ export class HeroWave3D implements IBabylonGraphics {
 		// IMPORTANT: Make sure you are using the .rotation setter, which correctly
 		// updates the internal rotationQuaternion.
 		if (getScreenState() == "sm") {
+			camera.position = new Vector3(0, 0.93, 2.77);
 			camera.rotation = new Vector3(
 				degreesToRadians(-27.0),
-				degreesToRadians(3.23),
+				degreesToRadians(0),
 				0, // Always good to be explicit about roll
 			);
 		} else {
@@ -202,10 +223,6 @@ export class HeroWave3D implements IBabylonGraphics {
 				0,
 			);
 		}
-
-		// --- 2. Lock in this new state as the base for all interactions ---
-		// This is the crucial new step.
-		camera.setBaseState();
 	}
 
 	private setuptextureSamplers(): void {
@@ -218,34 +235,34 @@ export class HeroWave3D implements IBabylonGraphics {
 		//);
 
 		this.textureSamplers[1] = new TextureSampler(
-			"/textures/hello.png",
+			"/textures/hello.webp",
 			0.3,
 			new Vector2(0.05, 0.0),
 			1.5,
 		);
 
 		this.textureSamplers[2] = new TextureSampler(
-			"/textures/seamless_mountain1.png",
+			"/textures/seamless_mountain1.webp",
 			1,
-			new Vector2(0.04, 0.04),
+			new Vector2(0.02, 0.02),
 			1,
 		);
 
 		this.textureSamplers[3] = new TextureSampler(
-			"/textures/wave.png",
+			"/textures/wave.webp",
 			0.4,
 			new Vector2(0.05, -0.02),
-			1.5,
+			1,
 		);
 
 		this.textureSamplers[4] = new TextureSampler(
-			"/textures/world_map_blurred.png",
+			"/textures/world_map_blurred.webp",
 			0.2,
 			new Vector2(0.04, 0.0),
 			1,
 		);
 		this.textureSamplers[5] = new TextureSampler(
-			"/textures/world_map_blurred.png",
+			"/textures/world_map_blurred.webp",
 			0.6,
 			new Vector2(0.04, 0.0),
 			1,
@@ -280,7 +297,9 @@ export class HeroWave3D implements IBabylonGraphics {
 		if (getScreenState() == "sm") {
 			this.particleSize = this.mobileParticleSize;
 			this.matrixParticleCount = this.mobileMatrixParticleCount;
+			this.matrixWidth = this.mobileMatrixWidth;
 		}
+		this.updateGridDimensions(1, this.matrixParticleCount);
 
 		//Inspector.Show(this.babylonScene.scene, {});
 
@@ -300,8 +319,19 @@ export class HeroWave3D implements IBabylonGraphics {
 			this.deltaTime = delta / 1000;
 			this.elapsedTime += this.deltaTime;
 
-			if (this.pointCloudSystem) {
-				this.pointCloudSystem.setParticles();
+			this.flip = !this.flip;
+			if (this.flip) {
+				this.pointCloudSystem!.setParticles(
+					0,
+					this.matrixParticleCount / 2,
+					false,
+				);
+			} else {
+				this.pointCloudSystem!.setParticles(
+					this.matrixParticleCount / 2,
+					this.matrixParticleCount - 1,
+					true,
+				);
 			}
 		};
 

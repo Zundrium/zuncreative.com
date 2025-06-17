@@ -4,9 +4,7 @@ import type { MarkdownTextfile } from "$lib/utils/types";
 import { compile as svelteCompile } from "svelte/compiler";
 import matter from "gray-matter";
 import markdownit from "markdown-it";
-import hljs from 'highlight.js' // https://highlightjs.org
-
-
+import hljs from "highlight.js"; // https://highlightjs.org
 
 async function parseMarkdownFromFile(
 	filePath: string,
@@ -28,21 +26,27 @@ async function parseMarkdownFromFile(
 			console.error(`No frontmatter found: ${filePath}`);
 		}
 
-
 		const md = markdownit({
 			html: true,
-  highlight: function (str: string, lang:string) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return '<pre><code class="hljs">' +
-               hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-               '</code></pre>';
-      } catch (__) {}
-    }
+			highlight: function (str: string, lang: string) {
+				if (lang && hljs.getLanguage(lang)) {
+					try {
+						return (
+							'<pre><code class="hljs">' +
+							hljs.highlight(str, { language: lang, ignoreIllegals: true })
+								.value +
+							"</code></pre>"
+						);
+					} catch (__) {}
+				}
 
-    return '<pre><code class="hljs">' + md.utils.escapeHtml(str) + '</code></pre>';
-  }
-});
+				return (
+					'<pre><code class="hljs">' +
+					md.utils.escapeHtml(str) +
+					"</code></pre>"
+				);
+			},
+		});
 
 		const html = md.render(result.content);
 

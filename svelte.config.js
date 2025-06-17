@@ -12,9 +12,10 @@ const config = {
 					//);
 					return;
 				} else {
-					throw new Error(
-						`Prerender error: ${status} at ${path} (linked from ${referrer}).`,
-					);
+					//throw new Error(
+					//	`Prerender error: ${status} at ${path} (linked from ${referrer}).`,
+					//);
+					return;
 				}
 			},
 			handleMissingId: ({ status, path, referrer }) => {

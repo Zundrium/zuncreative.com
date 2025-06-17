@@ -81,6 +81,7 @@ $: preferredLanguageName = preferredLanguageTag
 
 			<Button
 				class="flex-grow"
+				ariaLabel="Switch to {preferredLanguageName}"
 				href={switchToUrl}
 				data-sveltekit-reload
 			>
@@ -89,6 +90,7 @@ $: preferredLanguageName = preferredLanguageTag
 
 			<Button
 				style="text"
+				ariaLabel="Close banner"
 				click={handleDismiss} >
 				<MaterialSymbolsClose />
 			</Button>

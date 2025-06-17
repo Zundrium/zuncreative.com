@@ -79,9 +79,9 @@ const year = new Date().getFullYear();
 							<MdiEmail class="size-4" />
 							sem@zuncreative.com
 						</a>
-						<a href="tel:+316665658" class="cursor-pointer hover:underline flex items-center gap-2">
+						<a href="tel:+31613665658" class="cursor-pointer hover:underline flex items-center gap-2">
 							<MdiPhone class="size-4" />
-							+31 6 665 658
+							+316 13 665 658
 						</a>
 						<a href="https://linkedin.com/in/sem-verbraak" class="cursor-pointer hover:underline flex items-center gap-2">
 							<MdiLinkedin class="size-4" />

@@ -160,7 +160,7 @@ $: if (sections) {
 		<div
 			class="container transition-colors duration-300 px-6 py-3 lg:py-3 flex flex-col lg:flex-row justify-between items-center max-h-dvh "
 		>
-			<div class="w-full flex items-center justify-between {mobileNavOpen ? 'flex-col h-dvh' : ''}">
+			<div class="w-full flex items-center justify-between {mobileNavOpen ? 'flex-col h-dvh pb-6' : ''}">
 
 				<div class="lg:flex-1 flex lg:h-full w-full items-center justify-between">
 					<a href="/" class="cursor-pointer relative w-12 h-12" aria-label={m.nav_aria_home()}>

@@ -17,7 +17,7 @@ const contactMethods = [
 	{
 		icon: MdiPhone,
 		ariaLabel: m.contact_phone_aria(),
-		text: "+31 6 13 665 658",
+		text: "+316 13 665 658",
 		link: "tel:+31613665658",
 	},
 	{

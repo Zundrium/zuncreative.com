@@ -4,10 +4,7 @@ import H2 from "./H2.svelte";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-    import { viewportFade } from "$lib/utils/viewportSwitchClass";
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger, SplitText);
+import { viewportFade } from "$lib/utils/viewportSwitchClass";
 
 let className = "";
 let titleElement: HTMLElement;
@@ -23,6 +20,9 @@ export let stagger: number = 0.1;
 export { className as class };
 
 onMount(() => {
+	// Register GSAP plugins
+	gsap.registerPlugin(ScrollTrigger, SplitText);
+
 	const splitElements: any[] = [];
 
 	// Function to create split text reveal effect
@@ -62,7 +62,6 @@ onMount(() => {
 			toggleActions: "play none none reverse",
 		},
 	});
-
 
 	// Then animate each line of the title
 	if (titleElement) {
