@@ -1,9 +1,12 @@
 import { Texture } from "@babylonjs/core/Materials/Textures/texture";
 import { Vector2 } from "@babylonjs/core/Maths/math.vector";
+import { Color3 } from "@babylonjs/core/Maths/math.color";
 
 export interface ITextureSampler {
 	getFloatAt(u: number, v: number, time: number): number;
 	intensity: number;
+	bottomColor: Color3;
+	topColor: Color3;
 }
 
 export class TextureSampler implements ITextureSampler {
@@ -17,12 +20,13 @@ export class TextureSampler implements ITextureSampler {
 	private readonly speedX: number;
 	private readonly speedY: number;
 	private readonly scale: number;
-
 	constructor(
 		image_url: string,
 		public intensity = 1,
 		speed: Vector2 = new Vector2(0.1, 0.05),
 		scale = 1,
+		public topColor: Color3 = new Color3(1, 1, 1),
+        public bottomColor: Color3 = new Color3(0, 0, 0)
 	) {
 		this.texture = new Texture(image_url);
 		this.speedX = speed.x;

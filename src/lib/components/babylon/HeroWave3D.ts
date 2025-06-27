@@ -39,8 +39,15 @@ export class HeroWave3D implements IBabylonGraphics {
 	private textureSamplers: ITextureSampler[] = [];
 	private textureSamplerIntensity: number = 0;
 	private textureSamplerIndex: number = 0;
-	private topColor: Color3 = new Color3(1, 0.5, 0);
-	private bottomColor: Color3 = new Color3(0.5, 0, 1);
+	
+    // --- REMOVED OLD PROPERTIES ---
+	// private topColor: Color3 = new Color3(1, 0.5, 0);
+	// private bottomColor: Color3 = new Color3(0.5, 0, 1);
+
+    // --- NEW PROPERTIES ---
+    private currentTopColor: Color3 = new Color3();
+    private currentBottomColor: Color3 = new Color3();
+    // --------------------
 
 	private gridRows: number = 0;
 	private gridColumns: number = 0;
@@ -93,11 +100,13 @@ export class HeroWave3D implements IBabylonGraphics {
 		}
 		this.textureSamplerIndex = index;
 		this.updateTextureSamplerIntensity();
-		//this.animateTextureSamplerIndex(index);
+        this.updateCurrentColors(); // <-- NEW: Update colors when index changes
 	}
 
 	public resetSteps(): void {
 		this.textureSamplerIndex = 0;
+        this.updateTextureSamplerIntensity(); // <-- NEW: Also update on reset
+        this.updateCurrentColors(); // <-- NEW: Also update on reset
 	}
 
 	private lerp(a: number, b: number, t: number): number {
@@ -105,21 +114,14 @@ export class HeroWave3D implements IBabylonGraphics {
 	}
 
 	private updateParticleColor(particle: CloudPoint, noiseValue: number): void {
-		particle.color!.r = this.lerp(
-			this.bottomColor.r,
-			this.topColor.r,
-			noiseValue,
-		);
-		particle.color!.g = this.lerp(
-			this.bottomColor.g,
-			this.topColor.g,
-			noiseValue,
-		);
-		particle.color!.b = this.lerp(
-			this.bottomColor.b,
-			this.topColor.b,
-			noiseValue,
-		);
+        // --- UPDATED to use current colors ---
+		Color3.LerpToRef(
+            this.currentBottomColor,
+            this.currentTopColor,
+            noiseValue,
+            particle.color!
+        );
+        // ------------------------------------
 	}
 
 	private async createPointsCloud(scene: Scene): Promise<PointsCloudSystem> {
@@ -202,20 +204,11 @@ export class HeroWave3D implements IBabylonGraphics {
 	}
 
 	private setupCamera(camera: BasicCamera): void {
-		// --- 1. Set your desired position and rotation ---
 		camera.position = new Vector3(0.43, 0.93, 2.77);
-
 		const degreesToRadians = (degrees: number) => degrees * (Math.PI / 180);
-
-		// IMPORTANT: Make sure you are using the .rotation setter, which correctly
-		// updates the internal rotationQuaternion.
 		if (getScreenState() == "sm") {
 			camera.position = new Vector3(0, 0.93, 2.77);
-			camera.rotation = new Vector3(
-				degreesToRadians(-27.0),
-				degreesToRadians(0),
-				0, // Always good to be explicit about roll
-			);
+			camera.rotation = new Vector3(degreesToRadians(-27.0), 0, 0);
 		} else {
 			camera.rotation = new Vector3(
 				degreesToRadians(-17.36),
@@ -225,69 +218,101 @@ export class HeroWave3D implements IBabylonGraphics {
 		}
 	}
 
-	private setuptextureSamplers(): void {
-		this.textureSamplers[0] = new SineWaveNoise();
-		//this.textureSamplers[0] = new TextureSampler(
-		//	"/textures/hell2.png",
-		//	0.3,
-		//	new Vector2(0.05, 0.0),
-		//	1,
-		//);
+private setuptextureSamplers(): void {
+    // Stage 1: Sine Wave (Orange -> Purple)
+    // A fiery, energetic welcome.
+    this.textureSamplers[0] = new SineWaveNoise(
+        1, // You had 1, but based on other values, 0.35 might be better. Adjust if needed.
+        new Color3(1, 0.5, 0),    // Saturated Orange
+        new Color3(0.5, 0, 1)     // Saturated Purple
+    );
 
-		this.textureSamplers[1] = new TextureSampler(
-			"/textures/hello.webp",
-			0.3,
-			new Vector2(0.05, 0.0),
-			1.5,
-		);
+    // Stage 2: "Hello" (Green -> Blue)
+    // A bright, digital, "electric" theme.
+    this.textureSamplers[1] = new TextureSampler(
+        "/textures/hello.webp", 0.3, new Vector2(0.05, 0.0), 1.5,
+        new Color3(0, 1, 0),      // Electric Green (Top)
+        new Color3(0, 0, 1)       // Deep Blue (Bottom)
+    );
 
-		this.textureSamplers[2] = new TextureSampler(
-			"/textures/seamless_mountain1.webp",
-			1,
-			new Vector2(0.02, 0.02),
-			1,
-		);
+    // Stage 3: Mountains (Light Brown -> Dark Brown)
+    // An earthy, rich, and grounded theme. Brown is less saturated by nature,
+    // so we'll use rich, distinct tones.
+    this.textureSamplers[2] = new TextureSampler(
+        "/textures/seamless_mountain1.webp", 0.7, new Vector2(0.02, 0.02), 1,
+        new Color3(1, 0.5, 0),    // Saturated Orange
+        new Color3(1, 0, 0)  // Red
+    );
 
-		this.textureSamplers[3] = new TextureSampler(
-			"/textures/wave.webp",
-			0.4,
-			new Vector2(0.05, -0.02),
-			1,
-		);
+    // Stage 4: Wave (White -> Cyan)
+    // A clean, crisp, and refreshing water theme.
+    this.textureSamplers[3] = new TextureSampler(
+        "/textures/wave.webp", 0.4, new Vector2(0.05, -0.02), 1,
+        new Color3(1, 1, 1),      // Pure White (Top)
+        new Color3(0, 1, 1)       // Saturated Cyan (Bottom)
+    );
 
-		this.textureSamplers[4] = new TextureSampler(
-			"/textures/world_map_blurred.webp",
-			0.2,
-			new Vector2(0.04, 0.0),
-			1,
-		);
-		this.textureSamplers[5] = new TextureSampler(
-			"/textures/world_map_blurred.webp",
-			0.6,
-			new Vector2(0.04, 0.0),
-			1,
-		);
-	}
+    // Stage 5: World Map (Green -> Blue)
+    // A classic "Earth" theme representing land and sea.
+    this.textureSamplers[4] = new TextureSampler(
+        "/textures/world_map_blurred.webp", 0.2, new Vector2(0.04, 0.0), 1,
+        new Color3(0.1, 0.7, 0.2),  // Lush Land Green (Top)
+        new Color3(0, 0.2, 0.6)     // Deep Ocean Blue (Bottom)
+    );
+
+    // Stage 6: Final World Map (Yellow -> Orange)
+    // A warm, "sunset" or "heat map" theme.
+    this.textureSamplers[5] = new TextureSampler(
+        "/textures/world_map_blurred.webp", 0.6, new Vector2(0.04, 0.0), 1,
+        new Color3(1, 1, 0),      // Bright Saturated Yellow (Top)
+        new Color3(1, 0.5, 0)     // Fiery Orange (Bottom)
+    );
+}
 
 	private updateTextureSamplerIntensity(): void {
 		const index = Math.floor(this.textureSamplerIndex);
-		if (index > this.textureSamplers.length - 1) {
-			return;
-		}
+		if (index >= this.textureSamplers.length) return;
 
-		const firstTextureSamplerIntensity = this.textureSamplers[index].intensity;
+		const firstSampler = this.textureSamplers[index];
+		if (!firstSampler) return;
 
-		if (index + 1 <= this.textureSamplers.length - 1) {
-			const secondTextureSamplerIntensity =
-				this.textureSamplers[Math.ceil(this.textureSamplerIndex)].intensity;
-
+		if (index + 1 < this.textureSamplers.length) {
+			const secondSampler = this.textureSamplers[index + 1];
+			const alpha = this.textureSamplerIndex % 1;
 			this.textureSamplerIntensity = this.lerp(
-				firstTextureSamplerIntensity,
-				secondTextureSamplerIntensity,
-				this.textureSamplerIndex % 1,
+				firstSampler.intensity,
+				secondSampler.intensity,
+				alpha,
 			);
+		} else {
+			this.textureSamplerIntensity = firstSampler.intensity;
 		}
 	}
+
+    // --- NEW METHOD ---
+    private updateCurrentColors(): void {
+        const index = Math.floor(this.textureSamplerIndex);
+        if (index >= this.textureSamplers.length) return;
+
+        const firstSampler = this.textureSamplers[index];
+        if (!firstSampler) return;
+        
+        // Check if we are between two samplers
+        if (index + 1 < this.textureSamplers.length) {
+            const secondSampler = this.textureSamplers[index + 1];
+            const alpha = this.textureSamplerIndex % 1; // The interpolation factor
+
+            // Interpolate between the top colors
+            Color3.LerpToRef(firstSampler.topColor, secondSampler.topColor, alpha, this.currentTopColor);
+            // Interpolate between the bottom colors
+            Color3.LerpToRef(firstSampler.bottomColor, secondSampler.bottomColor, alpha, this.currentBottomColor);
+        } else {
+            // Not interpolating, just use the current sampler's colors
+            this.currentTopColor.copyFrom(firstSampler.topColor);
+            this.currentBottomColor.copyFrom(firstSampler.bottomColor);
+        }
+    }
+    // -------------------
 
 	public async initialize(renderCanvas: HTMLCanvasElement): Promise<void> {
 		this.babylonScene = new BabylonScene(renderCanvas);
@@ -301,8 +326,6 @@ export class HeroWave3D implements IBabylonGraphics {
 		}
 		this.updateGridDimensions(1, this.matrixParticleCount);
 
-		//Inspector.Show(this.babylonScene.scene, {});
-
 		this.pointCloudSystem = await this.createPointsCloud(
 			this.babylonScene.scene,
 		);
@@ -314,6 +337,7 @@ export class HeroWave3D implements IBabylonGraphics {
 		this.setupCamera(this.babylonScene.camera);
 
 		this.updateTextureSamplerIntensity();
+        this.updateCurrentColors(); // <-- NEW: Initialize colors at start
 
 		this.babylonScene.onRender = (delta: number) => {
 			this.deltaTime = delta / 1000;

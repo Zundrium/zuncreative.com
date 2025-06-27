@@ -1,4 +1,5 @@
 import type { ITextureSampler } from "./textureSampler";
+import { Color3 } from "@babylonjs/core/Maths/math.color";
 
 export class SineWaveNoise implements ITextureSampler {
 	private waveFrequencyX: number;
@@ -7,7 +8,12 @@ export class SineWaveNoise implements ITextureSampler {
 	private angledCos: number;
 	private angledSin: number;
 
-	constructor(public intensity: number = 1) {
+
+	constructor(
+		public intensity: number = 1,
+		public topColor: Color3,
+		public bottomColor: Color3
+	) {
 		this.waveFrequencyX = 8;
 		this.waveFrequencyZ = 15;
 		this.waveSpeed = 0.3;
