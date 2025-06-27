@@ -30,8 +30,8 @@ export class HeroWave3D implements IBabylonGraphics {
 	private matrixDepth = 4;
 	private mobileMatrixWidth = 2.5;
 
-	private particleSize: number = 4;
-	private mobileParticleSize: number = 4;
+	private particleSize: number = 6;
+	private mobileParticleSize: number = 6;
 	private matrixParticleCount = 30000;
 	private mobileMatrixParticleCount = 7500;
 
@@ -248,8 +248,8 @@ private setuptextureSamplers(): void {
     // A clean, crisp, and refreshing water theme.
     this.textureSamplers[3] = new TextureSampler(
         "/textures/wave.webp", 0.4, new Vector2(0.05, -0.02), 1,
-        new Color3(1, 1, 1),      // Pure White (Top)
-        new Color3(0, 1, 1)       // Saturated Cyan (Bottom)
+        new Color3(0, 1, 1),      // Pure White (Top)
+        new Color3(0, 0.5, 1)       // Saturated Cyan (Bottom)
     );
 
     // Stage 5: World Map (Green -> Blue)
