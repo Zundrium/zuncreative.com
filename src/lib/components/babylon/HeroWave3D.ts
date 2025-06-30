@@ -46,7 +46,7 @@ export class HeroWave3D implements IBabylonGraphics {
 	private zFogEndMax: number = -2.0;
 
 	private waveFrequency: number = 5.0;
-	private waveIntensity: number = -0.2;
+	private waveIntensity: number = -0.15;
 	private waveTimeSpeed: number = 3.0;
 
 	public constructor() {}
@@ -148,8 +148,9 @@ export class HeroWave3D implements IBabylonGraphics {
 		const initialMaxY = initialIntensity * this.matrixHeight || 0.0001;
 
 		this.shaderMaterial.pointsCloud = true;
+		this.shaderMaterial.disableDepthWrite = true;
 		this.shaderMaterial.backFaceCulling = true;
-		this.shaderMaterial.alphaMode = Engine.ALPHA_ADD;
+		this.shaderMaterial.alphaMode = Engine.ALPHA_SCREENMODE;
 		this.shaderMaterial.setFloat("pointSize", this.particleSize);
 		this.shaderMaterial.setFloat("minY", 0);
 		this.shaderMaterial.setFloat("maxY", initialMaxY);

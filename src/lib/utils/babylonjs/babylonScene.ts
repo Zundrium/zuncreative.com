@@ -48,6 +48,11 @@ export class BabylonScene {
 	private delayedInit(): void {
 		this.initializing = false;
 		this.engine = new Engine(this.renderCanvas);
+
+		//this.engine = new Engine(this.renderCanvas, true, {
+		//	disableWebGL2Support: true,
+		//});
+
 		this.scene = new Scene(this.engine);
 		this.scene.useRightHandedSystem = true;
 		this.scene.clearColor = new Color4(0, 0, 0, 0);
