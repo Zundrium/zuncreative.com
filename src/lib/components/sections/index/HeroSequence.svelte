@@ -225,7 +225,7 @@ onMount(() => {
 		</div>
 
 		<!-- bottom gradient overlay -->
-		<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-white to-transparent dark:from-black dark:to-transparent"></div>
+		<!-- <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-white to-transparent dark:from-black dark:to-transparent"></div> -->
 
 		<div class="pointer-events-none absolute inset-0 select-none">
 			<!-- scroll container -->
