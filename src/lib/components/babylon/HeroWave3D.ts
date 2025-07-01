@@ -16,6 +16,12 @@ import { ShaderMaterial } from "@babylonjs/core/Materials/shaderMaterial";
 import pointCloudVertexShader from "$lib/assets/shaders/pointCloud.vert?raw";
 import pointCloudFragmentShader from "$lib/assets/shaders/pointCloud.frag?raw";
 import { Engine } from "@babylonjs/core/Engines/engine";
+import {
+	SceneOptimizerOptions,
+	SceneOptimizer,
+	HardwareScalingOptimization,
+	CustomOptimization,
+} from "@babylonjs/core/Misc/sceneOptimizer";
 
 export class HeroWave3D implements IBabylonGraphics {
 	private babylonScene: BabylonScene | null = null;
@@ -113,7 +119,7 @@ export class HeroWave3D implements IBabylonGraphics {
 		return a + (b - a) * t;
 	}
 
-	private async setupPointCloudAndMaterial(scene: Scene): Promise<void> {
+	private async setupPointCloudMaterial(scene: Scene): Promise<void> {
 		this.shaderMaterial = new ShaderMaterial(
 			"pointCloudShader",
 			scene,
@@ -162,7 +168,10 @@ export class HeroWave3D implements IBabylonGraphics {
 		this.shaderMaterial.setFloat("zFogStartMax", this.zFogStartMax);
 		this.shaderMaterial.setFloat("zFogEndMin", this.zFogEndMin);
 		this.shaderMaterial.setFloat("zFogEndMax", this.zFogEndMax);
+	}
 
+	private async createPointCloudSystem(scene: Scene): Promise<void> {
+		this.updateGridDimensions(1, this.matrixParticleCount);
 		this.pointCloudSystem = new PointsCloudSystem(
 			"cloud",
 			this.particleSize,
@@ -181,7 +190,15 @@ export class HeroWave3D implements IBabylonGraphics {
 				);
 			},
 		);
-		await this.pointCloudSystem.buildMeshAsync(this.shaderMaterial);
+		await this.pointCloudSystem.buildMeshAsync(this.shaderMaterial!);
+		this.pointCloudSystem!.updateParticle = (particle: CloudPoint) => {
+			return this.updateParticle(particle);
+		};
+	}
+
+	private async recreatePointCloudSystem(scene: Scene) {
+		this.pointCloudSystem?.dispose();
+		await this.createPointCloudSystem(scene);
 	}
 
 	private getNoiseValue(x: number, y: number, elapsedTime: number): number {
@@ -360,11 +377,9 @@ export class HeroWave3D implements IBabylonGraphics {
 			this.matrixParticleCount = this.mobileMatrixParticleCount;
 			this.matrixWidth = this.mobileMatrixWidth;
 		}
-		this.updateGridDimensions(1, this.matrixParticleCount);
-		await this.setupPointCloudAndMaterial(this.babylonScene.scene);
-		this.pointCloudSystem!.updateParticle = (particle: CloudPoint) => {
-			return this.updateParticle(particle);
-		};
+		await this.setupPointCloudMaterial(this.babylonScene.scene);
+		await this.createPointCloudSystem(this.babylonScene.scene);
+
 		this.setuptextureSamplers();
 		this.setupCamera(this.babylonScene.camera);
 		this.updateTextureSamplerIntensity();
@@ -398,7 +413,33 @@ export class HeroWave3D implements IBabylonGraphics {
 			}
 		};
 
+		this.setupOptimizer(this.babylonScene.scene);
+
 		this.onReady();
+	}
+
+	public setupOptimizer(scene: Scene): void {
+		const options = new SceneOptimizerOptions();
+		options.targetFrameRate = 24;
+		//options.addOptimization(new HardwareScalingOptimization(0, 1));
+
+		options.addCustomOptimization(
+			(scene: Scene, options: SceneOptimizerOptions) => {
+				if (this.matrixParticleCount <= 5000) return;
+				this.matrixParticleCount = Math.max(
+					this.matrixParticleCount - 15000,
+					5000,
+				);
+				this.recreatePointCloudSystem(scene);
+			},
+			() => {
+				return "Reducing particles...";
+			},
+			4,
+		);
+
+		const optimizer = new SceneOptimizer(scene, options);
+		optimizer.start();
 	}
 
 	public dispose(): void {
