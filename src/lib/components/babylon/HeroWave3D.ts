@@ -221,7 +221,7 @@ export class HeroWave3D implements IBabylonGraphics {
 	}
 
 	private setupCamera(camera: BasicCamera): void {
-		camera.position = new Vector3(0.43, 0.93, 2.77);
+		camera.position = new Vector3(0.43, 0.93, 3.6);
 		const degreesToRadians = (degrees: number) => degrees * (Math.PI / 180);
 		if (getScreenState() == "sm") {
 			camera.position = new Vector3(0, 0.93, 2.77);
@@ -244,18 +244,18 @@ export class HeroWave3D implements IBabylonGraphics {
 
 		this.textureSamplers[1] = new TextureSampler(
 			"/textures/hello.webp",
-			0.3,
+			0.4,
 			new Vector2(0.05, 0.0),
-			1.5,
+			1,
 			new Color3(0, 1, 0),
 			new Color3(0, 0, 1),
 		);
 		this.textureSamplers[2] = new TextureSampler(
 			"/textures/seamless_mountain1.webp",
-			0.7,
+			1,
 			new Vector2(0.02, 0.02),
 			1,
-			new Color3(1, 0.5, 0),
+			new Color3(1, 1, 0),
 			new Color3(1, 0, 0),
 		);
 		this.textureSamplers[3] = new TextureSampler(
