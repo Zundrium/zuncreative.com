@@ -1,5 +1,5 @@
 ---
-title: 'Mijn CRM draait op Google Sheets'
+title: 'Een CRM dat draait op Google Sheets'
 description: "Na een frustrerende zoektocht langs dure CRM's en de verborgen limieten van Zapier, besloot ik het anders te doen."
 publish_date: '2025-07-07'
 modify_date: '2025-07-07'

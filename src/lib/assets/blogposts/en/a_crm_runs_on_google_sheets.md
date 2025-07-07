@@ -1,5 +1,5 @@
 ---
-title: 'My CRM Runs on Google Sheets'
+title: 'A CRM that runs on Google Sheets'
 description: "After a frustrating search for expensive CRMs and discovering the hidden limits of Zapier, I decided to do things differently."
 publish_date: '2025-07-07'
 modify_date: '2025-07-07'
