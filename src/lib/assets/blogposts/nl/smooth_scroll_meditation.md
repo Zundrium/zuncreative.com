@@ -7,7 +7,7 @@ keywords: 'gsap, lenis, scrolltrigger, scrollsmoother, parallax, animatie, webon
 header_image: '/images/meditate.jpg'
 header_image_position: right
 ---
-Bij het bouwen van een minimalistische meditatie-app belandde ik diep in de wereld van scrollgedrag en animatiebibliotheken. De app was nooit bedoeld om complex te zijn. Een paar parallax-bomen, zachte ambientgeluiden en een rustige achtergrond. Maar wat begon als een klein ontwerpbesluit, werd al snel een technisch onderzoek.
+Bij het bouwen van [een minimalistische meditatie-app](/showcase/meditate-concept/) belandde ik diep in de wereld van scrollgedrag en animatiebibliotheken. De app was nooit bedoeld om complex te zijn. Een paar parallax-bomen, zachte ambientgeluiden en een rustige achtergrond. Maar wat begon als een klein ontwerpbesluit, werd al snel een technisch onderzoek.
 
 Ik wilde vloeiende scrolls. Niet het standaardgevoel van de browser. Iets zachters, vloeienders, alsof je door stil water glijdt. GSAP’s ScrollSmoother leek perfect. Tegenwoordig volledig gratis en met indrukwekkende functies. Ik had eerder met ScrollTrigger gewerkt en waardeerde hoe eenvoudig het was om scroll-gebonden animaties te maken. ScrollSmoother beloofde nog meer. Natuurlijke momentum, naadloze overgangen, betere beleving.
 

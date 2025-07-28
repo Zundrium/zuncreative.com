@@ -7,7 +7,7 @@ keywords: 'gsap, lenis, scrolltrigger, scrollsmoother, parallax, animation, webd
 header_image: '/images/meditate.jpg'
 header_image_position: right
 ---
-In building a minimalist meditation app, I found myself deep in the world of scroll behavior and animation libraries. The app was never supposed to be complicated. A few parallax trees, soft ambient sounds, and a quiet background. But what began as a small design decision quickly turned into a technical investigation.
+In building [a minimalist meditation app](/en/showcase/meditate-concept/), I found myself deep in the world of scroll behavior and animation libraries. The app was never supposed to be complicated. A few parallax trees, soft ambient sounds, and a quiet background. But what began as a small design decision quickly turned into a technical investigation.
 
 I wanted smooth scrolling. Not the default browser feel. Something softer, more fluid, like gliding through still water. GSAP’s ScrollSmoother caught my eye. It’s now entirely free, and the feature set is impressive. I had used ScrollTrigger before and appreciated how easy it made scroll-linked animations. ScrollSmoother promised that and more. Natural momentum, seamless transitions, better feel.
 

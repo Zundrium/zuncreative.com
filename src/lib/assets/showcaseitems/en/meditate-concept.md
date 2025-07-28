@@ -8,7 +8,6 @@ featured: true
 header_image: '/images/showcase/meditate-concept/02.png'
 external_url: 'https://meditate.zund.cc/en/'
 video: '/video/showcase/meditate-concept/video_mobile.mp4'
-partner_brand: 'videorbit'
 gallery:
   - '/images/showcase/meditate-concept/01.png'
   - '/images/showcase/meditate-concept/02.png'
