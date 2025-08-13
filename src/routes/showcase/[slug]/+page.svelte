@@ -48,9 +48,9 @@ $effect(() => {
 	>
 	{#if partnerBrand}
 	<div class="w-full flex items-center justify-center gap-6 pb-4">
-		<object class="size-14" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
+		<object class="size-14 invert dark:invert-0" data="/svg/logo-white.svg" type="image/svg+xml" title="Zun Creative Logo"></object>
 		<MaterialSymbolsLightClose class="size-14"/>
-		<object class="{partnerBrand.height} invert" data="{partnerBrand.url}" type="image/svg+xml" title="Zun Creative Logo"></object>
+		<object class="{partnerBrand.height} dark:invert" data="{partnerBrand.url}" type="image/svg+xml" title="Zun Creative Logo"></object>
 	</div>
 	{/if}
 		<div class="flex flex-col gap-8 xl:gap-12 ">
