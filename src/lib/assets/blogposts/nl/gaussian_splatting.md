@@ -10,7 +10,7 @@ header_image_position: right
 
 Gaussian Splatting klinkt misschien als een ingewikkelde wiskundige term, en hoewel de techniek erachter dat zeker is, is het maken van je eigen "splat" verrassend eenvoudig. Het is een fantastische manier om echte omgevingen of objecten naar de digitale wereld te brengen met een fotorealistische kwaliteit.
 
-Op [https://gs-test.pages.dev/](https://gs-test.pages.dev/) heb ik een test gemaakt, check hem vooral even! Je kan bewegen met de muis en scroll of door te swipen op je telefoon.
+Op <a href="https://gs-test.pages.dev/" target="_blank">https://gs-test.pages.dev/</a> heb ik een test gemaakt, check hem vooral even! Je kan bewegen met de muis en scroll of door te swipen op je telefoon.
 
 ### Wat is Gaussian Splatting eigenlijk?
 
