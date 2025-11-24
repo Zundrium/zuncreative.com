@@ -61,7 +61,7 @@ Nu we de beelden hebben, moeten we weten waar de camera zich bevond voor elke fo
 Ik gebruik hiervoor **RealityScan** van Unreal Engine. Deze tool werkt erg snel en is gebruiksvriendelijk.
 Na het verwerken in RealityScan exporteer je het resultaat als een **colmap** export. Zorg dat je zowel de data als de afbeeldingen meeneemt.
 
-![RealityScan](/images/realityscan.jpg)
+![RealityScan](/img/realityscan.jpg)
 
 ### Stap 3: Trainen met Brush
 
@@ -71,7 +71,7 @@ Nu komt het echte werk: het maken van de Gaussian Splat. Hiervoor gebruiken we *
 2.  Laad je colmap data in.
 3.  Start het trainen.
 
-![Brush Training](/images/brush_training.jpg)
+![Brush Training](/img/brush_training.jpg)
 
 **Performance tip:** Minder punten zorgt voor betere performance in de browser. Probeer een balans te vinden tussen kwaliteit en het aantal punten, zeker als je het op het web wilt tonen.
 
