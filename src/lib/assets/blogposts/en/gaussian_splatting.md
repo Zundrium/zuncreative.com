@@ -61,7 +61,7 @@ Now that we have the images, we need to know where the camera was for each photo
 I use **RealityScan** from Unreal Engine for this. This tool works very fast and is user-friendly.
 After processing in RealityScan, export the result as a **colmap** export. Make sure to include both the data and the images.
 
-![RealityScan](/img/realityscan.jpg)
+![RealityScan](/img/realityscan.webp)
 
 ### Step 3: Training with Brush
 
@@ -71,7 +71,7 @@ Now comes the real work: creating the Gaussian Splat. For this, we use **Brush**
 2.  Load your colmap data.
 3.  Start training.
 
-![Brush Training](/img/brush_training.jpg)
+![Brush Training](/img/brush_training.webp)
 
 **Performance tip:** Fewer points mean better performance in the browser. Try to find a balance between quality and the number of points, especially if you want to show it on the web.
 
