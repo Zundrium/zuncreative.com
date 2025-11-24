@@ -7,7 +7,7 @@ export async function load() {
 	const lang = languageTag();
 
 	const [posts, showcaseItems] = await Promise.all([
-		loadMarkdownFiles("blogposts", lang),
+		loadMarkdownFiles("blogposts", lang, 4),
 		loadMarkdownFiles("showcaseitems", lang),
 	]);
 
