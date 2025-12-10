@@ -1,19 +1,6 @@
 ---
-const currentPath = Astro.url.pathname;
-
 function getLanguageLink(lang: string) {
-    if (lang === "en") {
-        if (currentPath.startsWith("/nl")) {
-            return currentPath.replace(/^\/nl/, "") || "/";
-        }
-        return currentPath;
-    } else if (lang === "nl") {
-        if (currentPath.startsWith("/nl")) {
-            return currentPath;
-        }
-        return `/nl${currentPath === "/" ? "" : currentPath}`;
-    }
-    return "/";
+    return `${Astro.url.origin}/${lang}`;
 }
 
 const languages = ["en", "nl"];
