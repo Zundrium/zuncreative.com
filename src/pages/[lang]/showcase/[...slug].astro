@@ -1,0 +1,175 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Section from "../../../components/ui/Section.astro";
+import H1 from "../../../components/typography/H2.astro"; // Using H2 as H1 for now or create H1
+import Paragraph from "../../../components/typography/Paragraph.astro";
+import Image from "../../../components/ui/Image.astro";
+import Button from "../../../components/ui/Button.astro";
+import { getCollection } from "astro:content";
+import { getBrandByName } from "../../../lib/utils/brands";
+import MdiOpenInNew from "~icons/mdi/open-in-new";
+import MdiClose from "~icons/mdi/close";
+import { getLocale, setLocale } from "../../../paraglide/runtime.js";
+
+export async function getStaticPaths() {
+    const items = await getCollection("showcase");
+    return items
+        .map((item) => {
+            const [lang, ...slugParts] = item.slug.split("/");
+            const slug = slugParts.join("/");
+            if (lang && slug) {
+                return {
+                    params: { lang, slug },
+                    props: { item },
+                };
+            }
+            return null;
+        })
+        .filter((path) => path !== null);
+}
+
+const { item } = Astro.props;
+const { lang } = Astro.params;
+if (lang == "en" || lang == "nl") {
+    setLocale(lang);
+}
+
+const { Content } = await item.render();
+
+const partnerBrand = item.data.partner_brand
+    ? getBrandByName(item.data.partner_brand)
+    : undefined;
+---
+
+<Layout
+    title={`${item.data.title} - Zun Creative`}
+    description={item.data.description}
+    image={item.data.header_image?.src}
+>
+    <Section class="flex flex-col gap-4 pt-12 text-black dark:text-white">
+        {
+            partnerBrand && (
+                <div class="w-full flex items-center justify-center gap-6 pb-4">
+                    <object
+                        class="size-14 invert dark:invert-0"
+                        data="/svg/logo-white.svg"
+                        type="image/svg+xml"
+                        title="Zun Creative Logo"
+                    />
+                    <MdiClose />
+                    <object
+                        class={`${partnerBrand.height} dark:invert`}
+                        data={partnerBrand.url}
+                        type="image/svg+xml"
+                        title={`${partnerBrand.name} Logo`}
+                    />
+                </div>
+            )
+        }
+
+        <div class="flex flex-col gap-8 xl:gap-12">
+            <H1 class="text-center"><i>{item.data.title}</i></H1>
+
+            <div class="flex justify-between flex-row gap-4 flex-wrap">
+                <div
+                    class="flex gap-4 lg:gap-8 justify-center items-center flex-wrap"
+                >
+                    {
+                        item.data.keywords.map((keyword) => (
+                            <Button
+                                style="line"
+                                ariaLabel={`Keyword ${keyword}`}
+                                href={
+                                    getLocale() === "en"
+                                        ? "/#showcase"
+                                        : `/${getLocale()}/#showcase`
+                                }
+                            >
+                                {keyword.toUpperCase()}
+                            </Button>
+                        ))
+                    }
+                </div>
+
+                {
+                    item.data.external_url && (
+                        <Button
+                            style="line"
+                            ariaLabel={`Go to ${item.data.external_url}`}
+                            href={item.data.external_url}
+                            target="_blank"
+                            iconRight={MdiOpenInNew}
+                        >
+                            <span class="hidden md:inline">Open</span>
+                        </Button>
+                    )
+                }
+            </div>
+
+            {
+                item.data.video && item.data.video.includes("_mobile") ? (
+                    <div class="flex flex-col md:flex-row items-start gap-4 lg:gap-8 xl:gap-12 w-full">
+                        <video
+                            class="object-cover overflow-hidden w-full md:w-1/3"
+                            autoplay
+                            loop
+                            controls
+                            muted
+                            preload="none"
+                            playsinline
+                        >
+                            <source src={item.data.video} type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                        <article class="prose xl:prose-xl dark:prose-invert w-full md:w-2/3 max-w-full prose-strong:font-extralight">
+                            <Content />
+                        </article>
+                    </div>
+                ) : (
+                    <>
+                        <article class="w-full max-w-full prose lg:prose-xl dark:prose-invert text-center prose-strong:font-extralight mx-auto">
+                            <Content />
+                        </article>
+                        {item.data.video && (
+                            <div class="flex items-center justify-center">
+                                <video
+                                    class="w-full h-full bg-gray-100 dark:bg-gray-900"
+                                    autoplay
+                                    loop
+                                    muted
+                                    controls
+                                    preload="none"
+                                    playsinline
+                                >
+                                    <source
+                                        src={item.data.video}
+                                        type="video/mp4"
+                                    />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        )}
+                    </>
+                )
+            }
+        </div>
+
+        {
+            item.data.gallery && (
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-12">
+                    {item.data.gallery.map((galleryImage) => (
+                        <div class="w-full h-full">
+                            <Image
+                                parallax
+                                src={galleryImage}
+                                alt={item.data.title}
+                                class="object-cover w-full h-full overflow-hidden"
+                                sizes="(min-width: 1920px) 1920px, (min-width: 1280px) 1280px, (min-width: 768px) 480px"
+                            />
+                        </div>
+                    ))}
+                </div>
+            )
+        }
+    </Section>
+</Layout>

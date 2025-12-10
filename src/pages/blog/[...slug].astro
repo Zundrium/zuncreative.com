@@ -1,0 +1,88 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Section from "../../components/ui/Section.astro";
+import H1 from "../../components/typography/H2.astro"; // Using H2 as H1
+import Paragraph from "../../components/typography/Paragraph.astro";
+import Image from "../../components/ui/Image.astro";
+import ScrollIndicator from "../../components/ui/ScrollIndicator.astro";
+import { getCollection } from "astro:content";
+import { formatDate } from "../../lib/utils/formatDate";
+import { m } from "../../lib/i18n";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts
+        .filter((post) => post.slug.startsWith("en/"))
+        .map((post) => ({
+            params: { slug: post.slug.replace(/^en\//, "") },
+            props: { post },
+        }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout
+    title={`${post.data.title} - Zun Creative`}
+    description={post.data.description}
+    image={post.data.header_image?.src}
+>
+    <section
+        id="hero"
+        style="clip-path: inset(0 0 0 0); backface-visibility: hidden;"
+        class="relative px-6 w-full bg-slate-500 flex flex-col gap-8 items-center justify-end pt-24 lg:pt-16 xl:pt-20 pb-32 h-svh"
+    >
+        {
+            post.data.header_image && (
+                <Image
+                    src={post.data.header_image}
+                    alt={post.data.title}
+                    class="absolute top-0 left-0 right-0 bottom-0 w-full z-0 h-full object-cover fixed"
+                />
+            )
+        }
+
+        <div
+            class="absolute top-0 left-0 right-0 bottom-0 bg-black/40 w-full h-full z-10"
+        >
+        </div>
+
+        <div class="container relative z-20">
+            <div class="w-full md:w-2/3">
+                <hgroup class="flex flex-col gap-2 lg:gap-4 text-white w-full">
+                    <H1>{post.data.title}</H1>
+                    <Paragraph size="xl" class="opacity-80">
+                        {post.data.description}
+                    </Paragraph>
+                    {
+                        post.data.modify_date && (
+                            <div class="flex flex-col lg:flex-row gap-2 lg:gap-6 lg:items-center opacity-60">
+                                <i>Geschreven door Sem Verbraak</i>
+                                <span class="hidden lg:inline">|</span>
+                                <span>
+                                    <i>{m.lastModifiedOn()}</i>
+                                    <i>{formatDate(post.data.modify_date)}</i>
+                                </span>
+                                <span class="hidden lg:inline">|</span>
+                                <i>
+                                    {m.publishedOn()}{" "}
+                                    {formatDate(post.data.publish_date)}
+                                </i>
+                            </div>
+                        )
+                    }
+                </hgroup>
+            </div>
+        </div>
+
+        <!-- scroll button -->
+        <ScrollIndicator />
+    </section>
+
+    <article
+        class="py-12 px-6 prose lg:prose-xl dark:prose-invert mx-auto prose-strong:font-extralight max-w-full md:max-w-prose prose-pre:pe-0 prose-pre:ps-0"
+    >
+        <Content />
+    </article>
+</Layout>

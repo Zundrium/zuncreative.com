@@ -1,0 +1,93 @@
+---
+import H2 from "./H2.astro";
+
+interface Props {
+    centered?: boolean;
+    title: string;
+    subtitle: string;
+    href?: string;
+    class?: string;
+}
+
+const {
+    centered = false,
+    title,
+    subtitle,
+    href,
+    class: className = "",
+} = Astro.props;
+---
+
+<hgroup
+    class={`relative flex flex-col gap-2 ${className} ${centered ? "text-center" : ""} section-heading`}
+>
+    <div
+        class="flex flex-row w-full gap-8 items-center justify-center subtitle-wrapper opacity-0"
+    >
+        <span class="uppercase text-sm text-neutral-700 dark:text-neutral-300">
+            {subtitle}
+        </span>
+    </div>
+
+    {
+        href ? (
+            <a href={href}>
+                <div class="title-wrapper opacity-0 translate-y-8">
+                    <H2>
+                        <Fragment set:html={title} />
+                    </H2>
+                </div>
+            </a>
+        ) : (
+            <div class="title-wrapper opacity-0 translate-y-8">
+                <H2 class="transition-transform duration-700">
+                    <Fragment set:html={title} />
+                </H2>
+            </div>
+        )
+    }
+</hgroup>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    function initSectionHeadings() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const headings = document.querySelectorAll(".section-heading");
+
+        headings.forEach((heading) => {
+            const subtitle = heading.querySelector(".subtitle-wrapper");
+            const title = heading.querySelector(".title-wrapper");
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: heading,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse",
+                },
+            });
+
+            if (subtitle) {
+                tl.to(subtitle, {
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power1.out",
+                });
+            }
+
+            if (title) {
+                tl.to(
+                    title,
+                    { y: 0, opacity: 1, duration: 1, ease: "power2.out" },
+                    "-=0.5",
+                );
+            }
+        });
+    }
+
+    initSectionHeadings();
+    document.addEventListener("astro:page-load", initSectionHeadings);
+</script>

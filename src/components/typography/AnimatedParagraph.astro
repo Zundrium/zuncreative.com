@@ -1,0 +1,52 @@
+---
+interface Props {
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+    class?: string;
+}
+
+const { size = "md", class: className = "" } = Astro.props;
+
+const sizeStyles = {
+    xs: "text-xs lg:text-xs/3 2xl:text-xs/4",
+    sm: "text-xs/4 lg:text-sm/5 2xl:text-base/6",
+    md: "text-base/6 lg:text-lg/7",
+    lg: "text-lg/7 lg:text-lg/8",
+    xl: "text-lg/7 lg:text-xl/8 xl:text-2xl/9",
+    "2xl": "text-xl/9 lg:text-2xl/10 xl:text-3xl/11",
+};
+---
+
+<p
+    class={`${sizeStyles[size]} ${className} animated-paragraph opacity-0 translate-y-8`}
+>
+    <slot />
+</p>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    function initAnimatedParagraphs() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const paragraphs = document.querySelectorAll(".animated-paragraph");
+
+        paragraphs.forEach((p) => {
+            gsap.to(p, {
+                scrollTrigger: {
+                    trigger: p,
+                    start: "top 80%",
+                    end: "bottom 20%",
+                    toggleActions: "play none none reverse",
+                },
+                duration: 1,
+                y: 0,
+                opacity: 1,
+                ease: "power2.out",
+            });
+        });
+    }
+
+    initAnimatedParagraphs();
+    document.addEventListener("astro:page-load", initAnimatedParagraphs);
+</script>

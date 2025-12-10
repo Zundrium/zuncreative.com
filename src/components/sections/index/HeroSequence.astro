@@ -1,0 +1,249 @@
+---
+import HeroWave3DCanvas from "../../babylon/HeroWave3DCanvas.astro";
+import H2 from "../../typography/H2.astro";
+import Paragraph from "../../typography/Paragraph.astro";
+import Section from "../../ui/Section.astro";
+import { m } from "../../../lib/i18n";
+
+const slides = [
+    {
+        title: m.hero_sequence_slide1_title(),
+        description: m.hero_sequence_slide1_description(),
+    },
+    {
+        title: m.hero_sequence_slide2_title(),
+        description: m.hero_sequence_slide2_description(),
+    },
+    {
+        title: m.hero_sequence_slide3_title(),
+        description: m.hero_sequence_slide3_description(),
+    },
+];
+---
+
+<div id="sequence-container" class="w-full relative h-[3000px] md:h-[4000px]">
+    <Section
+        id="scroll-sequence"
+        containerClasses="cursor-scroll sticky top-0 h-dvh overflow-x-hidden pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32"
+        class="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16"
+    >
+        <div class="w-full h-full absolute inset-0" id="sequence-box">
+            <HeroWave3DCanvas />
+        </div>
+
+        <!-- bottom gradient overlay -->
+        <div
+            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-white to-transparent dark:from-black dark:to-transparent"
+        >
+        </div>
+
+        <div class="pointer-events-none absolute inset-0 select-none">
+            <!-- scroll container -->
+            <div
+                id="scroll-container-element"
+                class="h-full w-auto flex overflow-x-hidden"
+            >
+                {
+                    slides.map((slide, index) => (
+                        <div class="flex flex-none flex-col justify-end gap-12 md:gap-14 lg:gap-16 xl:gap-24 h-full w-dvw p-8 lg:p-12 xl:p-16 2xl:p-24">
+                            <div
+                                class="slide-element flex flex-col w-full md:w-1/2 xl:w-1/3 gap-6 opacity-0 -translate-x-12 transition-all duration-500"
+                                data-index={index}
+                            >
+                                <H2 class="text-black dark:text-white">
+                                    <Fragment set:html={slide.title} />
+                                </H2>
+                                <Paragraph
+                                    size="xl"
+                                    class="text-black/80 dark:text-white/80"
+                                >
+                                    <Fragment set:html={slide.description} />
+                                </Paragraph>
+                            </div>
+                            <div class="w-full h-1 md:h-[2px] bg-black/20 dark:bg-white/20">
+                                <div
+                                    class="progress-bar h-full bg-black dark:bg-white"
+                                    style="width: 0%"
+                                    data-index={index}
+                                />
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </Section>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+
+    function initHeroSequence() {
+        const sequenceContainer = document.getElementById("sequence-container");
+        const scrollContainerElement = document.getElementById(
+            "scroll-container-element",
+        );
+        const slideElements = document.querySelectorAll(".slide-element");
+        const progressBars = document.querySelectorAll(".progress-bar");
+        const sequenceBox = document.getElementById("sequence-box");
+
+        if (!sequenceContainer || !scrollContainerElement || !sequenceBox)
+            return;
+
+        let minScrollY = sequenceContainer.offsetTop;
+        let maxScrollY =
+            minScrollY +
+            sequenceContainer.offsetHeight -
+            sequenceBox.offsetHeight;
+        let sequenceItemsStates = [false, false, false];
+        let currentScrollValue = 0;
+
+        const animateScrollContainer = (scrollValue: number) => {
+            currentScrollValue = scrollValue;
+            gsap.to(scrollContainerElement, {
+                scrollLeft: scrollValue * scrollContainerElement.scrollWidth,
+                duration: 1,
+                ease: "power.out",
+            });
+        };
+
+        const sequence = [
+            {
+                minY: -0.5,
+                maxY: 1 / 3,
+                onActive: () => {
+                    animateScrollContainer(0);
+                    slideElements[0].classList.add(
+                        "opacity-100",
+                        "!translate-x-0",
+                        "transition-delay-0",
+                    );
+                },
+                onInactive: () => {
+                    slideElements[0].classList.remove(
+                        "opacity-100",
+                        "!translate-x-0",
+                    );
+                },
+            },
+            {
+                minY: 1 / 3,
+                maxY: 2 / 3,
+                onActive: () => {
+                    slideElements[1].classList.add(
+                        "opacity-100",
+                        "!translate-x-0",
+                    );
+                    animateScrollContainer(1 / 3);
+                },
+                onInactive: () => {
+                    slideElements[1].classList.remove(
+                        "opacity-100",
+                        "!translate-x-0",
+                    );
+                },
+            },
+            {
+                minY: 2 / 3,
+                maxY: 1.5,
+                onActive: () => {
+                    slideElements[2].classList.add(
+                        "opacity-100",
+                        "!translate-x-0",
+                    );
+                    animateScrollContainer(2 / 3);
+                },
+                onInactive: () => {
+                    slideElements[2].classList.remove(
+                        "opacity-100",
+                        "!translate-x-0",
+                    );
+                },
+            },
+        ];
+
+        function clamp(value: number, min: number, max: number): number {
+            return Math.min(Math.max(value, min), max);
+        }
+
+        function handleScroll() {
+            const scrollY = window.scrollY - minScrollY;
+            const normalizedScrollY = clamp(
+                scrollY / (maxScrollY - minScrollY),
+                0,
+                1,
+            );
+            const newTarget = normalizedScrollY * 100;
+
+            // Update progress bars
+            progressBars.forEach((bar, index) => {
+                const width = Math.max(
+                    0,
+                    Math.min(100, (newTarget - index * 33.33) * 3),
+                );
+                (bar as HTMLElement).style.width = `${width}%`;
+            });
+
+            // Update Babylon scene via global function
+            if ((window as any).heroWaveUpdate) {
+                (window as any).heroWaveUpdate(normalizedScrollY * 5);
+            }
+
+            sequence.forEach((item, index) => {
+                if (
+                    normalizedScrollY >= item.minY &&
+                    normalizedScrollY <= item.maxY
+                ) {
+                    if (!sequenceItemsStates[index]) {
+                        item.onActive();
+                        sequenceItemsStates[index] = true;
+                    }
+                } else {
+                    if (sequenceItemsStates[index]) {
+                        item.onInactive();
+                        sequenceItemsStates[index] = false;
+                    }
+                }
+            });
+        }
+
+        // Initialize
+        minScrollY = sequenceContainer.offsetTop;
+        maxScrollY =
+            sequenceContainer.offsetTop +
+            sequenceContainer.offsetHeight -
+            sequenceBox.offsetHeight;
+
+        window.addEventListener("resize", () => {
+            animateScrollContainer(currentScrollValue);
+            minScrollY = sequenceContainer.offsetTop;
+            maxScrollY =
+                sequenceContainer.offsetTop +
+                sequenceContainer.offsetHeight -
+                sequenceBox!.offsetHeight;
+        });
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        window.addEventListener("scroll", handleScroll, {
+                            passive: true,
+                        });
+                    } else {
+                        window.removeEventListener("scroll", handleScroll);
+                    }
+                });
+            },
+            {
+                threshold: 0,
+                rootMargin: "0px",
+            },
+        );
+        observer.observe(sequenceContainer);
+        handleScroll();
+    }
+
+    initHeroSequence();
+    document.addEventListener("astro:page-load", initHeroSequence);
+</script>

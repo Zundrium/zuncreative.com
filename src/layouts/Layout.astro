@@ -1,0 +1,100 @@
+---
+import "../styles/global.css";
+import "@fontsource-variable/noto-serif";
+import "@fontsource-variable/noto-sans";
+import "@fontsource-variable/noto-sans-display";
+import "@fontsource-variable/noto-serif-display";
+
+import Navbar from "../components/ui/Navbar.astro";
+import Footer from "../components/ui/Footer.astro";
+
+interface Props {
+    title: string;
+    description?: string;
+    keywords?: string;
+    image?: string;
+}
+
+const {
+    title,
+    description = "Zun Creative Portfolio",
+    keywords,
+    image,
+} = Astro.props;
+---
+
+<!doctype html>
+<html
+    lang="en"
+    class="bg-white dark:bg-black antialiased overscroll-none transition-colors duration-300"
+>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content={description} />
+        {keywords && <meta name="keywords" content={keywords} />}
+        <meta name="viewport" content="width=device-width" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        {image && <meta property="og:image" content={image} />}
+        <title>{title}</title>
+        <script is:inline>
+            // Theme toggle logic
+            const theme = (() => {
+                if (
+                    typeof localStorage !== "undefined" &&
+                    localStorage.getItem("theme")
+                ) {
+                    return localStorage.getItem("theme");
+                }
+                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    return "dark";
+                }
+                return "light";
+            })();
+
+            if (theme === "dark") {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        </script>
+    </head>
+    <body>
+        <Navbar />
+        <slot />
+        <Footer />
+
+        <script>
+            import { initLenis } from "../lib/utils/lenis";
+            import { CircleCursor } from "../lib/utils/circleCursor";
+
+            // Initialize Lenis
+            initLenis();
+
+            // Initialize Cursor on non-touch devices
+            const isTouch =
+                "ontouchstart" in window || navigator.maxTouchPoints > 0;
+            if (!isTouch) {
+                new CircleCursor();
+            }
+        </script>
+    </body>
+</html>

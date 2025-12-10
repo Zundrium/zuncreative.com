@@ -1,0 +1,41 @@
+---
+const currentPath = Astro.url.pathname;
+
+function getLanguageLink(lang: string) {
+    if (lang === "en") {
+        if (currentPath.startsWith("/nl")) {
+            return currentPath.replace(/^\/nl/, "") || "/";
+        }
+        return currentPath;
+    } else if (lang === "nl") {
+        if (currentPath.startsWith("/nl")) {
+            return currentPath;
+        }
+        return `/nl${currentPath === "/" ? "" : currentPath}`;
+    }
+    return "/";
+}
+
+const languages = ["en", "nl"];
+---
+
+<ul class="flex flex-row gap-6 lg:gap-4">
+    {
+        languages.map((lang) => (
+            <li>
+                <a
+                    class="cursor-pointer"
+                    href={getLanguageLink(lang)}
+                    hreflang={lang}
+                    target="_self"
+                >
+                    <img
+                        src={`/svg/flags/${lang}.svg`}
+                        alt={`${lang} flag`}
+                        class="w-6 lg:w-4 lg:h-3"
+                    />
+                </a>
+            </li>
+        ))
+    }
+</ul>

@@ -1,0 +1,161 @@
+---
+import MdiArrowUpRightThick from "~icons/mdi/arrow-up-right-thick";
+import H3 from "../../typography/H3.astro";
+import Paragraph from "../../typography/Paragraph.astro";
+import SectionHeading from "../../typography/SectionHeading.astro";
+import Button from "../../ui/Button.astro";
+import Image from "../../ui/Image.astro";
+import Section from "../../ui/Section.astro";
+import { getShowcaseUrl } from "../../../lib/utils/url";
+import { showcaseItemTags } from "../../../lib/utils/types/showcaseItem";
+import { m } from "../../../lib/i18n";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    showcaseItems: CollectionEntry<"showcase">[];
+}
+
+const { showcaseItems } = Astro.props;
+
+// We need to pass the items to the client script for filtering
+const serializedItems = JSON.stringify(
+    showcaseItems.map((item) => ({
+        slug: item.slug,
+        title: item.data.title,
+        header_image: item.data.header_image,
+        keywords: item.data.keywords,
+        featured: item.data.featured,
+        mobile: item.data.mobile,
+    })),
+);
+---
+
+<Section
+    id="showcase"
+    class="flex flex-col gap-4 md:gap-6 lg:gap-12 justify-center"
+>
+    <SectionHeading
+        centered
+        title={m.showcase_section_title()}
+        subtitle={m.showcase_section_subtitle()}
+    />
+
+    <div
+        class="flex gap-2 items-center w-full justify-center"
+        id="showcase-filters"
+    >
+        {
+            showcaseItemTags.map((tag) => (
+                <Button
+                    style="text"
+                    size="sm"
+                    ariaLabel={m.showcase_aria_filter_by_tag({ tag })}
+                    class="filter-btn"
+                    data-tag={tag}
+                >
+                    {tag}
+                </Button>
+            ))
+        }
+        <Button
+            style="text"
+            size="sm"
+            ariaLabel={m.showcase_aria_show_all()}
+            class="filter-btn active"
+            data-tag="all"
+        >
+            {m.showcase_filter_all()}
+        </Button>
+    </div>
+
+    <div
+        id="showcase-grid"
+        class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 auto-rows-[12rem] md:auto-rows-[14rem] lg:auto-rows-[20rem] gap-4 grid-flow-row-dense"
+        data-items={serializedItems}
+    >
+        <!-- Items will be rendered here by client script initially or hydration -->
+        {
+            showcaseItems.map((item) => {
+                const baseClasses =
+                    "flex flex-col cursor-pointer overflow-hidden relative showcase-item viewport-fade opacity-0";
+                let classes = baseClasses;
+                if (item.data.featured) classes += " row-span-2 col-span-2";
+                else if (item.data.mobile) classes += " row-span-2";
+                else classes += " col-span-2";
+
+                return (
+                    <a
+                        href={getShowcaseUrl(item.slug)}
+                        class={classes}
+                        data-cursor-icon="fullscreen"
+                        data-keywords={item.data.keywords
+                            .join(",")
+                            .toLowerCase()}
+                    >
+                        <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-black to-transparent opacity-20 dark:opacity-50 z-1" />
+                        {item.data.header_image && (
+                            <Image
+                                parallax
+                                src={item.data.header_image}
+                                alt={`thumbnail for ${item.data.title}`}
+                                class="w-full h-full transition-transform hover:scale-200 duration-300"
+                                loading="lazy"
+                                thumb
+                            />
+                        )}
+                        <span class="absolute rounded-tr-4xl bg-white dark:bg-black text-black dark:text-white font-medium px-8 py-4 left-0 bottom-0 z-10">
+                            {item.data.title}
+                        </span>
+                    </a>
+                );
+            })
+        }
+    </div>
+</Section>
+
+<script>
+    import { viewportFade } from "../../../lib/utils/viewportSwitchClass";
+
+    function initShowcase() {
+        const grid = document.getElementById("showcase-grid");
+        const filterBtns = document.querySelectorAll(".filter-btn");
+
+        if (!grid) return;
+
+        // Initialize animations
+        const items = grid.querySelectorAll(".viewport-fade");
+        items.forEach((el) => {
+            viewportFade(el as HTMLElement);
+        });
+
+        // Filter logic
+        filterBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const tag = btn.getAttribute("data-tag");
+
+                // Update active state
+                filterBtns.forEach((b) => b.classList.remove("active")); // This might need custom styling support in Button component
+                // For now assuming Button component handles click events but we can't easily toggle classes inside it from here without deeper access or modifying Button.
+                // Actually Button.astro renders a <button> or <a>. We can target it.
+
+                // Filter items
+                const showcaseItems = grid.querySelectorAll(".showcase-item");
+                showcaseItems.forEach((item) => {
+                    const keywords =
+                        (item as HTMLElement).dataset.keywords || "";
+                    if (
+                        tag === "all" ||
+                        keywords.includes(tag!.toLowerCase())
+                    ) {
+                        (item as HTMLElement).style.display = "flex";
+                    } else {
+                        (item as HTMLElement).style.display = "none";
+                    }
+                });
+            });
+        });
+    }
+
+    initShowcase();
+    document.addEventListener("astro:page-load", initShowcase);
+</script>

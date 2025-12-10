@@ -1,0 +1,75 @@
+---
+import { Image as AstroImage, getImage } from "astro:assets";
+
+interface Props {
+    src: ImageMetadata;
+    alt?: string;
+    class?: string;
+    parallax?: boolean;
+    loading?: "lazy" | "eager";
+    sizes?: string;
+    thumb?: boolean;
+}
+
+const {
+    src,
+    alt = "",
+    class: className = "",
+    parallax = false,
+    loading = "lazy",
+    sizes,
+    thumb = false,
+} = Astro.props;
+
+const thumbSizes =
+    "(min-width: 1280px) 400px, (min-width: 768px) 300px, (min-width: 640px) 250px";
+
+const imageSizes = sizes || (thumb ? thumbSizes : undefined);
+const imageWidths = thumb ? [250, 300, 400, 640] : undefined;
+
+const lqip = await getImage({
+    src,
+    width: 20,
+    format: "webp",
+    quality: 20,
+});
+---
+
+<div class={className}>
+    <div
+        class={`w-full h-full relative overflow-hidden ${parallax ? "parallax-container" : ""}`}
+    >
+        <img
+            src={lqip.src}
+            alt=""
+            class="absolute inset-0 w-full h-full object-cover blur-xl scale-110"
+            aria-hidden="true"
+        />
+        <AstroImage
+            src={src}
+            alt={alt}
+            class="relative w-full h-full object-cover z-10"
+            loading={loading}
+            sizes={imageSizes}
+            widths={imageWidths}
+        />
+    </div>
+</div>
+
+<script>
+    import { viewportParallaxImage } from "../../lib/utils/viewportSwitchClass";
+
+    function initParallaxImages() {
+        const containers = document.querySelectorAll(".parallax-container");
+
+        containers.forEach((container) => {
+            const img = container.querySelector("img");
+            if (img) {
+                viewportParallaxImage(img as HTMLElement);
+            }
+        });
+    }
+
+    initParallaxImages();
+    document.addEventListener("astro:page-load", initParallaxImages);
+</script>
