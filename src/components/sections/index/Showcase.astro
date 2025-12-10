@@ -86,24 +86,24 @@ const serializedItems = JSON.stringify(
                 return (
                     <a
                         href={getShowcaseUrl(item.slug)}
-                        class={classes}
+                        class={`${classes} group`}
                         data-cursor-icon="fullscreen"
                         data-keywords={item.data.keywords
                             .join(",")
                             .toLowerCase()}
                     >
-                        <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-black to-transparent opacity-20 dark:opacity-50 z-1" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-black to-transparent transition-opacity duration-300 opacity-20 dark:opacity-50 z-20 group-hover:opacity-0 pointer-events-none" />
                         {item.data.header_image && (
                             <Image
                                 parallax
                                 src={item.data.header_image}
                                 alt={`thumbnail for ${item.data.title}`}
-                                class="w-full h-full transition-transform hover:scale-200 duration-300"
+                                class="w-full h-full transition-transform group-hover:scale-110 duration-300"
                                 loading="lazy"
                                 thumb
                             />
                         )}
-                        <span class="absolute rounded-tr-4xl bg-white dark:bg-black text-black dark:text-white font-medium px-8 py-4 left-0 bottom-0 z-10">
+                        <span class="absolute rounded-tr-4xl bg-white dark:bg-black text-black dark:text-white font-medium px-8 py-4 left-0 bottom-0 z-30">
                             {item.data.title}
                         </span>
                     </a>
