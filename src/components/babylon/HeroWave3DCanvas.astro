@@ -31,9 +31,9 @@
 ></canvas>
 
 <script>
-    import { HeroWave3D } from "../../lib/babylon/HeroWave3D";
+    import { HeroWave3DGPU } from "../../lib/babylon/HeroWave3DGPU";
 
-    let heroWave: HeroWave3D | null = null;
+    let heroWave: HeroWave3DGPU | null = null;
 
     async function initHeroWave() {
         const canvas = document.getElementById(
@@ -43,7 +43,7 @@
 
         if (!canvas) return;
 
-        heroWave = new HeroWave3D();
+        heroWave = new HeroWave3DGPU();
         heroWave.onReady = () => {
             if (spinner) {
                 spinner.classList.add("opacity-0", "invisible");

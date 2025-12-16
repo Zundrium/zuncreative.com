@@ -17,7 +17,6 @@
     "@fontsource-variable/noto-sans-display": "^5.2.10",
     "@fontsource-variable/noto-serif": "^5.2.9",
     "@fontsource-variable/noto-serif-display": "^5.2.9",
-    "@inlang/paraglide-astro": "^0.4.1",
     "@inlang/paraglide-js": "^2.6.0",
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.16.4",
