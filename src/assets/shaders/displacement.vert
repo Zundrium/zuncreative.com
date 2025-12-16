@@ -37,12 +37,11 @@ uniform vec3 topColor;
 uniform vec3 bottomColor;
 uniform float minY;
 uniform float maxY;
-uniform float pointSize;
-
 // Varyings
 varying vec3 vColor;
 varying vec3 vWorldPos;
 varying float vDisplacement;
+varying vec2 vUV;
 
 // Simple pseudo-random function for GPU
 float rand(vec2 co){
@@ -51,6 +50,9 @@ float rand(vec2 co){
 
 void main(void) {
     vec3 displacedPosition = position;
+    
+    // Pass UV to fragment shader for dot pattern
+    vUV = uv;
     
     // Calculate displacement from first source
     float displacement1 = 0.0;
@@ -101,14 +103,12 @@ void main(void) {
     displacement *= displacementScale;
     displacedPosition.y = displacement;
     vDisplacement = displacement;
-    vDisplacement = displacement;
 
     // Calculate world position for fog
     vWorldPos = (world * vec4(displacedPosition, 1.0)).xyz;
     
     // Transform position
     gl_Position = worldViewProjection * vec4(displacedPosition, 1.0);
-    gl_PointSize = pointSize;
 
     // Calculate color based on height
     float currentMaxY = maxY;

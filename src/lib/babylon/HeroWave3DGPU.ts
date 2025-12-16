@@ -60,9 +60,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     private subdivisions = 200;
     private mobileSubdivisions = 100;
 
-    // Point size for dot rendering
-    private particleSize: number = 6;
-    private mobileParticleSize: number = 6;
+    // Dot size
+    private dotSize: number = 1;
 
     // Displacement configurations (matches original textureSamplers)
     private displacementConfigs: DisplacementConfig[] = [];
@@ -71,13 +70,13 @@ export class HeroWave3DGPU implements IBabylonGraphics {
 
     // Fog parameters
     private zFogStartMin: number = 2.0;
-    private zFogStartMax: number = 1.0;
-    private zFogEndMin: number = -1.0;
+    private zFogStartMax: number = 1.5;
+    private zFogEndMin: number = -1.5;
     private zFogEndMax: number = -2.0;
 
     // Wave effect parameters
     private waveFrequency: number = 5.0;
-    private waveIntensity: number = -0.15;
+    private waveIntensity: number = 0;
     private waveTimeSpeed: number = 3.0;
 
     // Texture scroll speed multiplier
@@ -111,8 +110,10 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 intensity: 1,
                 speed: new Vector2(0, 0),
                 textureScale: 1,
-                topColor: new Color3(1, 0.5, 0),
-                bottomColor: new Color3(0.5, 0, 1),
+                topColor: new Color3(1, 1, 1),
+                //topColor: new Color3(1, 0.5, 0),
+                bottomColor: new Color3(1, 1, 1),
+                //bottomColor: new Color3(0.5, 0, 1),
                 waveFrequencyX: 8,
                 waveFrequencyZ: 15,
                 waveSpeed: 0.3,
@@ -225,7 +226,6 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "bottomColor",
                     "minY",
                     "maxY",
-                    "pointSize",
                     // Fragment shader uniforms
                     "waveFrequency",
                     "waveIntensity",
@@ -233,17 +233,18 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "zFogStartMax",
                     "zFogEndMin",
                     "zFogEndMax",
+                    // Dot texture uniforms
+                    "dotGridSize",
+                    "dotRadius",
                 ],
-                samplers: ["displacementMap", "displacementMap2"],
-                needAlphaBlending: true,
+                samplers: ["displacementMap", "displacementMap2", "dotTexture"],
+                needAlphaBlending: false,
             }
         );
 
-        // Set initial values - enable point cloud rendering
-        this.shaderMaterial.pointsCloud = true;
+        // Set initial values - use regular mesh rendering with dot texture
+        this.shaderMaterial.pointsCloud = false;
         this.shaderMaterial.backFaceCulling = false;
-        this.shaderMaterial.disableDepthWrite = true;
-        this.shaderMaterial.alphaMode = Engine.ALPHA_SCREENMODE;
 
         // Set fog parameters
         this.shaderMaterial.setFloat("waveFrequency", this.waveFrequency);
@@ -260,7 +261,12 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         this.shaderMaterial.setFloat("time", 0);
         this.shaderMaterial.setFloat("timeSpeedMultiplier", this.timeSpeedMultiplier);
         this.shaderMaterial.setFloat("textureBlendFactor", 0);
-        this.shaderMaterial.setFloat("pointSize", this.particleSize);
+
+        // Dot texture parameters - dotGridSize controls how many dots across the mesh
+        // dotRadius controls the size of each dot (0-0.5 where 0.5 fills the cell)
+        const dotGridSize = getScreenState() == "sm" ? 100.0 : 200.0;
+        this.shaderMaterial.setFloat("dotGridSize", dotGridSize);
+        this.shaderMaterial.setFloat("dotRadius", this.dotSize);
 
         // Create dummy 1x1 white textures as default for both displacement maps
         // This prevents shader errors when using procedural noise mode
@@ -401,7 +407,6 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         if (getScreenState() == "sm") {
             this.matrixWidth = this.mobileMatrixWidth;
             this.subdivisions = this.mobileSubdivisions;
-            this.particleSize = this.mobileParticleSize;
         }
 
         // Setup configurations

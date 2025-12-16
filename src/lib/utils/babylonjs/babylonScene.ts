@@ -47,7 +47,7 @@ export class BabylonScene {
 
     private delayedInit(): void {
         this.initializing = false;
-        this.engine = new Engine(this.renderCanvas);
+        this.engine = new Engine(this.renderCanvas, true);
 
         //this.engine = new Engine(this.renderCanvas, true, {
         //	disableWebGL2Support: true,
