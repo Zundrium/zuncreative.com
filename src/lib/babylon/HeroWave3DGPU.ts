@@ -108,10 +108,13 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         const isDark = document.documentElement.classList.contains("dark");
         const color = isDark ? new Color3(0, 0, 0) : new Color3(1, 1, 1);
         const clearColor = isDark ? new Color4(0, 0, 0, 1) : new Color4(1, 1, 1, 1);
+        // rimintensity
+        const rimIntensity = isDark ? 0.75 : 0.0;
 
         this.shaderMaterial?.setColor3("fogColor", color);
         this.babylonScene.scene.clearColor = clearColor;
         this.babylonScene.scene.ambientColor = color;
+        this.shaderMaterial?.setFloat("rimIntensity", rimIntensity);
     }
 
     /**
@@ -277,8 +280,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
 
 
         // Rim config - adjust these to taste
-        this.shaderMaterial.setFloat("rimPower", 3.0);
-        this.shaderMaterial.setFloat("rimIntensity", 0.25);
+        this.shaderMaterial.setFloat("rimPower", 3.5);
+        this.shaderMaterial.setFloat("rimIntensity", 0.75);
 
         // Set fog parameters
         this.shaderMaterial.setFloat("waveFrequency", this.waveFrequency);
