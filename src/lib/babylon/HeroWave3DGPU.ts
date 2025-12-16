@@ -188,6 +188,18 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     }
 
     /**
+     * Preload all textures in the configuration to avoid stuttering when switching
+     */
+    private preloadAllTextures(scene: Scene): void {
+        console.log("Preloading all displacement textures...");
+        this.displacementConfigs.forEach((config) => {
+            if (config.type === "texture" && config.textureUrl) {
+                this.getTexture(config.textureUrl, scene);
+            }
+        });
+    }
+
+    /**
      * Get or create a cached texture
      */
     private getTexture(url: string, scene: Scene): Texture {
@@ -444,6 +456,9 @@ export class HeroWave3DGPU implements IBabylonGraphics {
 
         // Setup configurations
         this.setupDisplacementConfigs();
+
+        // Preload all textures
+        this.preloadAllTextures(this.babylonScene.scene);
 
         // Setup shader and mesh
         await this.setupShaderMaterial(this.babylonScene.scene);
