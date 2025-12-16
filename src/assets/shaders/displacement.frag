@@ -23,6 +23,7 @@ uniform float zFogStartMin;
 uniform float zFogStartMax;
 uniform float zFogEndMin;
 uniform float zFogEndMax;
+uniform vec3 fogColor;
 
 // Rim uniforms
 uniform vec3 cameraPosition;
@@ -80,7 +81,7 @@ void main(void) {
 
     // Combine fog factors and apply as color fade (not alpha)
     float totalFogFactor = max(frontFog, backFog);
-    vec3 finalColor = finalColorWithRim * (1.0 - totalFogFactor);
+    vec3 finalColor = mix(finalColorWithRim, fogColor, totalFogFactor);
 
     // Apply repeating grid texture
     // Create tiled UVs based on subdivision count (gridResolution)

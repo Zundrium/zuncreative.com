@@ -4,7 +4,7 @@ import { Texture } from "@babylonjs/core/Materials/Textures/texture";
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { Vector3, Vector2 } from "@babylonjs/core/Maths/math.vector";
-import { Color3 } from "@babylonjs/core/Maths/math.color";
+import { Color3, Color4 } from "@babylonjs/core/Maths/math.color";
 import { getScreenState } from "../utils/screenState";
 import type { BasicCamera } from "../utils/babylonjs/basicCamera";
 import { ShaderMaterial } from "@babylonjs/core/Materials/shaderMaterial";
@@ -49,6 +49,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     private babylonScene: BabylonScene | null = null;
     public onReady: () => void = () => { };
     private elapsedTime: number = 0;
+    private observer: MutationObserver | null = null;
 
     // Mesh and material
     private mesh: Mesh | null = null;
@@ -100,6 +101,17 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             this.lerp(a.g, b.g, t),
             this.lerp(a.b, b.b, t)
         );
+    }
+
+    private updateTheme(): void {
+        if (!this.babylonScene) return;
+        const isDark = document.documentElement.classList.contains("dark");
+        const color = isDark ? new Color3(0, 0, 0) : new Color3(1, 1, 1);
+        const clearColor = isDark ? new Color4(0, 0, 0, 1) : new Color4(1, 1, 1, 1);
+
+        this.shaderMaterial?.setColor3("fogColor", color);
+        this.babylonScene.scene.clearColor = clearColor;
+        this.babylonScene.scene.ambientColor = color;
     }
 
     /**
@@ -237,6 +249,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "zFogStartMax",
                     "zFogEndMin",
                     "zFogEndMax",
+                    "fogColor",
 
                     // Rim uniforms
                     "cameraPosition",
@@ -433,6 +446,11 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         await this.setupShaderMaterial(this.babylonScene.scene);
         this.createMesh(this.babylonScene.scene);
 
+        // Setup observer
+        this.observer = new MutationObserver(() => this.updateTheme());
+        this.observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+        this.updateTheme();
+
         // Setup camera
         this.setupCamera(this.babylonScene.camera);
 
@@ -483,6 +501,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     }
 
     public dispose(): void {
+        this.observer?.disconnect();
         this.shaderMaterial?.dispose();
         this.mesh?.dispose();
         this.textureCache.forEach((texture) => texture.dispose());
