@@ -32,13 +32,7 @@ uniform float waveFrequencyX;
 uniform float waveFrequencyZ;
 uniform float waveSpeed;
 
-// Color uniforms
-uniform vec3 topColor;
-uniform vec3 bottomColor;
-uniform float minY;
-uniform float maxY;
-// Varyings
-varying vec3 vColor;
+
 varying vec3 vWorldPos;
 varying float vDisplacement;
 varying vec2 vUV;
@@ -109,13 +103,4 @@ void main(void) {
     
     // Transform position
     gl_Position = worldViewProjection * vec4(displacedPosition, 1.0);
-
-    // Calculate color based on height
-    float currentMaxY = maxY;
-    if (currentMaxY <= 0.0) {
-        currentMaxY = 0.0001;
-    }
-    float t = (displacedPosition.y - minY) / (currentMaxY - minY);
-    t = clamp(t, 0.0, 1.0);
-    vColor = mix(bottomColor, topColor, t);
 }

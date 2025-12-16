@@ -10,7 +10,11 @@ import type { BasicCamera } from "../utils/babylonjs/basicCamera";
 import { ShaderMaterial } from "@babylonjs/core/Materials/shaderMaterial";
 import displacementVertexShader from "../../assets/shaders/displacement.vert?raw";
 import displacementFragmentShader from "../../assets/shaders/displacement.frag?raw";
-import { Engine } from "@babylonjs/core/Engines/engine";
+//import { Engine } from "@babylonjs/core/Engines/engine";
+//import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
+//import { DepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
+//import "@babylonjs/core/Rendering/depthRendererSceneComponent";
+
 
 export interface IBabylonGraphics {
     initialize(canvas: HTMLCanvasElement): Promise<void>;
@@ -57,11 +61,10 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     private matrixHeight = 0.35;
 
     // Mesh subdivision (higher = more detail)
-    private subdivisions = 200;
-    private mobileSubdivisions = 100;
+    private subdivisions = 250;
+    private mobileSubdivisions = 125;
 
-    // Dot size
-    private dotSize: number = 1;
+
 
     // Displacement configurations (matches original textureSamplers)
     private displacementConfigs: DisplacementConfig[] = [];
@@ -70,8 +73,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
 
     // Fog parameters
     private zFogStartMin: number = 2.0;
-    private zFogStartMax: number = 1.5;
-    private zFogEndMin: number = -1.5;
+    private zFogStartMax: number = 1.0;
+    private zFogEndMin: number = -1.0;
     private zFogEndMax: number = -2.0;
 
     // Wave effect parameters
@@ -80,7 +83,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     private waveTimeSpeed: number = 3.0;
 
     // Texture scroll speed multiplier
-    private timeSpeedMultiplier: number = 0.4;
+    private timeSpeedMultiplier: number = 0.3;
 
     // Texture cache
     private textureCache: Map<string, Texture> = new Map();
@@ -107,13 +110,11 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             // 0: Procedural sine wave noise
             {
                 type: "procedural",
-                intensity: 1,
+                intensity: 1.3,
                 speed: new Vector2(0, 0),
                 textureScale: 1,
-                topColor: new Color3(1, 1, 1),
-                //topColor: new Color3(1, 0.5, 0),
-                bottomColor: new Color3(1, 1, 1),
-                //bottomColor: new Color3(0.5, 0, 1),
+                topColor: new Color3(1, 0.5, 0),
+                bottomColor: new Color3(0.5, 0, 1),
                 waveFrequencyX: 8,
                 waveFrequencyZ: 15,
                 waveSpeed: 0.3,
@@ -181,6 +182,9 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         const texture = new Texture(url, scene);
         texture.wrapU = Texture.WRAP_ADDRESSMODE;
         texture.wrapV = Texture.WRAP_ADDRESSMODE;
+        // Use Trilinear sampling (LINEAR_LINEAR_MIPLINEAR) to smooth out pixelation from the texture
+        texture.updateSamplingMode(Texture.TRILINEAR_SAMPLINGMODE);
+        texture.anisotropicFilteringLevel = scene.getEngine().getCaps().maxAnisotropy;
         this.textureCache.set(url, texture);
         return texture;
     }
@@ -233,11 +237,17 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "zFogStartMax",
                     "zFogEndMin",
                     "zFogEndMax",
-                    // Dot texture uniforms
-                    "dotGridSize",
-                    "dotRadius",
+
+                    // Rim uniforms
+                    "cameraPosition",
+                    "rimPower",
+                    "rimIntensity",
+
+                    // Grid uniforms
+                    "gridTexture",
+                    "gridResolution",
                 ],
-                samplers: ["displacementMap", "displacementMap2", "dotTexture"],
+                samplers: ["displacementMap", "displacementMap2", "gridTexture"],
                 needAlphaBlending: false,
             }
         );
@@ -245,6 +255,17 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         // Set initial values - use regular mesh rendering with dot texture
         this.shaderMaterial.pointsCloud = false;
         this.shaderMaterial.backFaceCulling = false;
+        //this.shaderMaterial.alphaMode = Engine.ALPHA_SCREENMODE;
+
+        // Grid texture setup
+        const gridTexture = this.getTexture("/textures/square_large.webp", scene);
+        this.shaderMaterial.setTexture("gridTexture", gridTexture);
+        this.shaderMaterial.setFloat("gridResolution", this.subdivisions);
+
+
+        // Rim config - adjust these to taste
+        this.shaderMaterial.setFloat("rimPower", 3.0);
+        this.shaderMaterial.setFloat("rimIntensity", 0.25);
 
         // Set fog parameters
         this.shaderMaterial.setFloat("waveFrequency", this.waveFrequency);
@@ -262,11 +283,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         this.shaderMaterial.setFloat("timeSpeedMultiplier", this.timeSpeedMultiplier);
         this.shaderMaterial.setFloat("textureBlendFactor", 0);
 
-        // Dot texture parameters - dotGridSize controls how many dots across the mesh
-        // dotRadius controls the size of each dot (0-0.5 where 0.5 fills the cell)
-        const dotGridSize = getScreenState() == "sm" ? 100.0 : 200.0;
-        this.shaderMaterial.setFloat("dotGridSize", dotGridSize);
-        this.shaderMaterial.setFloat("dotRadius", this.dotSize);
+
 
         // Create dummy 1x1 white textures as default for both displacement maps
         // This prevents shader errors when using procedural noise mode
@@ -419,6 +436,36 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         // Setup camera
         this.setupCamera(this.babylonScene.camera);
 
+        // Add standard pipeline
+        //const pipeline = new DefaultRenderingPipeline(
+        //    "defaultPipeline", // The name of the pipeline
+        //    false, // Do you want the pipeline to use HDR texture?
+        //    this.babylonScene.scene, // The scene instance
+        //    [this.babylonScene.camera] // The list of cameras to be attached to
+        //);
+        //pipeline.imageProcessingEnabled = false;
+
+        //// Bloom
+        //pipeline.bloomEnabled = true;
+        //pipeline.bloomThreshold = 0.3;
+        //pipeline.bloomWeight = 1;
+        //pipeline.bloomKernel = 64;
+        //pipeline.bloomScale = 1;
+
+        // chromatic aberration
+        //pipeline.chromaticAberrationEnabled = true;
+        //pipeline.chromaticAberration.radialIntensity = 0.3;
+        //pipeline.chromaticAberration.aberrationAmount = 12.0;
+
+
+        // Depth of Field
+        //pipeline.depthOfFieldEnabled = true;
+        //pipeline.depthOfFieldBlurLevel = DepthOfFieldEffectBlurLevel.High;
+        //pipeline.depthOfField.focusDistance = 4000;
+        //pipeline.depthOfField.focalLength = 100;
+        //pipeline.depthOfField.fStop = 1.4;
+
+
         // Render loop
         this.babylonScene.onRender = (delta: number) => {
             const deltaTime = delta / 1000;
@@ -427,6 +474,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             if (this.shaderMaterial) {
                 // Update time uniform for animations
                 this.shaderMaterial.setFloat("time", this.elapsedTime * this.waveTimeSpeed);
+                // Update camera position for rim light
+                this.shaderMaterial.setVector3("cameraPosition", this.babylonScene.camera.position);
             }
         };
 
