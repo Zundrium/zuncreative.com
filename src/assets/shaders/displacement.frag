@@ -18,6 +18,13 @@ uniform float zFogEndMin;
 uniform float zFogEndMax;
 
 void main(void) {
+    // Create circular dot from square point
+    vec2 pointCoord = gl_PointCoord - vec2(0.5);
+    float distFromCenter = length(pointCoord);
+    if (distFromCenter > 0.5) {
+        discard; // Outside the circle
+    }
+
     // Add wave color effect
     vec3 colorWithWave = vColor + vec3((sin((vWorldPos.x + vWorldPos.z) * waveFrequency + time) * 0.5 + 0.5) * waveIntensity);
 

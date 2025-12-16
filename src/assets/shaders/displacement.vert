@@ -11,6 +11,7 @@ attribute vec2 uv;
 uniform mat4 world;
 uniform mat4 worldViewProjection;
 uniform float time;
+uniform float timeSpeedMultiplier;
 
 // Displacement uniforms
 uniform sampler2D displacementMap;
@@ -36,6 +37,7 @@ uniform vec3 topColor;
 uniform vec3 bottomColor;
 uniform float minY;
 uniform float maxY;
+uniform float pointSize;
 
 // Varyings
 varying vec3 vColor;
@@ -54,16 +56,17 @@ void main(void) {
     float displacement1 = 0.0;
     if (useProceduralNoise > 0.5) {
         // Procedural sine wave noise (matching SineWaveNoise.ts logic)
-        float angledCos = cos(time * 0.2);
-        float angledSin = sin(time * 0.2);
+        float animTime = time * timeSpeedMultiplier;
+        float angledCos = cos(animTime * 0.2);
+        float angledSin = sin(animTime * 0.2);
         
-        float waveX = (1.0 + sin((uv.x * angledCos - uv.y * angledSin) * waveFrequencyX + time * waveSpeed)) / 2.0;
-        float waveZ = (1.0 + sin((uv.x * angledSin + uv.y * angledCos) * waveFrequencyZ + time * waveSpeed)) / 2.0;
+        float waveX = (1.0 + sin((uv.x * angledCos - uv.y * angledSin) * waveFrequencyX + animTime * waveSpeed)) / 2.0;
+        float waveZ = (1.0 + sin((uv.x * angledSin + uv.y * angledCos) * waveFrequencyZ + animTime * waveSpeed)) / 2.0;
         displacement1 = (waveX + waveZ) / 2.0;
     } else {
         // Texture-based displacement with time-based scrolling
         vec2 animatedUV = vec2(uv.x, 1.0 - uv.y) * displacementTextureScale;
-        animatedUV += time * displacementSpeed;
+        animatedUV += (time * timeSpeedMultiplier) * displacementSpeed;
         animatedUV = fract(animatedUV); // Wrap UVs
         
         displacement1 = texture2D(displacementMap, animatedUV).r;
@@ -74,16 +77,17 @@ void main(void) {
     float displacement2 = 0.0;
     if (useProceduralNoise2 > 0.5) {
         // Procedural sine wave noise for second source
-        float angledCos = cos(time * 0.2);
-        float angledSin = sin(time * 0.2);
+        float animTime2 = time * timeSpeedMultiplier;
+        float angledCos = cos(animTime2 * 0.2);
+        float angledSin = sin(animTime2 * 0.2);
         
-        float waveX = (1.0 + sin((uv.x * angledCos - uv.y * angledSin) * waveFrequencyX + time * waveSpeed)) / 2.0;
-        float waveZ = (1.0 + sin((uv.x * angledSin + uv.y * angledCos) * waveFrequencyZ + time * waveSpeed)) / 2.0;
+        float waveX = (1.0 + sin((uv.x * angledCos - uv.y * angledSin) * waveFrequencyX + animTime2 * waveSpeed)) / 2.0;
+        float waveZ = (1.0 + sin((uv.x * angledSin + uv.y * angledCos) * waveFrequencyZ + animTime2 * waveSpeed)) / 2.0;
         displacement2 = (waveX + waveZ) / 2.0;
     } else {
         // Texture-based displacement for second source
         vec2 animatedUV2 = vec2(uv.x, 1.0 - uv.y) * displacementTextureScale2;
-        animatedUV2 += time * displacementSpeed2;
+        animatedUV2 += (time * timeSpeedMultiplier) * displacementSpeed2;
         animatedUV2 = fract(animatedUV2);
         
         displacement2 = texture2D(displacementMap2, animatedUV2).r;
@@ -104,6 +108,7 @@ void main(void) {
     
     // Transform position
     gl_Position = worldViewProjection * vec4(displacedPosition, 1.0);
+    gl_PointSize = pointSize;
 
     // Calculate color based on height
     float currentMaxY = maxY;

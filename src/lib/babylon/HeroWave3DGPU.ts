@@ -60,6 +60,10 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     private subdivisions = 200;
     private mobileSubdivisions = 100;
 
+    // Point size for dot rendering
+    private particleSize: number = 6;
+    private mobileParticleSize: number = 6;
+
     // Displacement configurations (matches original textureSamplers)
     private displacementConfigs: DisplacementConfig[] = [];
     private currentConfigIndex: number = 0;
@@ -75,6 +79,9 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     private waveFrequency: number = 5.0;
     private waveIntensity: number = -0.15;
     private waveTimeSpeed: number = 3.0;
+
+    // Texture scroll speed multiplier
+    private timeSpeedMultiplier: number = 0.4;
 
     // Texture cache
     private textureCache: Map<string, Texture> = new Map();
@@ -194,6 +201,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "worldViewProjection",
                     "world",
                     "time",
+                    "timeSpeedMultiplier",
                     // Displacement uniforms for first source
                     "displacementMap",
                     "displacementScale",
@@ -217,6 +225,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "bottomColor",
                     "minY",
                     "maxY",
+                    "pointSize",
                     // Fragment shader uniforms
                     "waveFrequency",
                     "waveIntensity",
@@ -230,7 +239,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             }
         );
 
-        // Set initial values
+        // Set initial values - enable point cloud rendering
+        this.shaderMaterial.pointsCloud = true;
         this.shaderMaterial.backFaceCulling = false;
         this.shaderMaterial.disableDepthWrite = true;
         this.shaderMaterial.alphaMode = Engine.ALPHA_SCREENMODE;
@@ -248,7 +258,9 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         this.shaderMaterial.setFloat("minY", 0);
         this.shaderMaterial.setFloat("maxY", this.matrixHeight);
         this.shaderMaterial.setFloat("time", 0);
+        this.shaderMaterial.setFloat("timeSpeedMultiplier", this.timeSpeedMultiplier);
         this.shaderMaterial.setFloat("textureBlendFactor", 0);
+        this.shaderMaterial.setFloat("pointSize", this.particleSize);
 
         // Create dummy 1x1 white textures as default for both displacement maps
         // This prevents shader errors when using procedural noise mode
@@ -389,6 +401,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         if (getScreenState() == "sm") {
             this.matrixWidth = this.mobileMatrixWidth;
             this.subdivisions = this.mobileSubdivisions;
+            this.particleSize = this.mobileParticleSize;
         }
 
         // Setup configurations

@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host",
     "build": "astro build",
     "postbuild": "mv dist/sitemap-0.xml dist/sitemap.xml && rm dist/sitemap-index.xml",
     "preview": "astro preview",
