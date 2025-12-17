@@ -92,6 +92,16 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     // Texture cache
     private textureCache: Map<string, Texture> = new Map();
 
+    // Mouse parallax
+    private initialCameraPosition: Vector3 | null = null;
+    private mouseX: number = 0;
+    private mouseY: number = 0;
+    private targetMouseX: number = 0;
+    private targetMouseY: number = 0;
+    private parallaxIntensityX: number = 0.2;
+    private parallaxIntensityY: number = 0.1;
+    private parallaxLerp: number = 0.01;
+
     public constructor() { }
 
     private lerp(a: number, b: number, t: number): number {
@@ -136,13 +146,13 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 waveFrequencyX: 8,
                 waveFrequencyZ: 15,
                 waveSpeed: 0.3,
-                dotSize: 2.0,
+                dotSize: 1.0,
             },
             // 1: Hello texture
             {
                 type: "texture",
                 textureUrl: "/textures/hello.webp",
-                intensity: 0.4,
+                intensity: 0.3,
                 speed: new Vector2(0.05, 0.0),
                 textureScale: 1.5,
                 topColor: new Color3(0, 1, 0),
@@ -458,12 +468,22 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 0
             );
         }
+        this.initialCameraPosition = camera.position.clone();
     }
+
+    private handleMouseMove = (event: MouseEvent) => {
+        this.targetMouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        this.targetMouseY = (event.clientY / window.innerHeight) * 2 - 1;
+    };
 
     public async initialize(renderCanvas: HTMLCanvasElement): Promise<void> {
         this.babylonScene = new BabylonScene(renderCanvas);
         this.babylonScene.mediaQueryFOVs = [0.8, 0.6, 0.5, 0.4, 0.4];
         await this.babylonScene.init();
+
+        if (getScreenState() !== "sm") {
+            window.addEventListener("mousemove", this.handleMouseMove);
+        }
 
         // Adjust for mobile
         if (getScreenState() == "sm") {
@@ -539,6 +559,16 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             if (this.shaderMaterial) {
                 // Update time uniform for animations
                 this.shaderMaterial.setFloat("time", this.elapsedTime * this.waveTimeSpeed);
+
+                // Mouse parallax
+                this.mouseX = this.lerp(this.mouseX, this.targetMouseX, this.parallaxLerp);
+                this.mouseY = this.lerp(this.mouseY, this.targetMouseY, this.parallaxLerp);
+
+                if (this.babylonScene && this.babylonScene.camera && this.initialCameraPosition) {
+                    this.babylonScene.camera.position.x = this.initialCameraPosition.x + (this.mouseX * this.parallaxIntensityX);
+                    this.babylonScene.camera.position.y = this.initialCameraPosition.y - (this.mouseY * this.parallaxIntensityY);
+                }
+
                 // Update camera position for rim light
                 this.shaderMaterial.setVector3("cameraPosition", this.babylonScene.camera.position);
             }
@@ -548,6 +578,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     }
 
     public dispose(): void {
+        window.removeEventListener("mousemove", this.handleMouseMove);
         this.observer?.disconnect();
         this.shaderMaterial?.dispose();
         this.mesh?.dispose();
