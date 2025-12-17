@@ -136,7 +136,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 waveFrequencyX: 8,
                 waveFrequencyZ: 15,
                 waveSpeed: 0.3,
-                dotSize: 2.75,
+                dotSize: 2.0,
             },
             // 1: Hello texture
             {
@@ -147,7 +147,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1.5,
                 topColor: new Color3(0, 1, 0),
                 bottomColor: new Color3(0, 0, 1),
-                dotSize: 1.5,
+                dotSize: 2.0,
             },
             // 2: Mountain texture
             {
@@ -191,7 +191,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1,
                 topColor: new Color3(1, 1, 0),
                 bottomColor: new Color3(1, 0.25, 0),
-                dotSize: 2.75,
+                dotSize: 2.0,
             },
         ];
     }
@@ -220,7 +220,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         texture.wrapV = Texture.WRAP_ADDRESSMODE;
         // Use Trilinear sampling (LINEAR_LINEAR_MIPLINEAR) to smooth out pixelation from the texture
         texture.updateSamplingMode(Texture.TRILINEAR_SAMPLINGMODE);
-        texture.anisotropicFilteringLevel = scene.getEngine().getCaps().maxAnisotropy;
+        //texture.anisotropicFilteringLevel = scene.getEngine().getCaps().maxAnisotropy;
         this.textureCache.set(url, texture);
         return texture;
     }
@@ -497,7 +497,12 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             [this.babylonScene.camera] // The list of cameras to be attached to
         );
         pipeline.imageProcessingEnabled = true;
+
+        //tonemapping
+        //pipeline.imageProcessing.toneMappingType = 0;
+        //pipeline.imageProcessing.toneMappingEnabled = true;
         //pipeline.fxaaEnabled = true;
+
         pipeline.samples = 4;
 
         // if mobile 2 samples
@@ -506,11 +511,11 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         }
 
         //// Bloom
-        //pipeline.bloomEnabled = true;
-        //pipeline.bloomThreshold = 0.3;
-        //pipeline.bloomWeight = 1;
-        //pipeline.bloomKernel = 64;
-        //pipeline.bloomScale = 1;
+        pipeline.bloomEnabled = true;
+        pipeline.bloomThreshold = 0.4;
+        pipeline.bloomWeight = 0.5;
+        pipeline.bloomKernel = 64;
+        pipeline.bloomScale = 1;
 
         // chromatic aberration
         //pipeline.chromaticAberrationEnabled = true;
