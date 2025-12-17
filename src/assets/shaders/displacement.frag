@@ -14,6 +14,14 @@ uniform vec3 topColor;
 uniform vec3 bottomColor;
 uniform float minY;
 uniform float maxY;
+uniform float saturation; // Factor > 1.0 increases vividness
+
+vec3 adjustSaturation(vec3 color, float adjustment) {
+    const vec3 luminanceW = vec3(0.2126, 0.7152, 0.0722);
+    float luminance = dot(color, luminanceW);
+    vec3 greyScale = vec3(luminance);
+    return mix(greyScale, color, adjustment);
+}
 
 // Fog uniforms
 uniform float time;
@@ -33,6 +41,7 @@ uniform float rimIntensity;
 // Grid uniforms
 uniform sampler2D gridTexture;
 uniform float gridResolution;
+uniform float dotSize;
 
 void main(void) {
 
@@ -46,6 +55,9 @@ void main(void) {
     t = smoothstep(0.0, 1.0, t);
     
     vec3 baseColor = mix(bottomColor, topColor, t);
+    
+    // Boost saturation
+    baseColor = adjustSaturation(baseColor, saturation);
 
     // Add wave color effect
     vec3 colorWithWave = baseColor + vec3((sin((vWorldPos.x + vWorldPos.z) * waveFrequency + time) * 0.5 + 0.5) * waveIntensity);
@@ -86,9 +98,26 @@ void main(void) {
     // Apply repeating grid texture
     // Create tiled UVs based on subdivision count (gridResolution)
     // Add 0.5 offset to align texture center with vertices
-    // We remove fract() to avoid mipmap artifacts at the seams; sampler should be set to REPEAT
     vec2 gridUV = vUV * gridResolution + 0.5;
-    vec4 gridColor = texture2D(gridTexture, gridUV);
+    
+    // Scale UVs for dot size control
+    // To scale the dot while keeping it centered, we need to operate on the fractional part
+    vec2 cellUV = fract(gridUV);
+    vec2 centeredUV = cellUV - 0.5;
+    float scaleFactor = 1.0 / max(dotSize, 0.001);
+    vec2 scaledUV = centeredUV * scaleFactor + 0.5;
+    
+    // Check if we are outside the scaled texture area
+    if (scaledUV.x < 0.0 || scaledUV.x > 1.0 || scaledUV.y < 0.0 || scaledUV.y > 1.0) {
+        discard;
+    }
+    
+    // Fix for "derivates fract artifacts" (lines between grid cells)
+    // The fract() operation causes a discontinuity in UVs which leads to incorrect derivative calculations
+    // and mipmap selection (selecting the lowest detail level), resulting in artifacts at grid edges.
+    // Instead of using textureGrad (which requires GLSL 3.0 or extensions), we use a negative bias
+    // to force the shader to use the highest detail mipmap level (LOD 0).
+    vec4 gridColor = texture2D(gridTexture, scaledUV, -4.0);
     
     // Use grid texture as alpha mask
     // We use the red channel or alpha channel of the grid texture to determine visibility

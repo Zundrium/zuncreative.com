@@ -38,6 +38,9 @@ interface DisplacementConfig {
     waveFrequencyX?: number;
     waveFrequencyZ?: number;
     waveSpeed?: number;
+
+    // Dot pattern parameters
+    dotSize: number;
 }
 
 /**
@@ -125,7 +128,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             // 0: Procedural sine wave noise
             {
                 type: "procedural",
-                intensity: 1.3,
+                intensity: 1.2,
                 speed: new Vector2(0, 0),
                 textureScale: 1,
                 topColor: new Color3(1, 0.5, 0),
@@ -133,6 +136,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 waveFrequencyX: 8,
                 waveFrequencyZ: 15,
                 waveSpeed: 0.3,
+                dotSize: 2.75,
             },
             // 1: Hello texture
             {
@@ -140,9 +144,10 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureUrl: "/textures/hello.webp",
                 intensity: 0.4,
                 speed: new Vector2(0.05, 0.0),
-                textureScale: 1,
+                textureScale: 1.5,
                 topColor: new Color3(0, 1, 0),
                 bottomColor: new Color3(0, 0, 1),
+                dotSize: 1.5,
             },
             // 2: Mountain texture
             {
@@ -153,16 +158,18 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1,
                 topColor: new Color3(1, 1, 0),
                 bottomColor: new Color3(1, 0, 0),
+                dotSize: 0.55,
             },
             // 3: Wave texture
             {
                 type: "texture",
                 textureUrl: "/textures/wave.webp",
-                intensity: 0.4,
+                intensity: 0.5,
                 speed: new Vector2(0.05, -0.02),
                 textureScale: 1,
                 topColor: new Color3(0, 1, 1),
                 bottomColor: new Color3(0, 0.5, 1),
+                dotSize: 0.55,
             },
             // 4: World map (first version)
             {
@@ -173,6 +180,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1,
                 topColor: new Color3(0.1, 0.7, 0.2),
                 bottomColor: new Color3(0, 0.2, 0.6),
+                dotSize: 0.5,
             },
             // 5: World map (second version, different colors)
             {
@@ -182,7 +190,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 speed: new Vector2(0.04, 0.0),
                 textureScale: 1,
                 topColor: new Color3(1, 1, 0),
-                bottomColor: new Color3(1, 0.5, 0),
+                bottomColor: new Color3(1, 0.25, 0),
+                dotSize: 2.75,
             },
         ];
     }
@@ -257,6 +266,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "bottomColor",
                     "minY",
                     "maxY",
+                    "saturation",
                     // Fragment shader uniforms
                     "waveFrequency",
                     "waveIntensity",
@@ -274,6 +284,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     // Grid uniforms
                     "gridTexture",
                     "gridResolution",
+                    "dotSize",
                 ],
                 samplers: ["displacementMap", "displacementMap2", "gridTexture"],
                 needAlphaBlending: false,
@@ -307,6 +318,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         this.shaderMaterial.setFloat("displacementScale", this.matrixHeight);
         this.shaderMaterial.setFloat("minY", 0);
         this.shaderMaterial.setFloat("maxY", this.matrixHeight);
+        this.shaderMaterial.setFloat("saturation", 1.5);
         this.shaderMaterial.setFloat("time", 0);
         this.shaderMaterial.setFloat("timeSpeedMultiplier", this.timeSpeedMultiplier);
         this.shaderMaterial.setFloat("textureBlendFactor", 0);
@@ -379,7 +391,12 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         const topColor = this.lerpColor3(config.topColor, nextConfig.topColor, alpha);
         const bottomColor = this.lerpColor3(config.bottomColor, nextConfig.bottomColor, alpha);
         this.shaderMaterial.setColor3("topColor", topColor);
+        this.shaderMaterial.setColor3("topColor", topColor);
         this.shaderMaterial.setColor3("bottomColor", bottomColor);
+
+        // === Dot Size (blend between configs) ===
+        const dotSize = this.lerp(config.dotSize, nextConfig.dotSize, alpha);
+        this.shaderMaterial.setFloat("dotSize", dotSize);
 
         // === Update max Y for color gradient ===
         const blendedIntensity = this.lerp(config.intensity, nextConfig.intensity, alpha);
