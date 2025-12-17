@@ -65,8 +65,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     private matrixHeight = 0.35;
 
     // Mesh subdivision (higher = more detail)
-    private subdivisions = 250;
-    private mobileSubdivisions = 125;
+    private subdivisions = 125;
+    private mobileSubdivisions = 75;
 
 
 
@@ -168,7 +168,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1,
                 topColor: new Color3(1, 1, 0),
                 bottomColor: new Color3(1, 0, 0),
-                dotSize: 0.7,
+                dotSize: 0.4,
             },
             // 3: Wave texture
             {
@@ -179,7 +179,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1,
                 topColor: new Color3(0, 1, 1),
                 bottomColor: new Color3(0, 0.5, 1),
-                dotSize: 0.7,
+                dotSize: 0.4,
             },
             // 4: World map (first version)
             {
@@ -523,11 +523,11 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         //pipeline.imageProcessing.toneMappingEnabled = true;
         //pipeline.fxaaEnabled = true;
 
-        pipeline.samples = 4;
+        pipeline.samples = 6;
 
         // if mobile 2 samples
         if (getScreenState() == "sm") {
-            pipeline.samples = 2;
+            pipeline.samples = 4;
         }
 
         //// Bloom
