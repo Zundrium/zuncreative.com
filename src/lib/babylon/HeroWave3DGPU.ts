@@ -511,11 +511,11 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         }
 
         //// Bloom
-        pipeline.bloomEnabled = true;
-        pipeline.bloomThreshold = 0.4;
-        pipeline.bloomWeight = 0.5;
-        pipeline.bloomKernel = 64;
-        pipeline.bloomScale = 1;
+        //pipeline.bloomEnabled = true;
+        //pipeline.bloomThreshold = 0.4;
+        //pipeline.bloomWeight = 0.5;
+        //pipeline.bloomKernel = 64;
+        //pipeline.bloomScale = 1;
 
         // chromatic aberration
         //pipeline.chromaticAberrationEnabled = true;
