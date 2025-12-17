@@ -11,7 +11,7 @@ import { ShaderMaterial } from "@babylonjs/core/Materials/shaderMaterial";
 import displacementVertexShader from "../../assets/shaders/displacement.vert?raw";
 import displacementFragmentShader from "../../assets/shaders/displacement.frag?raw";
 //import { Engine } from "@babylonjs/core/Engines/engine";
-//import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
+import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
 //import { DepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
 //import "@babylonjs/core/Rendering/depthRendererSceneComponent";
 
@@ -158,7 +158,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1,
                 topColor: new Color3(1, 1, 0),
                 bottomColor: new Color3(1, 0, 0),
-                dotSize: 0.55,
+                dotSize: 0.7,
             },
             // 3: Wave texture
             {
@@ -169,7 +169,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1,
                 topColor: new Color3(0, 1, 1),
                 bottomColor: new Color3(0, 0.5, 1),
-                dotSize: 0.55,
+                dotSize: 0.7,
             },
             // 4: World map (first version)
             {
@@ -180,7 +180,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1,
                 topColor: new Color3(0.1, 0.7, 0.2),
                 bottomColor: new Color3(0, 0.2, 0.6),
-                dotSize: 0.5,
+                dotSize: 0.7,
             },
             // 5: World map (second version, different colors)
             {
@@ -490,13 +490,20 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         this.setupCamera(this.babylonScene.camera);
 
         // Add standard pipeline
-        //const pipeline = new DefaultRenderingPipeline(
-        //    "defaultPipeline", // The name of the pipeline
-        //    false, // Do you want the pipeline to use HDR texture?
-        //    this.babylonScene.scene, // The scene instance
-        //    [this.babylonScene.camera] // The list of cameras to be attached to
-        //);
-        //pipeline.imageProcessingEnabled = false;
+        const pipeline = new DefaultRenderingPipeline(
+            "defaultPipeline", // The name of the pipeline
+            false, // Do you want the pipeline to use HDR texture?
+            this.babylonScene.scene, // The scene instance
+            [this.babylonScene.camera] // The list of cameras to be attached to
+        );
+        pipeline.imageProcessingEnabled = true;
+        //pipeline.fxaaEnabled = true;
+        pipeline.samples = 4;
+
+        // if mobile 2 samples
+        if (getScreenState() == "sm") {
+            pipeline.samples = 2;
+        }
 
         //// Bloom
         //pipeline.bloomEnabled = true;
