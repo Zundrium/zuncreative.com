@@ -10,7 +10,7 @@ import type { BasicCamera } from "../utils/babylonjs/basicCamera";
 import { ShaderMaterial } from "@babylonjs/core/Materials/shaderMaterial";
 import displacementVertexShader from "../../assets/shaders/displacement.vert?raw";
 import displacementFragmentShader from "../../assets/shaders/displacement.frag?raw";
-//import { Engine } from "@babylonjs/core/Engines/engine";
+import { Engine } from "@babylonjs/core/Engines/engine";
 import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPipeline/Pipelines/defaultRenderingPipeline";
 //import { DepthOfFieldEffectBlurLevel } from "@babylonjs/core/PostProcesses/depthOfFieldEffect";
 //import "@babylonjs/core/Rendering/depthRendererSceneComponent";
@@ -135,10 +135,15 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         // rimintensity
         const rimIntensity = isDark ? 0.75 : 0.0;
 
-        this.shaderMaterial?.setColor3("fogColor", color);
+
+        if (this.shaderMaterial) {
+            this.shaderMaterial.alphaMode = isDark ? Engine.ALPHA_SCREENMODE : Engine.ALPHA_COMBINE;
+            this.shaderMaterial.setColor3("fogColor", color);
+            this.shaderMaterial.setFloat("rimIntensity", rimIntensity);
+        }
+
         this.babylonScene.scene.clearColor = clearColor;
         this.babylonScene.scene.ambientColor = color;
-        this.shaderMaterial?.setFloat("rimIntensity", rimIntensity);
     }
 
     /**
@@ -309,7 +314,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "revealProgress",
                 ],
                 samplers: ["displacementMap", "displacementMap2", "gridTexture"],
-                needAlphaBlending: false,
+                needAlphaBlending: true,
             }
         );
 
