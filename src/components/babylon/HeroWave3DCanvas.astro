@@ -55,8 +55,11 @@
         await heroWave.initialize(canvas);
 
         // Expose update function to global scope for scroll interaction
-        (window as any).heroWaveUpdate = (index: number) => {
-            heroWave?.update(index);
+        (window as any).heroWaveUpdate = (
+            index: number,
+            scrollOffset: number = 0,
+        ) => {
+            heroWave?.update(index, scrollOffset);
         };
     }
 

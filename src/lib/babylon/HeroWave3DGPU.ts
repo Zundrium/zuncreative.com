@@ -19,7 +19,7 @@ import { DefaultRenderingPipeline } from "@babylonjs/core/PostProcesses/RenderPi
 export interface IBabylonGraphics {
     initialize(canvas: HTMLCanvasElement): Promise<void>;
     dispose(): void;
-    update(index: number): void;
+    update(index: number, scrollOffset?: number): void;
     resetSteps(): void;
 }
 
@@ -77,8 +77,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
 
     // Fog parameters
     private zFogStartMin: number = 2.0;
-    private zFogStartMax: number = 1.0;
-    private zFogEndMin: number = -1.0;
+    private zFogStartMax: number = 0.5;
+    private zFogEndMin: number = -0.5;
     private zFogEndMax: number = -2.0;
 
     // Wave effect parameters
@@ -88,6 +88,11 @@ export class HeroWave3DGPU implements IBabylonGraphics {
 
     // Texture scroll speed multiplier
     private timeSpeedMultiplier: number = 0.3;
+
+    // Interpolation threshold (0.0 - 1.0)
+    // 0.7 means the config stays 100% visible for 70% of the step, 
+    // and blends to the next over the final 30%
+    private configLerpThreshold: number = 0.6;
 
     // Texture cache
     private textureCache: Map<string, Texture> = new Map();
@@ -144,9 +149,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 topColor: new Color3(1, 0.5, 0),
                 bottomColor: new Color3(0.5, 0, 1),
                 waveFrequencyX: 8,
-                waveFrequencyZ: 15,
-                waveSpeed: 0.3,
-                dotSize: 1.0,
+                waveFrequencyZ: 20,
+                waveSpeed: 0.3, dotSize: 1.0,
             },
             // 1: Hello texture
             {
@@ -157,7 +161,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1.5,
                 topColor: new Color3(0, 1, 0),
                 bottomColor: new Color3(0, 0, 1),
-                dotSize: 2.0,
+                dotSize: 1.0,
             },
             // 2: Mountain texture
             {
@@ -190,17 +194,17 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 textureScale: 1,
                 topColor: new Color3(0.1, 0.7, 0.2),
                 bottomColor: new Color3(0, 0.2, 0.6),
-                dotSize: 0.7,
+                dotSize: 1,
             },
             // 5: World map (second version, different colors)
             {
                 type: "texture",
-                textureUrl: "/textures/world_map_blurred.webp",
-                intensity: 0.6,
-                speed: new Vector2(0.04, 0.0),
-                textureScale: 1,
-                topColor: new Color3(1, 1, 0),
-                bottomColor: new Color3(1, 0.25, 0),
+                textureUrl: "/textures/network.webp",
+                intensity: 0.1,
+                speed: new Vector2(0.01, -0.01),
+                textureScale: 0.25,
+                topColor: new Color3(1, 1, 1),
+                bottomColor: new Color3(1, 0.25, 0.5),
                 dotSize: 2.0,
             },
         ];
@@ -295,6 +299,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "gridTexture",
                     "gridResolution",
                     "dotSize",
+                    "scrollOffset",
                 ],
                 samplers: ["displacementMap", "displacementMap2", "gridTexture"],
                 needAlphaBlending: false,
@@ -321,6 +326,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         this.shaderMaterial.setFloat("waveIntensity", this.waveIntensity);
         this.shaderMaterial.setFloat("zFogStartMin", this.zFogStartMin);
         this.shaderMaterial.setFloat("zFogStartMax", this.zFogStartMax);
+        this.shaderMaterial.setFloat("scrollOffset", 0);
         this.shaderMaterial.setFloat("zFogEndMin", this.zFogEndMin);
         this.shaderMaterial.setFloat("zFogEndMax", this.zFogEndMax);
 
@@ -359,7 +365,15 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         if (index >= this.displacementConfigs.length) return;
 
         const config = this.displacementConfigs[index];
-        const alpha = this.currentConfigIndex % 1;
+        let rawAlpha = this.currentConfigIndex % 1;
+
+        // Remap alpha based on threshold
+        // If rawAlpha < threshold, we stay at 0 (current config)
+        // If rawAlpha > threshold, we interpolate from 0 to 1
+        let alpha = 0;
+        if (rawAlpha > this.configLerpThreshold) {
+            alpha = (rawAlpha - this.configLerpThreshold) / (1.0 - this.configLerpThreshold);
+        }
 
         // Get the next config for blending (or use current if at the end)
         const nextIndex = Math.min(index + 1, this.displacementConfigs.length - 1);
@@ -441,12 +455,21 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         }
     }
 
-    public update(index: number): void {
-        if (index >= this.displacementConfigs.length) {
-            console.warn("Index out of bounds for displacement configs");
-            return;
+    public update(index: number, scrollOffset: number = 0): void {
+        // Clamp index to valid range to prevent out of bounds errors
+        // max index is length - 1, but we allow up to almost length for the last blend
+        // actually, let's clamp strictly to length - 0.001 if we want to be safe, 
+        // or just handle the clamp inside applyCurrentConfig (which we do for array access)
+        if (index < 0) index = 0;
+        if (index > this.displacementConfigs.length - 1) {
+            index = this.displacementConfigs.length - 1;
         }
         this.currentConfigIndex = index;
+
+        if (this.shaderMaterial) {
+            this.shaderMaterial.setFloat("scrollOffset", -scrollOffset);
+        }
+
         this.applyCurrentConfig();
     }
 

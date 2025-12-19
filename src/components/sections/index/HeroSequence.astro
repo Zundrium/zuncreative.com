@@ -21,7 +21,7 @@ const slides = [
 ];
 ---
 
-<div id="sequence-container" class="w-full relative h-[3000px] md:h-[4000px]">
+<div id="sequence-container" class="w-full relative h-[5000px] md:h-[8000px]">
     <Section
         id="scroll-sequence"
         containerClasses="cursor-scroll sticky top-0 h-svh overflow-x-hidden pt-24 lg:pt-16 xl:pt-20 pb-32 pt-32"
@@ -186,7 +186,12 @@ const slides = [
 
             // Update Babylon scene via global function
             if ((window as any).heroWaveUpdate) {
-                (window as any).heroWaveUpdate(normalizedScrollY * 5);
+                // scrollOffset creates the "moving forward/backward" illusion
+                const scrollOffset = normalizedScrollY * 3.0;
+                (window as any).heroWaveUpdate(
+                    normalizedScrollY * 6,
+                    scrollOffset,
+                );
             }
 
             sequence.forEach((item, index) => {
