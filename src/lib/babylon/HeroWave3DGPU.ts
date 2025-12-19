@@ -89,10 +89,16 @@ export class HeroWave3DGPU implements IBabylonGraphics {
     // Texture scroll speed multiplier
     private timeSpeedMultiplier: number = 0.3;
 
+
     // Interpolation threshold (0.0 - 1.0)
     // 0.7 means the config stays 100% visible for 70% of the step, 
     // and blends to the next over the final 30%
     private configLerpThreshold: number = 0.6;
+
+    // Reveal parameters
+    private revealProgress: number = 0;
+    private revealSpeed: number = 0.15;
+    private isLoaded: boolean = false;
 
     // Texture cache
     private textureCache: Map<string, Texture> = new Map();
@@ -300,6 +306,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "gridResolution",
                     "dotSize",
                     "scrollOffset",
+                    "revealProgress",
                 ],
                 samplers: ["displacementMap", "displacementMap2", "gridTexture"],
                 needAlphaBlending: false,
@@ -316,6 +323,15 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         this.shaderMaterial.setTexture("gridTexture", gridTexture);
         this.shaderMaterial.setFloat("gridResolution", this.subdivisions);
 
+        // Hook into loading
+        if (gridTexture.isReady()) {
+            this.isLoaded = true;
+        } else {
+            gridTexture.onLoadObservable.addOnce(() => {
+                this.isLoaded = true;
+            });
+        }
+
 
         // Rim config - adjust these to taste
         this.shaderMaterial.setFloat("rimPower", 3.5);
@@ -325,8 +341,10 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         this.shaderMaterial.setFloat("waveFrequency", this.waveFrequency);
         this.shaderMaterial.setFloat("waveIntensity", this.waveIntensity);
         this.shaderMaterial.setFloat("zFogStartMin", this.zFogStartMin);
+
         this.shaderMaterial.setFloat("zFogStartMax", this.zFogStartMax);
         this.shaderMaterial.setFloat("scrollOffset", 0);
+        this.shaderMaterial.setFloat("revealProgress", 0.0);
         this.shaderMaterial.setFloat("zFogEndMin", this.zFogEndMin);
         this.shaderMaterial.setFloat("zFogEndMax", this.zFogEndMax);
 
@@ -594,6 +612,13 @@ export class HeroWave3DGPU implements IBabylonGraphics {
 
                 // Update camera position for rim light
                 this.shaderMaterial.setVector3("cameraPosition", this.babylonScene.camera.position);
+
+                // Reveal animation
+                if (this.isLoaded && this.revealProgress < 1.0) {
+                    this.revealProgress += deltaTime * this.revealSpeed;
+                    if (this.revealProgress > 1.0) this.revealProgress = 1.0;
+                    this.shaderMaterial.setFloat("revealProgress", this.revealProgress);
+                }
             }
         };
 

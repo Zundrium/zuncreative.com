@@ -33,7 +33,9 @@ uniform float zFogEndMin;
 uniform float zFogEndMax;
 uniform vec3 fogColor;
 
-// Rim uniforms
+uniform float revealProgress; // 0.0 = fully hidden by fog, 1.0 = fully revealed
+
+// Rime uniforms
 uniform vec3 cameraPosition;
 uniform float rimPower;
 uniform float rimIntensity;
@@ -93,7 +95,26 @@ void main(void) {
 
     // Combine fog factors and apply as color fade (not alpha)
     float totalFogFactor = max(frontFog, backFog);
-    vec3 finalColor = mix(finalColorWithRim, fogColor, totalFogFactor);
+    
+    // Reveal effect: Spatial reveal from camera position
+    // Calculate distance from camera to vertex
+    float dist = distance(vWorldPos, cameraPosition);
+    
+    // Max distance to reveal (cover the whole grid)
+    float maxRevealDist = 20.0;
+    
+    // Current radius of the clear zone
+    float revealRadius = revealProgress * maxRevealDist;
+    
+    // Calculate reveal fog factor
+    // 0.0 inside the radius (revealed), 1.0 outside (fogged)
+    // Use smooth transition at the edge
+    float revealFog = smoothstep(revealRadius - 2.0, revealRadius, dist);
+    
+    // Combine with distance fog - keep the strongest fog
+    float effectiveFog = max(totalFogFactor, revealFog);
+    
+    vec3 finalColor = mix(finalColorWithRim, fogColor, effectiveFog);
 
     // Apply repeating grid texture
     // Create tiled UVs based on subdivision count (gridResolution)
