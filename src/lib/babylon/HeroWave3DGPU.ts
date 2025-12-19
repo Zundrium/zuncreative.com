@@ -162,7 +162,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             {
                 type: "texture",
                 textureUrl: "/textures/hello.webp",
-                intensity: 0.3,
+                intensity: 0.2,
                 speed: new Vector2(0.05, 0.0),
                 textureScale: 1.5,
                 topColor: new Color3(0, 1, 0),
@@ -174,7 +174,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                 type: "texture",
                 textureUrl: "/textures/seamless_mountain1.webp",
                 intensity: 1,
-                speed: new Vector2(0.02, 0.02),
+                speed: new Vector2(0.05, 0.025),
                 textureScale: 1,
                 topColor: new Color3(1, 1, 0),
                 bottomColor: new Color3(1, 0, 0),
@@ -184,8 +184,8 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             {
                 type: "texture",
                 textureUrl: "/textures/wave.webp",
-                intensity: 0.5,
-                speed: new Vector2(0.05, -0.02),
+                intensity: 0.6,
+                speed: new Vector2(0.05, -0.025),
                 textureScale: 1,
                 topColor: new Color3(0, 1, 1),
                 bottomColor: new Color3(0, 0.5, 1),
@@ -319,7 +319,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         //this.shaderMaterial.alphaMode = Engine.ALPHA_SCREENMODE;
 
         // Grid texture setup
-        const gridTexture = this.getTexture("/textures/square_large.webp", scene);
+        const gridTexture = this.getTexture("/textures/ball.webp", scene);
         this.shaderMaterial.setTexture("gridTexture", gridTexture);
         this.shaderMaterial.setFloat("gridResolution", this.subdivisions);
 
@@ -437,7 +437,13 @@ export class HeroWave3DGPU implements IBabylonGraphics {
         this.shaderMaterial.setColor3("bottomColor", bottomColor);
 
         // === Dot Size (blend between configs) ===
-        const dotSize = this.lerp(config.dotSize, nextConfig.dotSize, alpha);
+        let dotSize = this.lerp(config.dotSize, nextConfig.dotSize, alpha);
+
+
+        if (getScreenState() == "sm") {
+            dotSize *= 2;
+        }
+
         this.shaderMaterial.setFloat("dotSize", dotSize);
 
         // === Update max Y for color gradient ===
