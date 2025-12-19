@@ -137,7 +137,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
 
 
         if (this.shaderMaterial) {
-            this.shaderMaterial.alphaMode = isDark ? Engine.ALPHA_SCREENMODE : Engine.ALPHA_COMBINE;
+            //this.shaderMaterial.alphaMode = isDark ? Engine.ALPHA_SCREENMODE : Engine.ALPHA_COMBINE;
             this.shaderMaterial.setColor3("fogColor", color);
             this.shaderMaterial.setFloat("rimIntensity", rimIntensity);
         }
@@ -314,7 +314,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
                     "revealProgress",
                 ],
                 samplers: ["displacementMap", "displacementMap2", "gridTexture"],
-                needAlphaBlending: true,
+                needAlphaBlending: false,
             }
         );
 
@@ -568,7 +568,7 @@ export class HeroWave3DGPU implements IBabylonGraphics {
             this.babylonScene.scene, // The scene instance
             [this.babylonScene.camera] // The list of cameras to be attached to
         );
-        pipeline.imageProcessingEnabled = true;
+        //pipeline.imageProcessingEnabled = true;
 
         //tonemapping
         //pipeline.imageProcessing.toneMappingType = 0;
