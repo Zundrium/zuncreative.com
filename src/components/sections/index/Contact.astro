@@ -1,0 +1,80 @@
+---
+import SectionHeading from "../../typography/SectionHeading.astro";
+import Button from "../../ui/Button.astro";
+import Section from "../../ui/Section.astro";
+import AnimatedParagraph from "../../typography/AnimatedParagraph.astro";
+import MdiLinkedin from "~icons/mdi/linkedin";
+import MdiPhone from "~icons/mdi/phone";
+import MdiEmail from "~icons/mdi/email";
+import { m } from "../../../lib/i18n";
+
+const contactMethods = [
+    {
+        icon: MdiPhone,
+        ariaLabel: m.contact_phone_aria(),
+        text: "+316 13 665 658",
+        link: "tel:+31613665658",
+    },
+    {
+        icon: MdiEmail,
+        ariaLabel: m.contact_email_aria(),
+        text: "sem@zuncreative.com",
+        link: "mailto:sem@zuncreative.com",
+    },
+    {
+        icon: MdiLinkedin,
+        ariaLabel: m.contact_linkedin_aria(),
+        text: "/in/sem-verbraak/",
+        link: "https://www.linkedin.com/in/sem-verbraak/",
+    },
+];
+---
+
+<Section
+    id="contact"
+    class="flex flex-col justify-center gap-8 md:gap-10 lg:gap-12 items-center text-center"
+>
+    <SectionHeading
+        subtitle={m.contact_section_subtitle()}
+        title={m.contact_section_title()}
+    />
+    <div
+        class="flex flex-col items-center w-full viewport-slide-in-top opacity-0 -translate-y-12"
+    >
+        <div class="w-full md:w-1/2">
+            <AnimatedParagraph size="xl">
+                <Fragment set:html={m.contact_section_description()} />
+            </AnimatedParagraph>
+        </div>
+    </div>
+    <div
+        class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 lg:gap-12 xl:gap-16 w-full"
+    >
+        {
+            contactMethods.map((contactMethod) => (
+                <Button
+                    style="text"
+                    ariaLabel={contactMethod.ariaLabel}
+                    href={contactMethod.link}
+                    iconLeft={contactMethod.icon}
+                >
+                    {contactMethod.text}
+                </Button>
+            ))
+        }
+    </div>
+</Section>
+
+<script>
+    import { viewportSlideInTop } from "../../../lib/utils/viewportSwitchClass";
+
+    function initContact() {
+        const elements = document.querySelectorAll(".viewport-slide-in-top");
+        elements.forEach((el) => {
+            viewportSlideInTop(el as HTMLElement);
+        });
+    }
+
+    initContact();
+    document.addEventListener("astro:page-load", initContact);
+</script>

@@ -1,7 +1,7 @@
 type DateStyle = Intl.DateTimeFormatOptions['dateStyle'];
 
-export function formatDate(date: string, dateStyle: DateStyle = 'long', locales = 'nl') {
-    const dateToFormat = new Date(date.replaceAll('-', '/'));
+export function formatDate(date: string | Date, dateStyle: DateStyle = 'long', locales = 'en') {
+    const dateToFormat = typeof date === 'string' ? new Date(date.replaceAll('-', '/')) : date;
     const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle });
     const formattedDate = dateFormatter.format(dateToFormat);
 

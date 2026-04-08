@@ -1,0 +1,44 @@
+---
+import MdiArrowDown from "~icons/mdi/arrow-down";
+---
+
+<button
+    id="scroll-indicator"
+    aria-label="Scroll to next section"
+    class="cursor-pointer absolute bottom-0 size-14 lg:size-20 pt-2 lg:pt-4 flex items-center justify-center z-20 text-white bg-white dark:bg-black rounded-t-full"
+>
+    <MdiArrowDown
+        class="size-6 lg:size-8 animate-bounce text-black dark:text-white"
+    />
+</button>
+
+<script>
+    const btn = document.getElementById("scroll-indicator");
+    if (btn) {
+        btn.addEventListener("click", () => {
+            // Scroll to the next section (assuming full screen hero)
+            // Or use the logic: current position + height of button?
+            // The Svelte code used: element.offsetTop + element.clientHeight
+            // If the button is at bottom-0 of a relative container, offsetTop is (containerHeight - buttonHeight).
+            // So offsetTop + clientHeight = containerHeight.
+            // This assumes the container starts at 0.
+
+            // Let's try to find the parent section and scroll past it.
+            const section = btn.closest("section");
+            if (section) {
+                const sectionBottom =
+                    section.getBoundingClientRect().bottom + window.scrollY;
+                window.scrollTo({
+                    top: sectionBottom,
+                    behavior: "smooth",
+                });
+            } else {
+                // Fallback: scroll by window height
+                window.scrollBy({
+                    top: window.innerHeight,
+                    behavior: "smooth",
+                });
+            }
+        });
+    }
+</script>

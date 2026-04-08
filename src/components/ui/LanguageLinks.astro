@@ -1,0 +1,28 @@
+---
+function getLanguageLink(lang: string) {
+    return `${Astro.url.origin}/${lang}`;
+}
+
+const languages = ["en", "nl"];
+---
+
+<ul class="flex flex-row gap-6 lg:gap-4">
+    {
+        languages.map((lang) => (
+            <li>
+                <a
+                    class="cursor-pointer"
+                    href={getLanguageLink(lang)}
+                    hreflang={lang}
+                    target="_self"
+                >
+                    <img
+                        src={`/svg/flags/${lang}.svg`}
+                        alt={`${lang} flag`}
+                        class="w-6 lg:w-4 lg:h-3"
+                    />
+                </a>
+            </li>
+        ))
+    }
+</ul>
