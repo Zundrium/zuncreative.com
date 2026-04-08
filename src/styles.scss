@@ -1,0 +1,411 @@
+/***
+The new CSS reset - version 1.6.0 (last updated 29.4.2022)
+GitHub page: https://github.com/elad2412/the-new-css-reset
+***/
+
+/*
+Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+- The "symbol *" part is to solve Firefox SVG sprite bug
+*/
+*:where(:not(html, iframe, canvas, img, svg, video):not(svg *, symbol *)) {
+  all: unset;
+  display: revert;
+}
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+video {
+  pointer-events: none;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a, button {
+  cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol, ul, menu {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+  max-width: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+  border-collapse: collapse;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea {
+  white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter {
+  -webkit-appearance: revert;
+  appearance: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder {
+  color: unset;
+}
+
+.view-on-phone {
+  display: none !important;
+}
+
+/* fix the feature of 'hidden' attribute.
+display:revert; revert to element instead of attribute */
+:where([hidden]) {
+  display: none;
+}
+
+/* revert for bug in Chromium browsers
+- fix for the content editable attribute will work properly. */
+:where([contenteditable]) {
+  -moz-user-modify: read-write;
+  -webkit-user-modify: read-write;
+  overflow-wrap: break-word;
+  -webkit-line-break: after-white-space;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"]) {
+  -webkit-user-drag: element;
+}
+
+/* end reset */
+html, body {
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  //overflow: hidden;
+  //box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+  background: #fff;
+  overflow: hidden;
+}
+
+// .pg-wrapper {
+//   padding-right: 0 !important;
+//   overflow: hidden;
+// }
+
+.pg-vertical .pg-pips {
+  a {
+    //box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+  }
+
+  right: 2.5rem !important;
+}
+
+* {
+  font-family: "Open Sans";
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 1.1rem;
+}
+
+section {
+  .container {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+  &.purple {
+    background: #28233e;
+  }
+}
+
+.slide {
+  overflow: hidden;
+  &.slide-active {
+    .content {
+
+      .title {
+        opacity: 1;
+        transform: translate(0, -1%);
+      }
+      .subtitle {
+        opacity: 1;
+        transform: translate(0, 0%);
+      }
+      .description {
+        opacity: 1;
+        transform: translate(0, -1%);
+        font-weight: 500;
+        a {
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+      .extra-buttons {
+        opacity: 1;
+        transform: translate(0, -1%);
+      }
+    }
+  }
+  flex-shrink: 0;
+  background: #444;
+  width: 100%;
+  height: 100%;
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  .background-video, .background-image {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    &.preview {
+      filter: blur(60px);
+    }
+  }
+  .background-video {
+    opacity: 0;
+    transition: opacity 3s ease;
+    &.is-loaded {
+      opacity: 1;
+    }
+  }
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.8));
+    z-index: 2;
+  }
+  .content {
+      position: relative;
+      z-index: 3;
+    .extra-buttons {
+      transform: translate(0, -100%);
+      opacity: 0;
+    }
+    color: #fff;
+    display: flex;
+    width: 100%;
+    align-items:flex-start;
+    flex-direction: column;
+    padding: 2.5rem;
+    //transform: translate(0, -50%);
+    gap: 2rem;
+    .title {
+      //text-shadow: 0 0 2px black, 0 0 2px rgb(0 0 0.2), 0 0 2rem rgba(0, 0, 0, 0.5);
+      //white-space: pre-wrap;
+      font-size: 3rem;
+      line-height: 3rem;
+      letter-spacing: -0.1rem;
+      transform: translate(0, 20%);
+      width: 100%;
+      opacity: 0;
+      font-weight: 700;
+      margin: 0;
+      text-transform: uppercase;
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition-delay: 0.7s;
+    }
+    .subtitle {
+      //text-shadow: 0 0 2px black, 0 0 2px rgb(0 0 0.2), 0 0 2rem rgba(0, 0, 0, 0.5);
+      //white-space: pre-wrap;
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 2rem;
+      transform: translate(0, 20%);
+      display: block;
+      letter-spacing: 0px;
+      text-transform: none;
+      width: 100%;
+      opacity: 0;
+      font-weight: 400;
+      margin: 0;
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition-delay: 0.7s;
+    }
+    .description {
+      opacity: 0;
+      margin: 0;
+      width: 50%;
+      font-weight: 500;
+      font-size: 1.2rem;
+      line-height: 1.8rem;
+      //text-shadow: 0 0 2px black, 0 0 2px rgba(0, 0, 0, 0.5), 0 0 0.5rem rgba(0, 0, 0, 0.5), 0 0 2rem black;
+      transform: translate(0, -20%);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition-delay: 0.7s;
+    }
+
+
+  }
+}
+
+.extra-buttons {
+
+  display: flex;
+  gap: 1rem;
+  &.row-buttons {
+    flex-direction: row !important;
+  }
+  button, a {
+    //box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    object {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: inline-block;
+    margin-bottom: -0.1rem;
+    margin-left: 0.75rem;
+    pointer-events: none;
+    transition: filter 0.3s ease;
+    filter: invert(100%);
+    }
+    border-radius: 2rem;
+    padding: 0.75rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background: #FFF;
+    border: 0 solid #FFF;
+    &.orange-button {
+      border: 0 solid orange;
+      background: orange;
+    }
+    color: #000;
+    display: flex;
+    transform: scale(1);
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    text-transform: uppercase;
+
+    &:hover, &:active {
+      background: #000;
+      &.orange-button {
+        background: #000;
+      }
+      color: #fff;
+      object {
+        filter: invert(0%);
+      }
+    }
+  } 
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-delay: 0.7s;
+}
+
+.slide#intro-slide, .slide#babylon-intro-slide {
+  .content {
+    align-items: center;
+    text-align: center;
+  }
+  &.slide-active {
+    .content {
+      .bottom {
+        //opacity: 1;
+        //transform: translate(0, -1%, 0);
+      }
+    }
+  }
+  h2 {
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+  }
+  .bottom {
+    //opacity: 0;
+    //transform: translate(0, -20%);
+    width: 100%;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 0.8rem;
+    margin-top: 3rem;
+    cursor: pointer;
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    object {
+      pointer-events: none;
+      margin-top: 1rem;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+}
+
+#scene-explorer-host, #inspector-host {
+  z-index: 9001;
+}
+
+@media only screen and (max-width: 800px) {
+
+  #logo h1 {
+    display: none;
+  }
+    .slide {
+      .content {
+        align-items: flex-start;
+        text-align: left;
+        padding: 8rem 3.5rem 4rem 2.5rem;
+        .title {
+          font-size: 2rem;
+          line-height: 2.3rem;
+        }
+        .subtitle {
+          font-size: 1.1rem;
+          line-height: 1.3rem;
+        }
+        .description {
+          font-size: 1.1rem;
+          width: calc(100% - 4rem);
+        }
+        .extra-buttons {
+          button, a {
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+
+  .hide-on-phone {
+    display: none;
+  }
+
+  .pg-vertical .pg-pips {
+    right: 1.5rem !important;
+  }
+
+  .view-on-phone {
+    display: block !important;
+  }
+}

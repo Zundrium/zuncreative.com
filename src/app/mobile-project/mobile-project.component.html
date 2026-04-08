@@ -1,0 +1,36 @@
+<div class="mobile-project">
+  <div class="overlay"></div>
+  <video playInView #mobileBackgroundVideo preload="none" loop muted playsinline class="background-video">
+    <source src="assets/video/{{project.slug}}_mobile.mp4" type="video/mp4">
+  </video>
+  <div class="phone-preview">
+    <div class="phone-overlay"></div>
+    <div class="spinner"></div>
+    <object class="header" data="assets/svg/header.svg" type="image/svg+xml"></object>
+    <video playInView #mobileVideo preload="none" loop muted playsinline class="video">
+      <source src="assets/video/{{project.slug}}_mobile.mp4" type="video/mp4">
+    </video>
+    <object class="footer" data="assets/svg/footer.svg" type="image/svg+xml"></object>
+  </div>
+
+  <div class="extra-buttons">
+    <button id="close-button" class="view-on-phone phone-fullscreen" (click)="hideVideo()">
+      Close
+      <!-- <object data="assets/svg/fullscreen.svg" type="image/svg+xml"></object> -->
+    </button>
+  </div>
+  <div class="project-text">
+    <h4>
+      {{project.name}}
+      <span *ngIf="project.partner" class="subtitle">Together with {{project.partner}}</span>
+    </h4>
+    <div innerHTML="{{project.full_description}}"></div>
+    <div class="extra-buttons">
+      <ng-content></ng-content>
+      <button class="view-on-phone phone-fullscreen" (click)="showVideo()">
+        View
+        <!-- <object data="assets/svg/fullscreen.svg" type="image/svg+xml"></object> -->
+      </button>
+    </div>
+  </div>
+</div>

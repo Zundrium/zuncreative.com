@@ -1,0 +1,26 @@
+<div class="overlay"></div>
+<img #image class="background-image" src="assets/img/{{project.slug}}.jpg" />
+<div class="content">
+  <h3 class="title"> 
+    {{project.name}}
+    <span *ngIf="project.partner" class="subtitle">Together with {{project.partner}}</span>
+  </h3>
+  <p class="description">
+    {{project.description}}
+  </p>
+  <div class="extra-buttons row-buttons">
+    <button (click)="openDialog()">
+      Read more
+    </button>
+    <a *ngIf="project.external_url" [href]="project.external_url" target="_blank">
+      Demo
+      <object data="assets/svg/external.svg" type="image/svg+xml"></object>
+    </a>
+  </div>
+</div>
+
+<div #dialog class="dialog">
+  <app-mobile-project #mobileProject [project]="project">
+    <button class="button back-button" (click)="closeDialog()">back</button>
+  </app-mobile-project>
+</div>

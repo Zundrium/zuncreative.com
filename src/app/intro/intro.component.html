@@ -1,0 +1,47 @@
+<app-slide-container>
+  <app-slide class="slide" id="babylon-intro-slide" data-anchor="threejs-intro-slide">
+    <app-babylon-intro-background></app-babylon-intro-background>
+    <div class="overlay"></div>
+    <div class="content">
+
+      <h3 class="title">A web page<br />you will remember</h3>
+      <p class="description">My name is <a href="https://linkedin.com/in/sem-verbraak/">Sem Verbraak</a>, I'm an
+        allround web producer that enjoys to develop and design accessible 3D experiences with web technology.</p>
+      <div class="extra-buttons">
+        <button class="button" (click)="goNext()">
+          Recent projects
+          <object data="assets/svg/arrow-down.svg" type="image/svg+xml"></object>
+        </button>
+      </div>
+    </div>
+  </app-slide>
+  <app-slide class="slide" data-anchor="web3d">
+    <img class="background-image" src="assets/img/expo.jpg" />
+    <div class="overlay"></div>
+    <div class="content">
+      <h3 class="title">3D on the web</h3>
+      <p class="description">My biggest passion is creating atmospheric and colorfull experiences, with the main focus
+        to deliver a message that's hard to forget. If you're new to Web 3D in general, I've a presentation for you to
+        check out.</p>
+      <div class="extra-buttons">
+        <button class="button" [routerLink]="['/web-3d']">Recent projects</button>
+        <a class="button orange-button" href="https://demo.zuncreative.com" target="_blank">
+          New to 3D on the web?
+          <object data="assets/svg/external.svg" type="image/svg+xml"></object>
+        </a>
+      </div>
+    </div>
+  </app-slide>
+  <app-slide class="slide" data-anchor="webar">
+    <img class="background-image" src="assets/img/webar.jpg" />
+    <div class="overlay"></div>
+    <div class="content">
+      <h3 class="title">Web AR</h3>
+      <p class="description">AR on the web is perfect for marketing campaigns as they're accessible, memorable and don't
+        require a large investment.</p>
+      <div class="extra-buttons">
+        <button class="button" [routerLink]="['/web-ar']">Recent projects</button>
+      </div>
+    </div>
+  </app-slide>
+</app-slide-container>

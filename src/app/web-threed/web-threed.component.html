@@ -1,0 +1,21 @@
+<app-slide-container>
+  <app-slide id="intro-slide" class="slide" data-anchor="intro-slide">
+    <img class="background-image preview" src="assets/img/monitor_header_preview.jpg" />
+    <div class="overlay"></div>
+    <video playInView #video preload="none" loop muted playsinline class="background-video">
+      <source src="assets/video/monitor_header.mp4" type="video/mp4">
+    </video>
+    <div class="content">
+      <h2 class="title">Adding the third dimension<br /> to the web</h2>
+      <div class="extra-buttons">
+        <button class="button" (click)="goNext()">
+          Recent projects
+          <object data="assets/svg/arrow-down.svg" type="image/svg+xml"></object>
+        </button>
+      </div>
+    </div>
+  </app-slide>
+  <app-slide *ngFor="let project of projects" class="slide" [attr.data-anchor]="project.slug">
+    <app-project [project]="project"> </app-project>
+  </app-slide>
+</app-slide-container>
