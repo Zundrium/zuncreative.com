@@ -1,0 +1,174 @@
+---
+interface Props {
+    href?: string;
+    ariaLabel?: string;
+    style?: "normal" | "text" | "line" | "secondary";
+    size?: "sm" | "md" | "lg";
+    class?: string;
+    id?: string;
+    target?: string;
+    iconLeft?: any;
+    iconRight?: any;
+}
+
+const {
+    href,
+    ariaLabel,
+    style = "line",
+    size = "md",
+    class: className = "",
+    id,
+    iconLeft: IconLeft,
+    iconRight: IconRight,
+    ...rest
+} = Astro.props;
+
+const baseClasses = `${className} text-center rounded-full cursor-pointer font-medium w-full relative inline-flex items-center justify-center transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 z-10`;
+
+const styleClasses = {
+    normal: "bg-black text-white hover:bg-gray-900 dark:bg-white dark:text-black dark:hover:bg-gray-200 focus:ring-white dark:focus:ring-black focus:ring-offset-gray-900 dark:focus:ring-offset-white",
+    secondary:
+        "bg-gray-800 text-white hover:bg-gray-900 dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-gray-300 focus:ring-gray-500",
+    text: "bg-transparent border-none text-black dark:text-white hover:text-white dark:hover:text-black  focus:ring-0",
+    line: "bg-transparent border-2 border-black text-black dark:border-white dark:text-white hover:text-white dark:hover:text-black focus:ring-0",
+};
+
+const sizeClasses = {
+    sm: "px-4 py-1.5 text-sm",
+    md: "px-6 py-2.5 text-base",
+    lg: "px-8 py-3.5 text-lg",
+};
+
+const Tag = href ? "a" : "button";
+---
+
+<div class="relative overflow-hidden rounded-full button-wrapper">
+    <Tag
+        href={href}
+        aria-label={ariaLabel}
+        class={`${baseClasses} ${styleClasses[style]} ${sizeClasses[size]} button-element`}
+        id={id}
+        {...rest}
+    >
+        <div
+            class="absolute rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none z-5 opacity-0 translate bg-black dark:bg-white button-mask"
+        >
+        </div>
+        <div class="relative z-10 flex items-center gap-1">
+            {
+                IconLeft && (
+                    <div class="icon-left-wrapper mr-1 flex items-center justify-center transition-transform duration-300 w-[1.2em] h-[1.2em] z-20">
+                        <IconLeft />
+                    </div>
+                )
+            }
+            <slot />
+            {
+                IconRight && (
+                    <div class="icon-right-wrapper ml-1 flex items-center justify-center transition-transform duration-300 w-[1.2em] h-[1.2em] z-20">
+                        <IconRight />
+                    </div>
+                )
+            }
+        </div>
+    </Tag>
+</div>
+
+<script>
+    import { gsap } from "gsap";
+
+    function initButtons() {
+        const buttons = document.querySelectorAll(".button-wrapper");
+
+        buttons.forEach((wrapper) => {
+            const buttonEl = wrapper.querySelector(
+                ".button-element",
+            ) as HTMLElement;
+            const maskEl = wrapper.querySelector(".button-mask") as HTMLElement;
+            const iconLeftWrapper = wrapper.querySelector(
+                ".icon-left-wrapper",
+            ) as HTMLElement;
+            const iconRightWrapper = wrapper.querySelector(
+                ".icon-right-wrapper",
+            ) as HTMLElement;
+
+            // Check if slots are occupied
+            // Logic removed as classes are now applied in template based on props
+
+            let maskTween: gsap.core.Tween | null = null;
+
+            const setMaskPosition = (e: MouseEvent) => {
+                const rect = buttonEl.getBoundingClientRect();
+                return {
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top,
+                };
+            };
+
+            const startMaskAnimation = (
+                size: number,
+                duration: number,
+                ease: string,
+            ) => {
+                if (maskTween) maskTween.kill();
+
+                maskTween = gsap.to(maskEl, {
+                    width: size,
+                    height: size,
+                    duration,
+                    ease,
+                    onComplete: () => (maskTween = null),
+                });
+            };
+
+            const animateIcons = (active: boolean) => {
+                const x = active ? 4 : 0;
+                if (iconLeftWrapper)
+                    gsap.to(iconLeftWrapper, { x: -x, duration: 0.3 });
+                if (iconRightWrapper)
+                    gsap.to(iconRightWrapper, { x, duration: 0.3 });
+            };
+
+            const handleMouseEnter = (e: MouseEvent) => {
+                const { x, y } = setMaskPosition(e);
+                gsap.set(maskEl, {
+                    left: x,
+                    top: y,
+                    width: 0,
+                    height: 0,
+                    opacity: 1,
+                });
+
+                const rect = buttonEl.getBoundingClientRect();
+                const diagonal = Math.sqrt(rect.width ** 2 + rect.height ** 2);
+                startMaskAnimation(diagonal * 2, 0.3, "power2.in");
+
+                animateIcons(true);
+            };
+
+            const handleMouseLeave = (e: MouseEvent) => {
+                const { x, y } = setMaskPosition(e);
+                gsap.set(maskEl, { left: x, top: y });
+
+                startMaskAnimation(0, 0.5, "expo.out");
+                if (maskTween) {
+                    maskTween.eventCallback("onComplete", () => {
+                        gsap.set(maskEl, { opacity: 0 });
+                        maskTween = null;
+                    });
+                }
+
+                animateIcons(false);
+            };
+
+            buttonEl.addEventListener("mouseenter", handleMouseEnter);
+            buttonEl.addEventListener("mouseleave", handleMouseLeave);
+        });
+    }
+
+    // Run on load
+    initButtons();
+
+    // If using view transitions
+    document.addEventListener("astro:page-load", initButtons);
+</script>

@@ -1,0 +1,12 @@
+---
+import LandingPage from "../../components/pages/LandingPage.astro";
+import { locales } from "../../lib/i18n";
+
+export function getStaticPaths() {
+    return locales.map((lang: string) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+---
+
+<LandingPage lang={lang as "en" | "nl"} />

@@ -1,0 +1,72 @@
+---
+import AnimatedParagraph from "../../typography/AnimatedParagraph.astro";
+import SectionHeading from "../../typography/SectionHeading.astro";
+import Section from "../../ui/Section.astro";
+import { m } from "../../../lib/i18n";
+---
+
+<Section
+    id="about-me"
+    class="flex flex-col gap-4 lg:gap-6 xl:gap-12 justify-center items-center"
+>
+    <SectionHeading
+        centered
+        subtitle={m.services_section_subtitle()}
+        title={m.services_section_title()}
+    />
+
+    <div class="text-center w-full md:w-1/2">
+        <AnimatedParagraph>
+            <Fragment set:html={m.services_section_intro()} />
+        </AnimatedParagraph>
+    </div>
+
+    <div
+        class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 lg:gap-12 xl:gap-8 2xl:gap-12"
+    >
+        <div class="text-center flex flex-col gap-4 lg:gap-6 xl:gap-12">
+            <h3
+                class="text-6xl md:text-7xl lg:text-8xl xl:text-9xl serif-display viewport-slide-in-bottom opacity-0 translate-y-12"
+            >
+                AI
+            </h3>
+            <AnimatedParagraph>
+                <Fragment set:html={m.services_section_ai_description()} />
+            </AnimatedParagraph>
+        </div>
+        <div class="text-center flex flex-col gap-4 lg:gap-6 xl:gap-12">
+            <h3
+                class="text-6xl md:text-7xl lg:text-8xl xl:text-9xl serif-display viewport-slide-in-bottom opacity-0 translate-y-12"
+            >
+                AR
+            </h3>
+            <AnimatedParagraph>
+                <Fragment set:html={m.services_section_ar_description()} />
+            </AnimatedParagraph>
+        </div>
+        <div class="text-center flex flex-col gap-4 lg:gap-6 xl:gap-12">
+            <h3
+                class="text-6xl md:text-7xl lg:text-8xl xl:text-9xl serif-display viewport-slide-in-bottom opacity-0 translate-y-12"
+            >
+                3D
+            </h3>
+            <AnimatedParagraph>
+                <Fragment set:html={m.services_section_3d_description()} />
+            </AnimatedParagraph>
+        </div>
+    </div>
+</Section>
+
+<script>
+    import { viewportSlideInBottom } from "../../../lib/utils/viewportSwitchClass";
+
+    function initServices() {
+        const elements = document.querySelectorAll(".viewport-slide-in-bottom");
+        elements.forEach((el) => {
+            viewportSlideInBottom(el as HTMLElement);
+        });
+    }
+
+    initServices();
+    document.addEventListener("astro:page-load", initServices);
+</script>

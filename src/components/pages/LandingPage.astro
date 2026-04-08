@@ -1,0 +1,51 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import HeroSequence from "../sections/index/HeroSequence.astro";
+import BrandCarousel from "../sections/index/BrandCarousel.astro";
+import Services from "../sections/index/Services.astro";
+import RecentPosts from "../sections/index/RecentPosts.astro";
+import Showcase from "../sections/index/Showcase.astro";
+import Contact from "../sections/index/Contact.astro";
+import { m, setLocale } from "../../lib/i18n";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+interface Props {
+    lang: "en" | "nl";
+}
+
+const { lang } = Astro.props;
+
+// Set the language for Paraglide
+setLocale(lang);
+
+const posts = await getCollection("blog");
+const sortedPosts = posts
+    .filter((post) => post.slug.startsWith(`${lang}/`))
+    .sort(
+        (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+            b.data.publish_date.valueOf() - a.data.publish_date.valueOf(),
+    )
+    .slice(0, 3);
+
+const showcaseItems = await getCollection("showcase");
+const sortedShowcaseItems = showcaseItems
+    .filter((item) => item.slug.startsWith(`${lang}/`))
+    .sort(
+        (a: CollectionEntry<"showcase">, b: CollectionEntry<"showcase">) =>
+            (a.data.order || 99) - (b.data.order || 99),
+    );
+---
+
+<Layout
+    title={m.index_title()}
+    description={m.index_description()}
+    keywords={m.index_keywords()}
+    image="/images/2d_matrix.png"
+>
+    <HeroSequence />
+    <BrandCarousel />
+    <Services />
+    <RecentPosts posts={sortedPosts} />
+    <Showcase showcaseItems={sortedShowcaseItems} />
+    <Contact />
+</Layout>
