@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="%paraglide.lang%" dir="%paraglide.textDirection%"
+	class="bg-white dark:bg-black antialiased overscroll-none transition-colors duration-300" translate="no">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="referrer" content="no-referrer-when-downgrade">
+	<link rel="icon" href="/favicon.ico" sizes="32x32">
+	<link rel="icon" href="/icon.svg" type="image/svg+xml">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script defer src="https://umami.zund.cc/script.js" data-website-id="8217acc4-5711-44bd-bfb1-88b7e9d58373"></script>
+	<script async>
+		document.documentElement.classList.toggle("dark", localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),);
+	</script>
+
+	%sveltekit.head%
+</head>
+
+<body data-sveltekit-preload-data="hover">
+	<div style="display: contents">%sveltekit.body%</div>
+</body>
+
+</html>
