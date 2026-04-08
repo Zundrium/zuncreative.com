@@ -1,0 +1,74 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import H1 from "../../components/typography/H2.astro";
+import Paragraph from "../../components/typography/Paragraph.astro";
+import PageHeading from "../../components/ui/PageHeading.astro";
+import { getCollection } from "astro:content";
+import { formatDate } from "../../lib/utils/formatDate";
+import { m, setLocale } from "../../lib/i18n";
+
+export async function getStaticPaths() {
+    const pages = await getCollection("textpages");
+    return pages
+        .map((page) => {
+            const [lang, ...slugParts] = page.slug.split("/");
+            const slug = slugParts.join("/");
+            if (lang && slug) {
+                return {
+                    params: { lang, slug },
+                    props: { page },
+                };
+            }
+            return null;
+        })
+        .filter((path) => path !== null);
+}
+
+const { page } = Astro.props;
+const { lang } = Astro.params;
+
+if (lang === "en" || lang === "nl") {
+    setLocale(lang);
+}
+
+const { Content } = await page.render();
+---
+
+<Layout
+    title={`${page.data.title} - Zun Creative`}
+    description={page.data.description}
+>
+    <PageHeading>
+        <div class="w-full flex flex-col">
+            <hgroup
+                class="flex flex-col gap-4 lg:gap-8 xl:gap-12 justify-center"
+            >
+                <H1>{page.data.title}</H1>
+                <Paragraph size="xl">
+                    {page.data.description}
+                </Paragraph>
+                {
+                    page.data.modify_date && (
+                        <div class="flex flex-col lg:flex-row gap-2 lg:gap-6 lg:items-center pb-12 text-neutral-500 dark:text-neutral-400">
+                            <span>
+                                <i>{m.lastModifiedOn()}</i>
+                                <i>{formatDate(page.data.modify_date)}</i>
+                            </span>
+                            <span class="hidden lg:inline">|</span>
+                            <i>
+                                {m.publishedOn()}{" "}
+                                {formatDate(page.data.publish_date)}
+                            </i>
+                        </div>
+                    )
+                }
+            </hgroup>
+        </div>
+    </PageHeading>
+
+    <article
+        class="py-12 px-6 prose lg:prose-xl dark:prose-invert mx-auto prose-strong:font-extralight max-w-full md:max-w-prose prose-pre:pe-0 prose-pre:ps-0"
+    >
+        <Content />
+    </article>
+</Layout>

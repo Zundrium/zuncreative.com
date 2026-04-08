@@ -1,0 +1,80 @@
+---
+import MdiMoonAndStars from "~icons/mdi/moon-and-stars";
+import MdiWhiteBalanceSunny from "~icons/mdi/white-balance-sunny";
+import MdiLaptop from "~icons/mdi/laptop";
+---
+
+<div class="flex items-center gap-4 theme-switch">
+    <button
+        class="cursor-pointer duration-300 opacity-50 hover:opacity-100 theme-btn"
+        data-theme="system"
+        aria-label="Switch to system theme"
+    >
+        <MdiLaptop class="size-6 lg:size-4" />
+    </button>
+    <button
+        class="cursor-pointer duration-300 opacity-50 hover:opacity-100 theme-btn"
+        data-theme="light"
+        aria-label="Switch to light theme"
+    >
+        <MdiWhiteBalanceSunny class="size-6 lg:size-4" />
+    </button>
+    <button
+        class="cursor-pointer duration-300 opacity-50 hover:opacity-100 theme-btn"
+        data-theme="dark"
+        aria-label="Switch to dark theme"
+    >
+        <MdiMoonAndStars class="size-6 lg:size-4" />
+    </button>
+</div>
+
+<script>
+    function initThemeSwitch() {
+        const buttons = document.querySelectorAll(".theme-btn");
+        let activeTheme = localStorage.getItem("theme") || "system";
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+        function applyTheme(theme: string) {
+            const isDark =
+                theme === "dark" || (theme === "system" && mediaQuery.matches);
+            document.documentElement.classList.toggle("dark", isDark);
+
+            // Update buttons
+            buttons.forEach((btn) => {
+                if (btn.getAttribute("data-theme") === theme) {
+                    btn.classList.remove("opacity-50");
+                    btn.classList.add("opacity-100");
+                } else {
+                    btn.classList.add("opacity-50");
+                    btn.classList.remove("opacity-100");
+                }
+            });
+        }
+
+        applyTheme(activeTheme);
+
+        buttons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const theme = btn.getAttribute("data-theme");
+                if (theme) {
+                    activeTheme = theme;
+                    if (theme === "system") {
+                        localStorage.removeItem("theme");
+                    } else {
+                        localStorage.setItem("theme", theme);
+                    }
+                    applyTheme(theme);
+                }
+            });
+        });
+
+        mediaQuery.addEventListener("change", () => {
+            if (activeTheme === "system") {
+                applyTheme("system");
+            }
+        });
+    }
+
+    initThemeSwitch();
+    document.addEventListener("astro:page-load", initThemeSwitch);
+</script>

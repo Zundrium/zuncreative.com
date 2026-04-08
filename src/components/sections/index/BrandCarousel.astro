@@ -1,0 +1,87 @@
+---
+import { getAllBrands, type Brand } from "../../../lib/utils/brands";
+
+const brandNames: Brand[] = getAllBrands() as Brand[];
+const doubledBrands: Brand[] = [...brandNames, ...brandNames];
+---
+
+<div class="brand-carousel">
+    <div class="scroll-container dark:invert">
+        {
+            doubledBrands.map((brand, index) => (
+                <img
+                    src={brand.url}
+                    alt={`${brand.name} logo`}
+                    class={`brand-logo ${brand.height} opacity-70`}
+                    loading="lazy"
+                    decoding="async"
+                />
+            ))
+        }
+    </div>
+</div>
+
+<style>
+    .brand-carousel {
+        position: relative;
+        overflow: hidden;
+        padding: 2rem 0;
+    }
+
+    @media (min-width: 1024px) {
+        .brand-carousel {
+            padding: 3rem 0;
+        }
+    }
+
+    @media (min-width: 1536px) {
+        .brand-carousel {
+            padding: 4rem 0;
+        }
+    }
+
+    .scroll-container {
+        display: flex;
+        align-items: center;
+        width: max-content;
+        /* Use transform3d for hardware acceleration */
+        animation: scroll 30s linear infinite;
+        will-change: transform;
+        /* Prevent layout shifts during animation */
+        backface-visibility: hidden;
+        /* Optimize for smooth animation */
+        transform: translateZ(0);
+    }
+
+    .brand-logo {
+        width: auto;
+        object-fit: contain;
+        opacity: 0.3;
+        flex-shrink: 0;
+        margin-right: 3rem;
+        transition: opacity 0.8s ease;
+        /* Improve image rendering */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+
+    .brand-logo:hover {
+        opacity: 0.7;
+    }
+
+    @keyframes scroll {
+        from {
+            transform: translate3d(0, 0, 0);
+        }
+        to {
+            transform: translate3d(-50%, 0, 0);
+        }
+    }
+
+    /* Reduce motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+        .scroll-container {
+            animation-duration: 60s;
+        }
+    }
+</style>

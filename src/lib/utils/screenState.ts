@@ -9,6 +9,7 @@ const breakpoints = {
 export type ScreenState = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 export function getScreenState(): ScreenState {
+    if (typeof window === 'undefined') return 'lg'; // Default for SSR
     const width = window.innerWidth;
 
     if (width >= 1536) return '2xl';

@@ -56,6 +56,6 @@
 	"footer_blog_title": "Blog",
 	"footer_general_title": "General",
 	"footer_address": "Vlierweg 12<br />1032LG<br/>Amsterdam",
-	"footer_copyright": "&copy; {year} All rights reserved.",
+	"footer_copyright": "{year} All rights reserved.",
 	"footer_aria_legal": "Legal links"
 }

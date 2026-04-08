@@ -1,0 +1,130 @@
+---
+import Paragraph from "../typography/Paragraph.astro";
+import { m } from "../../lib/i18n";
+import MdiLinkedin from "~icons/mdi/linkedin";
+import MdiPhone from "~icons/mdi/phone";
+import MdiEmail from "~icons/mdi/email";
+import DarkAndLightSwitch from "./DarkAndLightSwitch.astro";
+import LanguageLinks from "./LanguageLinks.astro";
+import { getCollection } from "astro:content";
+
+import { getPostUrl } from "../../lib/utils/url";
+
+const posts = await getCollection("blog");
+const currentLocale = Astro.currentLocale || "en";
+
+// Filter by locale, sort by date desc and take top 5
+const recentPosts = posts
+    .filter((post) => post.slug.startsWith(`${currentLocale}/`))
+    .sort(
+        (a, b) => b.data.publish_date.valueOf() - a.data.publish_date.valueOf(),
+    )
+    .slice(0, 5);
+
+const blogLinks = recentPosts.map((post) => ({
+    name: post.data.title,
+    href: getPostUrl(post.slug),
+}));
+
+const columnLinks = [
+    {
+        title: m.footer_blog_title(),
+        links: blogLinks,
+    },
+    {
+        title: m.footer_general_title(),
+        links: [
+            { name: m.nav_about_me(), href: "/#about-me" },
+            { name: m.nav_showcase(), href: "/#showcase" },
+            { name: m.nav_privacy(), href: "/privacy" },
+            { name: m.nav_terms_and_conditions(), href: "/terms" },
+            { name: m.nav_contact(), href: "/#contact" },
+        ],
+    },
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer
+    class="text-black dark:text-white flex flex-col items-center bg-slate-50 dark:bg-white/5"
+>
+    <div class="w-full flex flex-col items-center px-6 py-12 lg:py-24">
+        <div class="container px-6 flex-1">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-8">
+                {
+                    columnLinks.map((column) => (
+                        <div class="flex flex-col gap-8">
+                            <span class="font-bold">{column.title}</span>
+                            <ul class="flex flex-col gap-2 text-slate-700 dark:text-slate-400">
+                                {column.links.map((link) => (
+                                    <li>
+                                        <a
+                                            class="cursor-pointer"
+                                            href={link.href}
+                                        >
+                                            {link.name}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))
+                }
+                <address class="flex flex-col gap-8">
+                    <a
+                        href="/"
+                        class="font-bold text-3xl w-14 h-14"
+                        aria-label={m.nav_aria_home()}
+                    >
+                        <object
+                            class="pointer-events-none inset-0 w-full h-full duration-500"
+                            data="/svg/logo.svg"
+                            type="image/svg+xml"
+                            title={m.nav_logo_title()}></object>
+                    </a>
+                    <div
+                        class="flex flex-col gap-4 text-slate-700 dark:text-slate-400"
+                    >
+                        <Paragraph size="sm">
+                            <Fragment set:html={m.footer_address()} />
+                        </Paragraph>
+                        <a
+                            href="mailto:sem@zuncreative.com"
+                            class="cursor-pointer hover:underline flex items-center gap-2"
+                        >
+                            <MdiEmail class="size-4" />
+                            sem@zuncreative.com
+                        </a>
+                        <a
+                            href="tel:+31613665658"
+                            class="cursor-pointer hover:underline flex items-center gap-2"
+                        >
+                            <MdiPhone class="size-4" />
+                            +316 13 665 658
+                        </a>
+                        <a
+                            href="https://linkedin.com/in/sem-verbraak"
+                            class="cursor-pointer hover:underline flex items-center gap-2"
+                        >
+                            <MdiLinkedin class="size-4" />
+                            /in/sem-verbraak
+                        </a>
+                    </div>
+                </address>
+            </div>
+        </div>
+    </div>
+    <div
+        class="halfcontainer w-full flex items-center justify-between text-sm text-slate-700 dark:text-slate-400 gap-4 lg:gap-8 p-4 lg:px-12 rounded-t-4xl bg-white dark:bg-black"
+    >
+        <div>
+            <DarkAndLightSwitch />
+        </div>
+        <div>&copy; {m.footer_copyright({ year })}</div>
+        <div>
+            <LanguageLinks />
+        </div>
+    </div>
+    <div class="w-full h-10 lg:h-20 bg-white dark:bg-black"></div>
+</footer>

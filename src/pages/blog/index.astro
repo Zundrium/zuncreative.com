@@ -1,0 +1,74 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Section from "../../components/ui/Section.astro";
+import SectionHeading from "../../components/typography/SectionHeading.astro";
+import H3 from "../../components/typography/H3.astro";
+import Paragraph from "../../components/typography/Paragraph.astro";
+import Button from "../../components/ui/Button.astro";
+import Image from "../../components/ui/Image.astro";
+import MdiArrowRight from "~icons/mdi/arrow-right";
+import { getCollection } from "astro:content";
+import { formatDate } from "../../lib/utils/formatDate";
+import { getPostUrl } from "../../lib/utils/url";
+import { m } from "../../lib/i18n";
+
+const posts = await getCollection("blog");
+const sortedPosts = posts
+    .filter((post) => post.slug.startsWith("en/"))
+    .sort(
+        (a, b) => b.data.publish_date.valueOf() - a.data.publish_date.valueOf(),
+    );
+---
+
+<Layout
+    title="Blog - Zun Creative"
+    description="Insights and updates from Zun Creative."
+>
+    <Section class="flex flex-col gap-12">
+        <SectionHeading title="Blog" subtitle="Our latest insights" centered />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                sortedPosts.map((post) => (
+                    <div class="flex flex-col gap-4">
+                        <a
+                            href={getPostUrl(post.slug)}
+                            class="block aspect-video overflow-hidden relative group"
+                        >
+                            {post.data.header_image && (
+                                <Image
+                                    parallax
+                                    alt={post.data.title}
+                                    src={post.data.header_image}
+                                    class="absolute inset-0 w-full h-full object-cover"
+                                    thumb
+                                />
+                            )}
+                        </a>
+                        <div class="flex flex-col gap-2">
+                            <span class="text-sm text-neutral-500 dark:text-neutral-400">
+                                {formatDate(post.data.publish_date)}
+                            </span>
+                            <a
+                                href={getPostUrl(post.slug)}
+                                class="hover:underline"
+                            >
+                                <H3>{post.data.title}</H3>
+                            </a>
+                            <Paragraph size="sm" class="line-clamp-3">
+                                {post.data.description}
+                            </Paragraph>
+                            <Button
+                                style="text"
+                                href={getPostUrl(post.slug)}
+                                iconRight={MdiArrowRight}
+                            >
+                                {m.read_more()}
+                            </Button>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </Section>
+</Layout>

@@ -1,18 +1,13 @@
-// src/lib/brands.ts
+// src/lib/utils/brands.ts
 
-// Define an interface for consistency and type safety
 export interface Brand {
-    name: string;   // Stored in lowercase for consistent lookups
+    name: string;
     height: string;
-    url: string;    // Full URL to the SVG image
+    url: string;
 }
 
-// Base path for your SVG assets
 const BASE_SVG_PATH = "/svg/brands/";
 
-// 1. Data Source: Use a readonly tuple or array for immutability.
-// Each brand object explicitly defines its name (lowercase for lookup), height,
-// and constructs its URL based on the assumed SVG filename convention (e.g., KLM_logo.svg).
 const coreBrands: readonly Brand[] = [
     { name: "klm", height: "h-12", url: `${BASE_SVG_PATH}klm_logo.svg` },
     { name: "dior", height: "h-8", url: `${BASE_SVG_PATH}dior_logo.svg` },
@@ -34,21 +29,11 @@ const coreBrands: readonly Brand[] = [
     { name: "sophon", height: "h-14", url: `${BASE_SVG_PATH}sophon_logo.svg` },
 ];
 
-/**
- * Retrieves all available brand objects, including their pre-computed URLs.
- * @returns {readonly Brand[]} A readonly array of all brand objects.
- */
 export function getAllBrands(): readonly Brand[] {
     return coreBrands;
 }
 
-/**
- * Retrieves a single brand object by its name (case-insensitive), including its pre-computed URL.
- * @param {string} name - The name of the brand to retrieve.
- * @returns {Brand | undefined} The brand object if found, otherwise undefined.
- */
 export function getBrandByName(name: string): Brand | undefined {
-    // Convert input name to lowercase for case-insensitive comparison against stored names
     const lowerCaseName = name.toLowerCase();
     return coreBrands.find(brand => brand.name === lowerCaseName);
 }
