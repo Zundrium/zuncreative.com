@@ -83,6 +83,10 @@ const serializedItems = JSON.stringify(
                 else if (item.data.mobile) classes += " row-span-2";
                 else classes += " col-span-2";
 
+                const imageSizes = item.data.mobile
+                    ? "(min-width: 1280px) 25vw, (min-width: 768px) 50vw, 50vw"
+                    : "(min-width: 1280px) 50vw, (min-width: 768px) 100vw, 100vw";
+
                 return (
                     <a
                         href={getShowcaseUrl(item.slug)}
@@ -100,6 +104,8 @@ const serializedItems = JSON.stringify(
                                 alt={`thumbnail for ${item.data.title}`}
                                 class="w-full h-full transition-transform group-hover:scale-110 duration-300"
                                 loading="lazy"
+                                sizes={imageSizes}
+                                widths={[400, 640, 960, 1280, 1600]}
                                 thumb
                             />
                         )}
