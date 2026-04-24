@@ -24,3 +24,6 @@ pnpm-debug.log*
 .idea/
 
 old/
+
+# Windows metadata sidecar files
+*:Zone.Identifier
