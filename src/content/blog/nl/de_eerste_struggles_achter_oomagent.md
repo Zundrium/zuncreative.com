@@ -1,14 +1,14 @@
 ---
-title: 'De eerste echte struggles achter Omagent: waarom ik eindigde met LiveKit'
-description: 'Bij het bouwen van Omagent liep ik al vroeg tegen fundamentele keuzes aan rond agentic frameworks, realtime audio, toolcalls en architectuur.'
+title: 'De eerste echte struggles achter OomAgent: waarom ik eindigde met LiveKit'
+description: 'Bij het bouwen van OomAgent liep ik al vroeg tegen fundamentele keuzes aan rond agentic frameworks, realtime audio, toolcalls en architectuur.'
 publish_date: '2026-05-01'
 modify_date: '2026-05-01'
-keywords: 'omagent, livekit, livekit agents, fastapi, mcp, rpc, webrtc, websockets, ai agents'
-header_image: '../../../assets/images/omagent-livekit-hero.jpg'
+keywords: 'oomagent, livekit, livekit agents, fastapi, mcp, rpc, webrtc, websockets, ai agents'
+header_image: '../../../assets/images/oomagent-livekit-hero.jpg'
 header_image_position: center
 ---
 
-Toen ik begon aan **Omagent**, dacht ik dat de grootste uitdaging zou zitten in de intelligentie van de agent zelf. Welk model kies je? Hoe laat je een agent goed redeneren? Hoe zorg je dat toolcalls betrouwbaar werken? Maar in de praktijk begon de echte uitdaging veel eerder: **wat is een stevig fundament voor een agent platform dat niet alleen vandaag werkt, maar over een jaar nog steeds logisch en onderhoudbaar is?**
+Toen ik begon aan **OomAgent**, dacht ik dat de grootste uitdaging zou zitten in de intelligentie van de agent zelf. Welk model kies je? Hoe laat je een agent goed redeneren? Hoe zorg je dat toolcalls betrouwbaar werken? Maar in de praktijk begon de echte uitdaging veel eerder: **wat is een stevig fundament voor een agent platform dat niet alleen vandaag werkt, maar over een jaar nog steeds logisch en onderhoudbaar is?**
 
 En precies daar begonnen de eerste serieuze struggles.
 
@@ -66,7 +66,7 @@ Dus ondanks alle potentie van voice, moesten we op een bepaald moment een nuchte
 
 ## Waarom we tijdelijk teruggingen naar tekst
 
-Een van de belangrijkste beslissingen in de ontwikkeling van Omagent was dat we **tijdelijk teruggingen naar tekst als primaire interactievorm**.
+Een van de belangrijkste beslissingen in de ontwikkeling van OomAgent was dat we **tijdelijk teruggingen naar tekst als primaire interactievorm**.
 
 Niet omdat audio niet waardevol is. Integendeel. Ik geloof nog steeds dat audio een enorm belangrijke rol gaat spelen in agent platforms. Maar als de toolcalling-laag nog niet stabiel genoeg is binnen realtime modellen, dan moet je soms een stap terug doen om later twee stappen vooruit te kunnen zetten.
 
@@ -95,7 +95,7 @@ Wat ik daar prettig aan vond, is dat de verantwoordelijkheden duidelijk blijven.
 
 Een model dat alleen antwoord geeft, is nog geen volwaardige agent. Pas wanneer een systeem **iets kan doen**, begint het interessant te worden.
 
-Daarom waren **toolcalls** een essentieel onderdeel van Omagent. In ons geval werkten die via losse **MCP-servers**. Dat bleek een hele fijne keuze, omdat het LiveKit agentic framework dit goed ondersteunt. Je kunt tools daardoor modulair opzetten, apart beheren en gericht uitbreiden.
+Daarom waren **toolcalls** een essentieel onderdeel van OomAgent. In ons geval werkten die via losse **MCP-servers**. Dat bleek een hele fijne keuze, omdat het LiveKit agentic framework dit goed ondersteunt. Je kunt tools daardoor modulair opzetten, apart beheren en gericht uitbreiden.
 
 Dat is veel prettiger dan een monolithische aanpak waarin alle functionaliteit ergens diep in dezelfde backend verstopt raakt.
 
@@ -113,7 +113,7 @@ Een simpel voorbeeld: stel dat de AI in de browser een alert moet tonen. Dan kun
 
 Dat klinkt misschien klein, maar het opent een veel grotere wereld. Want dan praat de agent niet alleen tegen de gebruiker, maar kan hij ook **gericht de interface beïnvloeden**.
 
-En precies daar begon Omagent voor mij echt interessant te worden.
+En precies daar begon OomAgent voor mij echt interessant te worden.
 
 ## Van generieke interfaces naar maatwerk deliverables
 
@@ -121,7 +121,7 @@ Veel moderne AI-producten bewegen richting een soort **canvas-achtige ervaring**
 
 Alleen is daar in mijn ogen vaak een probleem mee: het blijft snel te generiek.
 
-Bij Omagent wilden we juist een andere kant op. Niet een generiek canvas dat "een beetje van alles" kan, maar **maatwerk tools die aansluiten op concrete deliverables van klanten**.
+Bij OomAgent wilden we juist een andere kant op. Niet een generiek canvas dat "een beetje van alles" kan, maar **maatwerk tools die aansluiten op concrete deliverables van klanten**.
 
 Dus niet zomaar een blok output, maar bijvoorbeeld een specifieke `displayQuote` of `displayOffer` RPC tool die een offerte exact toont op de manier die voor die klant logisch is. Met de juiste velden, de juiste opmaak en de juiste context.
 
@@ -131,7 +131,7 @@ Daardoor kan de agent veel helderder communiceren. Niet meer vaag of generiek, m
 
 ## Wat deze fase me vooral leerde
 
-Als ik terugkijk op deze eerste fase van Omagent, dan ging het eigenlijk veel minder over prompts of modelkwaliteit dan ik vooraf dacht. Natuurlijk zijn die belangrijk. Maar de echte struggles zaten dieper:
+Als ik terugkijk op deze eerste fase van OomAgent, dan ging het eigenlijk veel minder over prompts of modelkwaliteit dan ik vooraf dacht. Natuurlijk zijn die belangrijk. Maar de echte struggles zaten dieper:
 
 - welk framework is echt houdbaar;
 - welke realtime technologie is sterk genoeg;
@@ -143,14 +143,14 @@ Dat zijn geen flashy keuzes, maar wel precies de keuzes die bepalen of je iets b
 
 Voor mij kwam de voorlopige uitkomst neer op een duidelijke combinatie: **FastAPI voor de klassieke backend, LiveKit als realtime hart, LiveKit Agents voor de agentlaag, MCP-servers voor externe tools en RPC methods voor client-side interactie.**
 
-Dat is uiteindelijk de basis geworden waarop Omagent verder kon groeien.
+Dat is uiteindelijk de basis geworden waarop OomAgent verder kon groeien.
 
 ## Slot
 
 De eerste versie van een agent platform bouwen gaat zelden over alleen AI. Het gaat minstens zoveel over infrastructuur, interactie, betrouwbaarheid en productkeuzes. En juist die laag vond ik achteraf misschien nog wel interessanter dan de modellen zelf.
 
-Omagent begon voor mij dus niet met een perfecte architectuur, maar met veel uitproberen, veel afwegen en ook accepteren dat sommige delen van de markt nog niet volwassen genoeg zijn voor wat je uiteindelijk wilt bouwen.
+OomAgent begon voor mij dus niet met een perfecte architectuur, maar met veel uitproberen, veel afwegen en ook accepteren dat sommige delen van de markt nog niet volwassen genoeg zijn voor wat je uiteindelijk wilt bouwen.
 
 En misschien is dat ook precies wat bouwen aan agent platforms vandaag zo interessant maakt: je werkt niet alleen aan een product, maar ook op de grens van wat nu al echt werkt.
 
-**Wil je meer weten over hoe Omagent is opgebouwd, waar ik precies tegenaan liep, of waarom bepaalde keuzes uiteindelijk beter werkten dan andere? Stuur me gerust een bericht op LinkedIn.** Ik deel daar graag meer over, en ik ga de komende tijd meer schrijven over mijn ervaringen met het bouwen van agent platforms.
+**Wil je meer weten over hoe OomAgent is opgebouwd, waar ik precies tegenaan liep, of waarom bepaalde keuzes uiteindelijk beter werkten dan andere? Stuur me gerust een bericht op LinkedIn.** Ik deel daar graag meer over, en ik ga de komende tijd meer schrijven over mijn ervaringen met het bouwen van agent platforms.
