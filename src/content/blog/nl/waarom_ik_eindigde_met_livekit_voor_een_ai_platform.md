@@ -1,5 +1,5 @@
 ---
-title: 'De eerste echte struggles achter OomAgent: waarom ik eindigde met LiveKit'
+title: 'Waarom ik eindigde met LiveKit voor een AI-platform'
 description: 'Bij het bouwen van OomAgent liep ik al vroeg tegen fundamentele keuzes aan rond agentic frameworks, realtime audio, toolcalls en architectuur.'
 publish_date: '2026-05-01'
 modify_date: '2026-05-01'
