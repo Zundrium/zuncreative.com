@@ -21,7 +21,7 @@ Dus ging ik op zoek naar iets dat met het absolute minimum werd geleverd. Iets w
 
 ## Waarom Pi
 
-Pi is het coding agent harnas dat door OpenClaw wordt gebruikt, en het heeft een filosofie waar ik meteen mee resoneerde: **lever bijna niets, documenteer alles**. Uit de doos krijg je `read`, `write`, `edit`, en `bash`. Dat is het. Geen web search. Geen web fetch. Geen git integratie. Geen linter, geen package manager, geen MCP server orkest.
+Pi is het coding agent harnas dat door OpenClaw wordt gebruikt, en het heeft een filosofie waar ik meteen mee resoneerde: **lever bijna niets, documenteer alles**. Uit de doos krijg je `read`, `write`, `edit`, en `bash`. Dat is het. Geen web search. Geen web fetch. Geen directe git integratie. Geen linter. Pi heeft wel degelijk package management (`pi install`, `pi remove`, `pi update`), maar dat blijft in de CLI in plaats van als standaard model-tool in de context te zitten. Geen MCP server orkest.
 
 Wat het *wel* levert is een schone TypeScript extension API en een map genaamd `extensions/`. Gooi daar een `.ts` bestand in, exporteer een standaard functie die `(pi: ExtensionAPI)` accepteert, en je hebt een tool, een slash command, een TUI widget, of een lifecycle hook toegevoegd. De documentatie is kort, de voorbeelden zijn echt, en je kunt letterlijk je LLM vragen om extensies voor zichzelf te schrijven.
 
@@ -47,9 +47,9 @@ Het eerste wat ik zeker wist te willen was goede webtoegang. Maar ik had meninge
 
 ### web_fetch: Het Verborgen Juweel
 
-Elke andere agent voert rauwe HTML aan de LLM. Dit is gestoord. Je verbrandt tokens aan `<div>` soep en CSS classes terwijl je eigenlijk alleen de artikeltekst wilt. De voor de hand liggende oplossing is "converteer HTML eerst naar markdown", en er zijn een dozijn SaaS APIs die je daar graag per request voor laten betalen. Er is zelfs [crawl4ai](https://github.com/unclecode/crawl4ai), wat erg capabel is maar een zware Python installatie vereist.
+Te veel webtools voor agents voeren nog steeds rauwe of rommelige HTML aan de LLM. Dit is gestoord. Je verbrandt tokens aan `<div>` soep en CSS classes terwijl je eigenlijk alleen de artikeltekst wilt. De voor de hand liggende oplossing is "converteer HTML eerst naar markdown", en er zijn een dozijn SaaS APIs die je daar graag per request voor laten betalen. Er is zelfs [crawl4ai](https://github.com/unclecode/crawl4ai), wat erg capabel is maar een zware Python installatie vereist.
 
-Of je gebruikt **[webclaw](https://github.com/0xMassi/webclaw)**. Het is een Go binary. Enkel commando. URL er in, schone markdown er uit. Geen API key. Geen Python omgeving. Geen Docker. Het werkt met JavaScript-gerenderde paginas. Het is snel, elegant, draagbaar en volledig gratis.
+Of je gebruikt **[webclaw](https://github.com/0xMassi/webclaw)**. Het is een Rust CLI binary. Enkel commando. URL er in, schone markdown er uit. Voor normale paginas draait het lokaal zonder API key, Python omgeving of Docker. Voor JavaScript-gerenderde of beschermde paginas kun je waar nodig de hosted/API-route gebruiken. Het is snel, elegant, draagbaar en gratis voor de lokale core-extractie.
 
 ```bash
 webclaw https://example.com/article --format markdown

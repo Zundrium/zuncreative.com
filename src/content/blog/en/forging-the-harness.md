@@ -21,7 +21,7 @@ So I went looking for something that shipped with the bare minimum. Something th
 
 ## Why Pi
 
-Pi is the coding agent harness used by OpenClaw, and it has a philosophy I resonated with immediately: **ship almost nothing, document everything**. Out of the box you get `read`, `write`, `edit`, and `bash`. That's it. No web search. No web fetch. No git integration. No linter, no package manager, no MCP server orchestra.
+Pi is the coding agent harness used by OpenClaw, and it has a philosophy I resonated with immediately: **ship almost nothing, document everything**. Out of the box you get `read`, `write`, `edit`, and `bash`. That's it. No web search. No web fetch. No direct git integration. No linter. Pi does have package management (`pi install`, `pi remove`, `pi update`), but it stays in the CLI instead of being exposed as a default model tool. No MCP server orchestra.
 
 What it *does* ship is a clean TypeScript extension API and a folder called `extensions/`. Drop a `.ts` file in there, export a default function that takes `(pi: ExtensionAPI)`, and you've added a tool, a slash command, a TUI widget, or a lifecycle hook. The docs are short, the examples are real, and you can literally ask your LLM to write extensions for itself.
 
@@ -47,9 +47,9 @@ The first thing I knew I wanted was proper web access. But I had opinions.
 
 ### web_fetch: The Hidden Gem
 
-Every other agent feeds raw HTML to the LLM. This is insane. You're burning tokens on `<div>` soup and CSS classes when what you actually want is the article text. The obvious fix is "convert HTML to markdown first", and there are a dozen SaaS APIs that'll charge you per request for this. There's even [crawl4ai](https://github.com/unclecode/crawl4ai), which is very capable but requires a heavy Python installation.
+Too many agent web tools still feed raw or noisy HTML to the LLM. This is insane. You're burning tokens on `<div>` soup and CSS classes when what you actually want is the article text. The obvious fix is "convert HTML to markdown first", and there are a dozen SaaS APIs that'll charge you per request for this. There's even [crawl4ai](https://github.com/unclecode/crawl4ai), which is very capable but requires a heavy Python installation.
 
-Or you can use **[webclaw](https://github.com/0xMassi/webclaw)**. It's a Go binary. Single command. URL goes in, clean markdown comes out. No API key. No Python environment. No Docker. It handles JavaScript-rendered pages. It's fast, elegant, portable, and completely free.
+Or you can use **[webclaw](https://github.com/0xMassi/webclaw)**. It's a Rust CLI binary. Single command. URL goes in, clean markdown comes out. For normal pages it runs locally with no API key, no Python environment, and no Docker. For JavaScript-rendered or protected pages, you can use the hosted/API path when needed. It's fast, elegant, portable, and free for the local core extraction.
 
 ```bash
 webclaw https://example.com/article --format markdown
